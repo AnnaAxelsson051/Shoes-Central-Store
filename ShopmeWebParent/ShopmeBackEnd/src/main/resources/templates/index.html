@@ -6,19 +6,28 @@
 		<!--for responsivity-->
 		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
 		<title>Home - Shopme Admin</title>
-		
+		<!--css and js files from bootstrap and jquery framework-->
 		<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"/></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"/></script>
 	</head>
 	<body>
 	<!--fluid css clss for responsivity provided by bootstrap-->	
 		<div class="container-fluid">
 			<div>
-				<h1>Shopme control panel</h1></div>
-		</div>
+				<nav class="navbar navbar-expand bg-dark navbar-dark">
+					<a class="navbar-brand" th:href="@{/}">
+					<img th:src="@{/images/storeicon.png}"/>
+					</a>
+				</nav>
+			</div>
+			<div>
+				<h1>Shopme control panel</h1>
+				</div>
 		<div>
 			<p>Shopme Control Panel - Copyright &copy; Shopme</p>
 		</div>
-	
+	</div>
 	</body>
 </html>
 
