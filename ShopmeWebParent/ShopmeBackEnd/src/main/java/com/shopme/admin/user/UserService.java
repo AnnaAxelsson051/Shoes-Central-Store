@@ -29,6 +29,8 @@ public class UserService {
 		return (List<Role>) roleRepo.findAll();
 	}
 
+	
+	
 	//encodes pw and saves user to db
 	public void save(User user) {
 		encodePassword(user);
