@@ -69,6 +69,10 @@
 				<!--maps to usercontroller-->
 				</div>
 				
+				<div th:if="${message != null}" class="alert alert-success text-center">
+					[[${message}]]
+				</div>
+				
 				<div>
 					<!--list/column for admin to see-->
 					<table class="table table-bordered table-striped table-hover table-responsive-xl">

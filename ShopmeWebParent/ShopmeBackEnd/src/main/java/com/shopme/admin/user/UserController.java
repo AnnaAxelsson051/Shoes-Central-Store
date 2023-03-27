@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.common.entity.User;
 
@@ -42,9 +43,10 @@ public class UserController {
 	
 	//when pushing save button, map values of form fields to user objects
 	@PostMapping("/users/save")
-	public String saveUser(User user) {
+	public String saveUser(User user, RedirectAttributes redirectAttributes ) {
 		System.out.println(user);  //to string in User class
 		service.save(user);
+		redirectAttributes.addFlashAttribute("message", "The user has been saved successfully");
 		return "redirect:/users";
 	}
 	
