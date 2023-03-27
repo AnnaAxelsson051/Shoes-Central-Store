@@ -1,5 +1,7 @@
 package com.shopme.common.entity;
 
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,9 +38,9 @@ public class User {
     private boolean enabled;   //enabled status of user
     
     @ManyToMany
-    @JointTable(
+    @JoinTable(
     		name = "users_roles",
-    		joinColumns= @JointColumn(name = "user_id")
+    		joinColumns= @JoinColumn(name = "user_id"),
     		inverseJoinColumns= @JoinColumn(name= "role_id")
     		)
     
