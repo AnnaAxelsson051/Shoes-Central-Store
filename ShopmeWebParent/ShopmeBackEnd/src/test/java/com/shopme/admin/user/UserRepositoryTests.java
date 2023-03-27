@@ -66,6 +66,17 @@ public class UserRepositoryTests {
 	user1.setEnabled(true);
 	user1.setEmail("test1updatedEmail@test1.com");
 	repo.save(user1);
+	
+	@Test
+	public void testUpdateUserRoles() {
+		User user2 = repo.findById(2).get();
+		Role roleEditor = new Role(3);
+		Role roleSalesperson = new Role(2);
+		user2.getRoles().remove(roleEditor);
+		user2.addRole(roleSalesperson);
+		
+		repo.save(user2);
+	}
 
-}
+
 }
