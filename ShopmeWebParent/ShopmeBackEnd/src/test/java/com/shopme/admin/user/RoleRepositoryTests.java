@@ -2,6 +2,8 @@ package com.shopme.admin.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -13,7 +15,7 @@ import com.shopme.common.entity.Role;
 @DataJpaTest
 //so we test with the real db
 @AutoConfigureTestDatabase(replace = NONE)
-@Rollback(false)
+@Rollback(false)  //so transaction are comitted after running test
 public class RoleRepositoryTests {
 	
 	@Autowired
@@ -24,6 +26,22 @@ public class RoleRepositoryTests {
 		Role roleAdmin = new Role("Admin", "Manage everything");
 		Role savedRole = repo.save(roleAdmin);
 		assertThat(savedRole.getId()).isGreaterThan(0);
+	}
+	
+	@Test
+	public void testCreateRestRoles() {
+		Role roleSalesperson = new Role("Salesperson", "manage products, price, " 
+				+ "customers, shipping, orders and sales report");
+		
+		Role roleEditor = new Role("Editor", "manage categories, brands, " 
+				+ "products, articles and menus");
+		
+		Role roleShipper = new Role("Shipper", "view products, view orders, " 
+				+ "and update order status");
+		
+		Role roleAssistant = new Role("Assistant", "manage questions and reviews");
+	
+		repo.saveAll(List.of(roleSalesperson, roleEditor, roleShipper, roleAssistant));
 	}
 	
 
