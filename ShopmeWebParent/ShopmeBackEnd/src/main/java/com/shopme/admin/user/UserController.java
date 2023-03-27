@@ -27,10 +27,14 @@ public class UserController {
 	
 	//maps to users.html
 	//map value of formfield to model / form
+	//put listroles onto model
 	@GetMapping("/users/new")
 	public String newUser(Model model) {
-		User user =   new User();
+		List<Role> listRoles = service.listRoles();
+		
+		User user = new User();
 		model.addAttribute("user",user);
+		model.addAttribute("listRoles",listRoles);
 		return "user_form";
 		
 	}
