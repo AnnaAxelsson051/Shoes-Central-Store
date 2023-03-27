@@ -77,6 +77,11 @@ public class UserRepositoryTests {
 		
 		repo.save(user2);
 	}
-
+    @Test
+    public void testDeleteUser() {
+	Integer userId = 2;
+	repo.deleteById(userId);
+	
+}
 
 }
