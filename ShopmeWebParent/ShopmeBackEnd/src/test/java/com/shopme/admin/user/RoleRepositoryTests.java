@@ -14,7 +14,8 @@ import org.springframework.test.annotation.Rollback;
 import com.shopme.common.entity.Role;
 @DataJpaTest
 //so we test with the real db
-@AutoConfigureTestDatabase(replace = NONE)
+
+//@AutoConfigureTestDatabase(replace = NONE)
 @Rollback(false)  //so transaction are comitted after running test
 public class RoleRepositoryTests {
 	

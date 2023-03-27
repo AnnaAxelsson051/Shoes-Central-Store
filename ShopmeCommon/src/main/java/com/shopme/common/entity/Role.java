@@ -18,7 +18,7 @@ public class Role {
 	private Integer id;
 	
 	@Column(length = 40, nullable=false, unique=true)
-	private String name;
+    private String name;
 	
 	@Column(length = 150, nullable=false)
 	private String description;
@@ -87,7 +87,7 @@ public class Role {
 	
 	@Override
 	public String toString() {
-		return "Role [name=" + name + "]";
+		return this.name;
 				}
 	
 	
