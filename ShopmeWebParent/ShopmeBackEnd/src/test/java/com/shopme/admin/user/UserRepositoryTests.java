@@ -59,5 +59,13 @@ public class UserRepositoryTests {
 		System.out.println(user1);
 		assertThat(user1).isNotNull();
 	}
+	
+	@Test
+	public void testUpdateUserDetails() {
+	User user1 = repo.findById(1).get();
+	user1.setEnabled(true);
+	user1.setEmail("test1updatedEmail@test1.com");
+	repo.save(user1);
 
+}
 }
