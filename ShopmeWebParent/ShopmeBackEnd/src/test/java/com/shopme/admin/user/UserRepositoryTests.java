@@ -51,5 +51,13 @@ public class UserRepositoryTests {
 		Iterable<User> listUsers = repo.findAll();
 		listUsers.forEach(user -> System.out.println(user));
 	}
+	
+	
+	@Test
+	public void testGetUserById() {
+		User user1 = repo.findById(1).get();
+		System.out.println(user1);
+		assertThat(user1).isNotNull();
+	}
 
 }
