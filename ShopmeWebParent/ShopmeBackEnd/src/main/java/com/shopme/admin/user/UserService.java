@@ -25,4 +25,7 @@ public class UserService {
 		return (List<Role>) roleRepo.findAll();
 	}
 
+	public void save(User user) {
+		userRepo.save(user);
+	}
 }

@@ -33,6 +33,7 @@ public class UserController {
 		List<Role> listRoles = service.listRoles();
 		
 		User user = new User();
+		user.setEnabled(true);   //default is checked box for enabled value
 		model.addAttribute("user",user);
 		model.addAttribute("listRoles",listRoles);
 		return "user_form";
@@ -43,6 +44,7 @@ public class UserController {
 	@PostMapping("/users/save")
 	public String saveUser(User user) {
 		System.out.println(user);  //to string in User class
+		service.save(user);
 		return "redirect:/users";
 	}
 	
