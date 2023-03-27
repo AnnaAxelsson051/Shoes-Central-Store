@@ -66,6 +66,7 @@ public class UserRepositoryTests {
 	user1.setEnabled(true);
 	user1.setEmail("test1updatedEmail@test1.com");
 	repo.save(user1);
+	}
 	
 	@Test
 	public void testUpdateUserRoles() {
@@ -83,5 +84,13 @@ public class UserRepositoryTests {
 	repo.deleteById(userId);
 	
 }
+    
+    @Test
+    public void testGetUserByEmail() {
+    	String email = "test1updatedEmail@test1.com";
+    	User user = repo.getUserByEmail(email);
+    	
+    	assertThat(user).isNotNull();
+    }
 
 }
