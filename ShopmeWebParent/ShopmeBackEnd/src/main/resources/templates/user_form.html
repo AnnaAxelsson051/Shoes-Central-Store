@@ -128,7 +128,7 @@
 						</div>
 					</div>
 					
-					<!--Enabled / disabled-->
+					<!--Enabled / disabled checkbox-->
 						<div class="form-group-row">		
 						<label class="col-sm-4 col-form-label">Enabled </label>
 						<div class"col-sm-8">
@@ -136,12 +136,15 @@
 						</div>
 					</div>
 					
-					<!--Upload user photos-->
+					<!--Upload user photos
+					fluid makes img responsive-->
 							<div class="form-group-row">			
 						<label class="col-sm-4 col-form-label">Photos: </label>
 						<div class"col-sm-8">
-							<input type="file" id="fileImage" accept="image/png, image/jpeg"/>
-						<img id="thumbnail" alt="Photos preview" th:src="@{/images/default-user.png}"/>
+							<input type="file" id="fileImage" accept="image/png, image/jpeg"
+							class="mb-2"/>
+						<img id="thumbnail" alt="Photos preview" th:src="@{/images/default-user.png}"
+						class="img-fluid"/>
 						</div>
 					</div>
 					
@@ -174,16 +177,25 @@
 		</div>
 	</div>
 	
-	
+	<!--Cancel button-->
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$("#buttonCancel").on("click", function(){
 	window.location="[[@{/users}]]";
 	});
 	
-	//shows image thumbnail
+	//shows image thumbnail when uploading user photo
+	//first checks so photo is not larger than 1MB
 	$("#fileImage").change(function(){
-	showImageThumbnail();	
+	fileSize = this.files[0].size;
+	alert("File size: " + fileSize);
+	if (fileSize > 1048576){
+		this.setCustomValidity("You must chose an image less than 1 MB")
+		this.reportValidity();
+	}else{
+		this.setCustomValidity("");
+		showImageThumbnail(this);
+	}	
 	});
 	});
 	
