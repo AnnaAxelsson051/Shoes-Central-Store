@@ -79,7 +79,7 @@
 				style="max-width: 700px; margin: 0 auto" 
 				th:object="${user}" onsubmit="return checkEmailUnique(this);">
 				<!--maps user to model form-->
-				
+				<input type="hidden" th:field="*{id}"/>
 				<div class="border border-secondary rounded p-3 ">
 					
 					<div class="form-group-row">	
@@ -182,8 +182,9 @@
 	function checkEmailUnique(form){
 		url="[[@{/users/check_email}]]";
 		userEmail = $("#email").val();
+		userId= $("#id").val();
 		csrfValue = $("input[name='_csrf']").val();
-		params ={email: userEmail, _csrf: csrfValue};
+		params ={id: userId, email: userEmail, _csrf: csrfValue};
 		
 		$.post(url,params, function(response){
 			if (response == "OK"){
