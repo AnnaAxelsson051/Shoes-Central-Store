@@ -1,5 +1,6 @@
 package com.shopme.admin.user;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.util.StringUtils;
 
 import com.shopme.common.entity.User;
 
@@ -45,13 +49,23 @@ public class UserController {
 	}
 	
 	//Method for saving user
-	//map values of form fields to user objects and displays 
+	//map values of form fields, pic, to user objects and displays 
 	//success message
 	@PostMapping("/users/save")
-	public String saveUser(User user, RedirectAttributes redirectAttributes ) {
+	public String saveUser(User user, 
+			RedirectAttributes redirectAttributes, 
+			@RequestParam("image") MultipartFile multipartFile) throws IOException {
 		System.out.println(user);  //to string in User class
-		service.save(user);
-		redirectAttributes.addFlashAttribute("message", "The user has been saved successfully");
+		System.out.println(multipartFile.getOriginalFilename());
+		
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		//String fileName = multipartFile.getOriginalFilename();
+		
+		String uploadDir = "user-photos";
+		
+		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+		//service.save(user);
+		//redirectAttributes.addFlashAttribute("message", "The user has been saved successfully");
 		return "redirect:/users";
 	}
 	
