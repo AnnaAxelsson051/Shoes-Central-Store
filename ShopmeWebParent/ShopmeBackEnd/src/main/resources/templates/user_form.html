@@ -73,7 +73,7 @@
 				<form th:action="@{/user/save}" 
 				method="post" 
 				style="max-width: 700px; margin: 0 auto" 
-				th:object="${user}">
+				th:object="${user}" onsubmit="return checkEmailUnique(this);">
 				<!--maps user to model form-->
 				
 				<div class="border border-secondary rounded p-3 ">
@@ -155,6 +155,19 @@
 	window.location="[[@{/users}]]";
 	});
 	});
+	
+	//checks email updates email
+	function checkEmailUnique(form){
+		url="[[@{/users/check_email}]]";
+		userEmail = $("#email").val();
+		csrfValue = $("input[name='_csrf']").val();
+		params ={email: userEmail, _csrf: csrfValue};
+		
+		$.post(url,params, function(response){
+			alert("Response from server: " + response);
+		});
+		return false;
+	}
 	</script>
 	</body>
 </html>
