@@ -1,5 +1,7 @@
 package com.shopme.admin.user;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +11,5 @@ import com.shopme.common.entity.Role;
 @Repository
 public interface RoleRepository extends CrudRepository<Role, Integer>{  //entity type, type of id field
 
-	
 	
 }
