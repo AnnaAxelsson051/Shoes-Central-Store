@@ -7,7 +7,8 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
 		<title>Home - Shopme Admin</title>
 		<!--css and js files from bootstrap and jquery framework-->
-		<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"/></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"/></script>
 	</head>
@@ -19,9 +20,9 @@
 					<a class="navbar-brand" th:href="@{/}">
 					<img th:src="@{/images/storeicon.png}"/>
 					</a>
-					<buttom class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
 						<span class="navbar-toggler-icon"></span>
-					</buttom>
+					</button>
 					<div class="collapse navbar-collapse" id="topNavbar">
 						<ul class="navbar-nav">
 							<li class="nav-item">
