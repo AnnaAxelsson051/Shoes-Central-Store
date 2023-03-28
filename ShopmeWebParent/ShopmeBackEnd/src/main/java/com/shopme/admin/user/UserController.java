@@ -50,22 +50,23 @@ public class UserController {
 	
 	//Method for saving user
 	//map values of form fields, pic, to user objects and displays 
-	//success message
+    //saves photo of user in directory with user id
 	@PostMapping("/users/save")
 	public String saveUser(User user, 
 			RedirectAttributes redirectAttributes, 
 			@RequestParam("image") MultipartFile multipartFile) throws IOException {
-		System.out.println(user);  //to string in User class
-		System.out.println(multipartFile.getOriginalFilename());
-		
-		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-		//String fileName = multipartFile.getOriginalFilename();
-		
-		String uploadDir = "user-photos";
-		
-		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-		//service.save(user);
-		//redirectAttributes.addFlashAttribute("message", "The user has been saved successfully");
+		if(!multipartFile.isEmpty()) {
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			//String fileName = multipartFile.getOriginalFilename();
+			user.setPhotos(fileName);
+			User savedUser = service.save(user);
+			String uploadDir = "user-photos/" + savedUser.getId();
+			
+			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+			//service.save(user);
+			redirectAttributes.addFlashAttribute("message", "The user has been saved successfully");
+		}
+	
 		return "redirect:/users";
 	}
 	
