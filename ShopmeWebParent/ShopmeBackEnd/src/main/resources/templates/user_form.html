@@ -113,7 +113,8 @@
 				<!--responsive on small devices-->		
 						<label class="col-sm-4 col-form-label">Password: </label>
 						<div class"col-sm-8">
-							<input type="password" class="form-control" th:field="*{password}" required minlength="8" maxlength="20"/>
+				<input th:if="${user.id == null}" type="password" class="form-control" th:field="*{password}" required minlength="8" maxlength="20"/>
+				<input th:if="${user.id != null}" type="password" class="form-control" th:field="*{password}" minlength="8" maxlength="20"/>
 				<!--map pw with the property user-->
 						</div>
 					</div>
