@@ -70,7 +70,7 @@ public class UserController {
 		return "user_form";
 		}catch(UserNotFoundException ex) {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
-			return "redirect:/users";  //redirecting if exception
+			return "redirect:/users";  
 		}
 	}
 	
@@ -87,7 +87,7 @@ public class UserController {
 			}catch(UserNotFoundException ex) {
 				redirectAttributes.addFlashAttribute("message", ex.getMessage());
 			}
-		return "redirect:/users";  //redirecting if exception
+		return "redirect:/users";  
 		}
 	
 	//Method for enabeling/disabeling user
