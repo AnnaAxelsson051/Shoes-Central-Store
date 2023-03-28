@@ -115,7 +115,8 @@
 								<td>
 									<a class"fa-light fa-pen-to-square icon-dark" th:href="@{'/users/edit/' + ${user.id}}" 
 									title="Edit this user"></a>
-									&nbsp;<a class"fa-light fa-trash icon-dark" href=""></a>
+									&nbsp;<a class"fa-light fa-trash icon-dark" th:href="@{'/users/delete/' + ${user.id}}" 
+									title="Delete this user"></a>
 								</td>
 							</tr>
 						</tbody>
