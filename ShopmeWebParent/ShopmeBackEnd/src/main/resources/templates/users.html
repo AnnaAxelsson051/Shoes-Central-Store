@@ -106,7 +106,9 @@
 								<td>[[${user.first_name}]]</td>
 								<td>[[${user.last_name}]]</td>
 								<td>[[${user.roles}]]</td>
-								<td>[[${user.enabled}]]</td>
+								<td>
+									<a th:if="${user.enabled==true}" class="fa-light fa-square-check icon-green" href=""></a></td>
+								<a th:if="${user.enabled==false}" class="fa-light fa-square-check icon-dark" href=""></a></td>
 								<td>
 									<a class"fa-light fa-pen-to-square icon-dark" href=""></a>
 									<a class"fa-light fa-trash icon-dark" href=""></a></td>
