@@ -31,10 +31,20 @@ public class UserService {
 	}
 
 	
-	
+	//if userid not null its in updating mode
 	//encodes pw and saves user to db
 	public void save(User user) {
+		boolean isUpdatingUser = (user.getId() != null);
+		if (isUpdatingUser) {
+			User existingUser = userRepo.findById(user.getId()).get();
+			if (user.getPassword().isEmpty()) {
+				user.setPassword(existingUser.getPassword());
+			}else {
+				encodePassword(user);
+			}
+		}else {
 		encodePassword(user);
+		}
 		userRepo.save(user);
 	}
 	
