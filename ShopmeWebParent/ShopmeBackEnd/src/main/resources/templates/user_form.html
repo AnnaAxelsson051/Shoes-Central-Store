@@ -5,13 +5,17 @@
 		
 		<!--for responsivity-->
 		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
-		<title>Create New User</title>
-		<!--css and js files from bootstrap and jquery framework-->
+		
+		<!--parameterized title-->
+		<title>[[${pageTitle}]]</title>
+		
+		
 		<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"/></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"/></script>
 	</head>
 	<body>
+		
 	<!--fluid css clss for responsivity provided by bootstrap-->	
 		<div class="container-fluid">
 			<div>
@@ -64,7 +68,7 @@
 			</div>
 			
 			    <div>
-				<h2>Manage Users | Create New User</h2>
+				<h2>Manage Users | [[${pageTitle}]]</h2>
 				<a th:href="@{/users/new}">Create new user</a>
 				<!--maps to usercontroller-->
 				</div>
