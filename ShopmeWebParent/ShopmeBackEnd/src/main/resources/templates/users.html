@@ -9,6 +9,7 @@
 		<!--css and js files from bootstrap and jquery framework-->
 		<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"/></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"/></script>
 	</head>
@@ -100,13 +101,15 @@
 							<!--a new table row for each user object -->
 							<tr th:each="user : ${listUsers}">
 								<td>[[${user.id}]]</td>
-								<td></td>  <!--photo-->
+								<td><span class="fa-solid fa-image-portrait icon-silver"></span></td>  <!--photo icon-->
 								<td>[[${user.email}]]</td>
 								<td>[[${user.first_name}]]</td>
 								<td>[[${user.last_name}]]</td>
 								<td>[[${user.roles}]]</td>
 								<td>[[${user.enabled}]]</td>
-								<td>Edit &nbsp; Delete</td>
+								<td>
+									<a class"fa-light fa-pen-to-square icon-dark" href=""></a>
+									<a class"fa-light fa-trash icon-dark" href=""></a></td>
 							</tr>
 						</tbody>
 					</table>
