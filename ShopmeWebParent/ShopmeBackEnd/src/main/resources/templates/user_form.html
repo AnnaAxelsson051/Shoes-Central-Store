@@ -173,29 +173,28 @@
 	});
 	});
 	
-	//checks if email already exists, updates email
+	//checks if email already exists, then shows warning
+	//otherwise updates email
 	function checkEmailUnique(form){
 		url="[[@{/users/check_email}]]";
 		userEmail = $("#email").val();
 		csrfValue = $("input[name='_csrf']").val();
 		params ={email: userEmail, _csrf: csrfValue};
 		
-		$("#modalDialog").modal();
-		
-		if (true) return false; 
-		
 		$.post(url,params, function(response){
 			if (response == "OK"){
 				form.submit();
 			}else if (response == "Duplicated"){
-			alert("Another user with this email already exists " + userEmail);
+			showModalDialog("Warning", "Another user with this email already exists " + userEmail);
 		}
 		});
 		return false;
 	}
 	
 	function showModalDialog(title, message){
-		
+		$("#modalTitle").text(title);
+		$("#modalBody").text(message);
+		$("#modalDialog").modal();
 	}
 	
 	</script>
