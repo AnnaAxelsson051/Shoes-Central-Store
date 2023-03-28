@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name ="users")
@@ -153,5 +154,13 @@ public class User {
 		return "User [id=" + id + ", email=" + email + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", roles=" + roles + "]";
 	}
+	
+//if Id or photo is null return the default
+	@Transient
+	public String getPhotosImagePath() {
+		if(id == null || photos == null) return "/image/default-image.png";
+		return "/user-photos/" + this.id + "/" + this.photos;
+	}
+	
     
 }

@@ -101,7 +101,11 @@
 							<!--a new table row for each user object -->
 							<tr th:each="user : ${listUsers}">
 								<td>[[${user.id}]]</td>
-								<td><span class="fa-solid fa-image-portrait icon-silver"></span></td>  <!--photo icon-->
+								<td>
+									<span th:if="${user.photos == null}" class="fa-solid fa-image-portrait icon-silver"></span>
+									<img th:if="${user.photos != null}" th:src"@{${user.photosImagePath}}"
+									style="width: 100px;">
+									</td>  <!--photo icon-->
 								<td>[[${user.email}]]</td>
 								<td>[[${user.first_name}]]</td>
 								<td>[[${user.last_name}]]</td>
