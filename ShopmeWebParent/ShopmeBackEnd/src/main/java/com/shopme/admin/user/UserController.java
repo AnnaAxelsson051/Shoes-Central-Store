@@ -38,7 +38,7 @@ public class UserController {
 		User user = new User();
 		user.setEnabled(true);   //default is checked box for enabled value
 		model.addAttribute("user",user);
-		model.addAttribute("listRoles",listRoles);
+		model.addAttribute("listRoles",listRoles); //add list roles to model
 		model.addAttribute("pageTitle","Create New User"); //set page title
 		return "user_form";
 		
@@ -61,8 +61,11 @@ public class UserController {
 			RedirectAttributes redirectAttributes) {
 		try {
 		User user = service.get(id);
+		List<Role> listRoles = service.listRoles();
 		model.addAttribute("user", user);
-		model.addAttribute("pageTitle","Edit User (Id: " + id + ")"); //set page title
+		model.addAttribute("pageTitle","Edit User (Id: " + id + ")"); 
+		model.addAttribute("listRoles",listRoles); 
+		
 		return "user_form";
 		}catch(UserNotFoundException ex) {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
