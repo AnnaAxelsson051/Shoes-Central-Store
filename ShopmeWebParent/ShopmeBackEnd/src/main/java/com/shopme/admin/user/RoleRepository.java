@@ -9,4 +9,6 @@ import com.shopme.common.entity.Role;
 @Repository
 public interface RoleRepository extends CrudRepository<Role, Integer>{  //entity type, type of id field
 
+	
+	
 }
