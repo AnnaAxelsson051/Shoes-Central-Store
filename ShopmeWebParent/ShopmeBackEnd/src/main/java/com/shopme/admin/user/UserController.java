@@ -27,10 +27,10 @@ public class UserController {
 		
 	}
 	
+	//New user method
 	//maps to users.html
 	//map value of formfield to model / form
 	//put listroles onto model
-	
 	@GetMapping("/users/new")
 	public String newUser(Model model) {
 		List<Role> listRoles = service.listRoles();
@@ -44,7 +44,8 @@ public class UserController {
 		
 	}
 	
-	//when pushing save button, map values of form fields to user objects and displays 
+	//Method for saving user
+	//map values of form fields to user objects and displays 
 	//success message
 	@PostMapping("/users/save")
 	public String saveUser(User user, RedirectAttributes redirectAttributes ) {
@@ -54,7 +55,7 @@ public class UserController {
 		return "redirect:/users";
 	}
 	
-	//edit user puts user object onto model
+	//Edit user puts user object onto model
 	@GetMapping("/users/edit/{id}")
 	public String editUser(@PathVariable(name = "id") 
 	Integer id, Model model,
@@ -72,6 +73,8 @@ public class UserController {
 			return "redirect:/users";  //redirecting if exception
 		}
 	}
+	
+	//Method for deleting user
 	@GetMapping("/users/delete/{id}")
 	public String deleteUser(@PathVariable(name = "id") 
 	Integer id, Model model,
@@ -86,7 +89,20 @@ public class UserController {
 			}
 		return "redirect:/users";  //redirecting if exception
 		}
+	
+	//Method for enabeling/disabeling user
+	@GetMapping("/users/{id}/enabled/{status}")
+	public String updateUserEnabledStatus(@PathVariable("id") 
+	Integer id, @PathVariable("status") boolean enabled, 
+	RedirectAttributes redirectAttributes){
+		service.updateUserEnabledStatus(id, enabled);
+	String status = enabled ? "enabled" : "disabled";
+	String message = "The user Id " + id + " has been " + status;
+	redirectAttributes.addFlashAttribute("message", message);
+	return "redirect:/users";
+	}
 }
+
 
 
 
