@@ -77,11 +77,11 @@
 				
 				<div>
 					<form th:action="@{/users/page/1}" class="form-inline m-3" >
-						<input type="hidden" name="sortField" th:value="${sortField}">
-                        <input type="hidden" name="sortDir" th:value="${sortDir}">
+						<input type="hidden" name="sortField" th:value="${sortField}"/>
+                        <input type="hidden" name="sortDir" th:value="${sortDir}"/>
 						</iput>
 						Filter:&nbsp;
-						<input type="search" name="keyword" clas="form-control" required />
+						<input type="search" name="keyword" th:value="${keyword}" clas="form-control" required />
 					&nbsp;&nbsp;
 					<input type="submit" value="Search" class="btn btn-primary"/>
 					<input type="button" value="Clear" class="btn btn-secondary"/>
@@ -215,8 +215,10 @@
 					<span>No users found</span></div>
 				
 				
-<!--Bootstrap for pagination, pages pointing right,, styling for bläddra mellan sidor av users funktion -->
-				<nav>
+<!--Bootstrap for pagination, pages pointing right,, styling for bläddra mellan sidor av users funktion 
+Show pagination section if more pages than 1 in the search-->
+<div th:if="${totalPages > 1}">
+<nav>
   <ul class="pagination justify-content-center">
 	<li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
 		  <a class="page-link" th:href="@{/users/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">First</a>
@@ -237,7 +239,9 @@
 	</li>
   </ul>
 </nav>
+</div>
 				
+				<!--Modal pop up when deleting user-->
 				<div class ="modal fade text-center" id="confirmModal">
 					<div class="modal-dialog">
 						<div class="modal-content">
