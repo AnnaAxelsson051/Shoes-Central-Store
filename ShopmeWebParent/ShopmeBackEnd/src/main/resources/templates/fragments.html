@@ -6,6 +6,7 @@
 	</head>
 	<body>
 		
+	<!--listing top-->
 		<th th:fragment="column_link(fieldName, columnLabel)">
      <a class="text-white"
 	    th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >
@@ -16,6 +17,11 @@
 		 th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'">
 	</span>
    </th>
+   
+   <!--Pagination bottom-->
+   <a th:fragment="page_link(pageNum, label)"
+   class="page_link"
+   th:href="@{'/users/page/' + ${pageNum} + '?sortField=' + ${sortField} '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
 
 	</body>
 </html>
