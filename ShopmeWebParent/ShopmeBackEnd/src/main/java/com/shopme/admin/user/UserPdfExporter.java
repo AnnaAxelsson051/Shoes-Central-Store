@@ -40,6 +40,8 @@ public class UserPdfExporter  extends AbstractExporter{
 		PdfPTable table = new PdfPTable(6);
 		table.setWidthPercentage(100f);
 		table.setSpacingBefore(10);
+		table.setWidths(new float[] {1.2f, 3.5f, 3.0f, 3.0f, 1.7f});
+		//width of each individual column type
 		
 		writeTableHeader(table);
 		writeTableData(table, listUsers);
@@ -69,7 +71,7 @@ public class UserPdfExporter  extends AbstractExporter{
 		font.setSize(18);
 		font.setColor(Color.WHITE);
 		
-		cell.setPhrase(new Phrase("User Id", font));
+		cell.setPhrase(new Phrase("Id", font));
 		table.addCell(cell);
 		cell.setPhrase(new Phrase("Email", font));
 		table.addCell(cell);
