@@ -85,6 +85,7 @@ public class UserController {
 	//Method for saving user
 	//map values of form fields, pic, to user objects and displays 
     //saves photo of user in directory with user id
+	//Post user updated shows only the affected user
 	@PostMapping("/users/save")
 	public String saveUser(User user, 
 			RedirectAttributes redirectAttributes, 
@@ -105,8 +106,18 @@ public class UserController {
 			service.save(user);
 		}
 		redirectAttributes.addFlashAttribute("message", "The user has been saved successfully");
-		return "redirect:/users";
+		return getRedirectURLtoAffectedUser(user);
 	}
+	
+	//filters out affected user by first part in email
+	private String getRedirectURLtoAffectedUser(User user) {
+		String firstPartOfEmail = user.getEmail().split("@")[0];
+		return "redirect:/users/page/1?sortField=id&sortDir=asc&keyword=" + firstPartOfEmail;
+	}
+	
+	
+	
+	
 	
 	//Edit user puts user object onto model
 	@GetMapping("/users/edit/{id}")
