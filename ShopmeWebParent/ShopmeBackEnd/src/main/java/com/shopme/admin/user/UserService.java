@@ -1,4 +1,5 @@
 package com.shopme.admin.user;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -30,7 +31,7 @@ public class UserService {
 	private PasswordEncoder passwordEncoder;
 	
 	public List <User> listAll(){
-		return (List <User>) userRepo.findAll();
+		return (List <User>) userRepo.findAll(Sort.by("firstName").ascending());
 	}
 	
 

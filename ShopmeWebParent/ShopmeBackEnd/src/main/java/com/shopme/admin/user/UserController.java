@@ -168,6 +168,7 @@ public class UserController {
 	return "redirect:/users";
 	}
 	
+
 	@GetMapping("/users/export/csv")
 	public void exportToCSV(HttpServletResponse response) throws IOException{
 		List <User> listUsers = service.listAll();
@@ -175,6 +176,17 @@ public class UserController {
 	exporter.export(listUsers,response);
 		
 	}
+	
+	@GetMapping("/users/export/excel")
+	public void exportToExcel(HttpServletResponse response) throws IOException{
+		List <User> listUsers = service.listAll();
+		UserExcelExporter exporter = new UserExcelExporter();
+	exporter.export(listUsers, response)
+		
+	}
+	
+	
+	
 }
 
 
