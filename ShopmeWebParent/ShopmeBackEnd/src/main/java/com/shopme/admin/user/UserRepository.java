@@ -1,5 +1,8 @@
 package com.shopme.admin.user;
 
+import java.awt.print.Pageable;
+
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -17,6 +20,10 @@ public interface UserRepository extends PagingAndSortingRepository <User, Intege
 	
 	public Long countById(Integer id); //method from spring data jpa no sql query needed
 
+	//Searching for user with spec name or email
+	@Query("SELECT u FROM User u WHERE u.firstName LIKE %?1% OR u.lastName LIKE %?1% "
+			+ "OR u.email LIKE %?1%") //=keyword
+	public Page <User> findAll(String keyword, Pageable pageable);
 
 	//setting u.enabled prop to the value of second param in method where user id is eq to thefirst param 
 	@Query("UPDATE User u SET u.enabled = ?2 WHERE u.id = ?1")
