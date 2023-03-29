@@ -1,9 +1,12 @@
 package com.shopme.admin.user;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.util.List;
 
 import com.lowagie.text.Document;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfWriter;
@@ -21,7 +24,15 @@ public class UserPdfExporter  extends AbstractExporter{
 		PdfWriter.getInstance(document, response.getOutputStream());
 	
 		document.open();
-		document.add(new Paragraph("List of users"));
+		
+		Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+		font.setSize(18);
+		font.setColor(Color.BLUE);
+		
+		Paragraph paragraph = new Paragraph("List of users", font);
+		
+	paragraph.setAlignment(Paragraph.ALIGN_CENTER);
+		document.add(paragraph);
 		document.close();
 	}
 
