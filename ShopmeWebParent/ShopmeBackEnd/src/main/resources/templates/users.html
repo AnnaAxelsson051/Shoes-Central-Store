@@ -148,6 +148,18 @@
 				<div class="text-center m-1" th:unless="${totalItems > 0}">
 					<span>No users found</span></div>
 				
+<!--Bootstrap for pagination, pages pointing right,, styling for bläddra mellan sidor av users funktion -->
+				<nav>
+  <ul class="pagination justify-content-center">
+	  <li class="page-item"><a class="page-link" th:href="@{/users/page/1}">First</a></li>
+    <li class="page-item"><a class="page-link" th:href="@{'/users/page/' + ${currentPage -1}}">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" th:href="@{'/users/page/' + ${currentPage +1}}">Next</a></li>
+   <li class="page-item"><a class="page-link" th:href="@{'/users/page/' + ${totalPages}}">Last</a></li>
+  </ul>
+</nav>
 				
 				<div class ="modal fade text-center" id="confirmModal">
 					<div class="modal-dialog">
