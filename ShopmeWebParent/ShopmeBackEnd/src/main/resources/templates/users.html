@@ -14,6 +14,9 @@
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"/></script>
 	</head>
 	<body>
+		
+		
+		
 	<!--fluid css clss for responsivity provided by bootstrap-->	
 		<div class="container-fluid">
 			<div>
@@ -68,40 +71,40 @@
 			    <div>
 				<h2>Manage Users</h2>
 				<a th:href="@{/users/new}">Create new user</a>
-				<!--maps to usercontroller-->
 				</div>
 				
 				<div th:if="${message != null}" class="alert alert-success text-center">
 					[[${message}]]
 				</div>
 				
+				<!--Sorting users-->
 				<div>
 					<form th:action="@{/users/page/1}" class="form-inline m-3" >
 						<input type="hidden" name="sortField" th:value="${sortField}"/>
                         <input type="hidden" name="sortDir" th:value="${sortDir}"/>
-						</iput>
 						Filter:&nbsp;
 						<input type="search" name="keyword" th:value="${keyword}" clas="form-control" required />
-					&nbsp;&nbsp;
+					    &nbsp;&nbsp;
 					<input type="submit" value="Search" class="btn btn-primary"/>
-					<input type="button" value="Clear" class="btn btn-secondary"/>
-					</form>
-						
+					<input type="button" value="Clear" class="btn btn-secondary" onclick="clearFilter()"/>
+					</form>	
 				</div>
 				
-				<div>
+				
+				
 					<!--list/column for admin to see
 					can sort by clicking field
 					displays icon if list is sorted in that order-->
+				<div>
 					<table class="table table-bordered table-striped table-hover table-responsive-xl">
 						<thead class="thead-dark">
 							<tr>
 								<th>
 									<a th:if="${sortField != 'id'}" class="text-white"
-									th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${sortDir}" >User Id
+									th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >User Id
 									</a>
 									<a th:if="${sortField == 'id'}" class="text-white"
-									th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}" >User Id
+									th:href="@{'/users/page/' + ${currentPage} + '?sortField=id&sortDir=' + ${reverseSortDir}+ ${keyword != null ? '&keyword=' + keyword : ''}}" >User Id
 									</a>
 									<span th:if="${sortField == 'id'}"
 									th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'">
@@ -112,10 +115,10 @@
 								
 								<th>
 									<a th:if="${sortField != 'email'}" class="text-white"
-									th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${sortDir}" >Email
+									th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >Email
 									</a>
 									<a th:if="${sortField == 'email'}" class="text-white"
-									th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}" >Email
+									th:href="@{'/users/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >Email
 									</a>
 									<span th:if="${sortField == 'email'}"
 									th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'">
@@ -124,10 +127,10 @@
 						
 								<th><!--Toggeling sorting-->
 									<a th:if="${sortField != 'firstName'}" class="text-white"
-									th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${sortDir}" >First Name
+									th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >First Name
 									</a>
 									<a th:if="${sortField == 'firstName'}" class="text-white"
-									th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}" >First Name
+									th:href="@{'/users/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >First Name
 									</a>
 									<span th:if="${sortField == 'firstName'}"
 									th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'">
@@ -136,10 +139,10 @@
 						
 								<th>
 									<a th:if="${sortField != 'lastName'}" class="text-white"
-									th:href="@{'/users/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${sortDir}" >Last Name
+									th:href="@{'/users/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >Last Name
 									</a>
 									<a th:if="${sortField == 'lastName'}" class="text-white"
-									th:href="@{'/users/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${reverseSortDir}" >Last Name
+									th:href="@{'/users/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >Last Name
 									</a>
 									<span th:if="${sortField == 'lastName'}"
 									th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'">
@@ -150,10 +153,10 @@
 							
 								<th>
 										<a th:if="${sortField != 'enabled'}" class="text-white"
-									th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&sortDir=' + ${sortDir}" >Enabled
+									th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >Enabled
 									</a>
 									<a th:if="${sortField == 'enabled'}" class="text-white"
-									th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&sortDir=' + ${reverseSortDir}" >Enabled
+									th:href="@{'/users/page/' + ${currentPage} + '?sortField=enabled&sortDir=' + ${reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >Enabled
 									</a>
 									<span th:if="${sortField == 'enabled'}"
 									th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'">
@@ -216,26 +219,27 @@
 				
 				
 <!--Bootstrap for pagination, pages pointing right,, styling for bläddra mellan sidor av users funktion 
-Show pagination section if more pages than 1 in the search-->
+Show pagination section if more pages than 1 in the search
+Searchresults will be paginated-->
 <div th:if="${totalPages > 1}">
 <nav>
   <ul class="pagination justify-content-center">
 	<li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-		  <a class="page-link" th:href="@{/users/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">First</a>
+		  <a class="page-link" th:href="@{/users/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">First</a>
 	</li>
     <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}" >
-		<a class="page-link" th:href="@{'/users/page/' + ${currentPage -1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
+		<a class="page-link" th:href="@{'/users/page/' + ${currentPage -1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Previous</a>
 	</li>
 	<!--for blue bg on active page-->
     <li th:class="${currentPage != i ? 'page-item': 'page-item active'}"  
         th:each="i : ${#numbers.sequence(1, totalPages)}">
-		<a class="page-link" th:href="@{'/users/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+		<a class="page-link" th:href="@{'/users/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${i}]]</a>
 	</li>
     <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'">
-		<a class="page-link" th:href="@{'/users/page/' + ${currentPage +1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+		<a class="page-link" th:href="@{'/users/page/' + ${currentPage +1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Next</a>
 	</li>
    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'">
-	   <a class="page-link" th:href="@{'/users/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+	   <a class="page-link" th:href="@{'/users/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">Last</a>
 	</li>
   </ul>
 </nav>
@@ -265,7 +269,7 @@ Show pagination section if more pages than 1 in the search-->
 		</div>
 	</div>
 	
-	<!--when clicking delete-->
+	<!--When clicking delete user-->
 	<script type ="text/javascript">
 		$(document).ready(function(){
 			$(".link-delete").on("click", function(e){
@@ -278,6 +282,15 @@ Show pagination section if more pages than 1 in the search-->
 				$("#confirmModal").modal();
 			});
 		});
+		
+		//Clear searchfilter reverts back to prior search result
+		function clearFilter(){
+			window.location = "[[@{/users}]]";
+		}
+		
+		
+		
+		
 	</script>
 	</body>
 </html>
