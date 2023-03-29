@@ -17,8 +17,8 @@ import org.springframework.test.annotation.Rollback;
 import com.shopme.common.entity.Role;
 import com.shopme.common.entity.User;
 
-@DataJpaTest
-//@AutoConfigureTestDatabase(replace= Replace.NONE) //to run test on real db
+@DataJpaTest(showSql = false)
+@AutoConfigureTestDatabase(replace= Replace.NONE) //to run test on real db
 @Rollback(false)  //for comitting changes to db after test 
 public class UserRepositoryTests {
 	@Autowired

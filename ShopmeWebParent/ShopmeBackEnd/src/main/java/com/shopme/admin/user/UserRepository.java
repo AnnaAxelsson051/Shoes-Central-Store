@@ -10,6 +10,7 @@ import com.shopme.common.entity.User;
 
 //For pagination function
 public interface UserRepository extends PagingAndSortingRepository <User, Integer>{
+	//public interface UserRepository extends CrudRepository <User, Integer>{
 
 	@Query("SELECT u FROM User u WHERE u.email = :email")
 	public User getUserByEmail(@Param("email") String email);

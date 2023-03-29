@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class UserService {
+	public static final int USERS_PER_PAGE = 4;
 	
 	@Autowired
 	private UserRepository userRepo;
@@ -29,13 +32,20 @@ public class UserService {
 		return (List <User>) userRepo.findAll();
 	}
 	
+	//Returning a small set of users for a specific page number
+	public Page<User> listByPage(int pageNum){
+		Pageable pageable = PageRequest.of(pageNum -1, USERS_PER_PAGE);
+	return userRepo.findAll(pageable);
+	}
+	
+	
 	public List <Role> listRoles(){
 		return (List<Role>) roleRepo.findAll();
 	}
 
 	
-	//if userid not null its in updating mode
-	//encodes pw and saves user to db
+	//saves user to db with encoded password
+	//(if userid not null its in updating mode)
 	public User save(User user) {
 		boolean isUpdatingUser = (user.getId() != null);
 		if (isUpdatingUser) {
