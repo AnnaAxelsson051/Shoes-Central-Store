@@ -19,6 +19,7 @@ import org.thymeleaf.util.StringUtils;
 
 import com.shopme.common.entity.User;
 
+import jakarta.persistence.Transient;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
@@ -192,7 +193,6 @@ public class UserController {
 	exporter.export(listUsers, response);
 		
 	}
-	
 	
 	
 }

@@ -100,25 +100,28 @@
 				
 					<!--list/column for admin to see
 					can sort by clicking field
-					displays icon if list is sorted in that order-->
-				<div>
+					displays icon if list is sorted in that order
+				-->
+				<div class="full-details">
 					<table class="table table-bordered table-striped table-hover table-responsive-xl">
 						<thead class="thead-dark">
 							<tr>
-								<th th:replace="fragments :: column_link('id', 'User Id')"/>
-		
+								<th class="hideable-column">
+								<th th:replace="fragments :: column_link('id', 'User Id', 'tag')"/>
+		                        </th>
 								<th>Photos</th>
 								
-								<th th:replace="fragments :: column_link('email', 'Email')"/>
-						
+								<th class="hideable-column">
+								<th th:replace="fragments :: column_link('email', 'Email', 'tag')"/>
+						        </th>
 								<th><!--Toggeling sorting-->
-								<th th:replace="fragments :: column_link('firstName', 'First Name')"/>
+								<th th:replace="fragments :: column_link('firstName', 'First Name', 'none')"/>
 						
-							<th th:replace="fragments :: column_link('lastName', 'Last Name')"/>
+							<th th:replace="fragments :: column_link('lastName', 'Last Name', 'none')"/>
 							
 								<th>Roles</th>
 							
-						<th th:replace="fragments :: column_link('enabled', 'Enabled')"/>
+						<th th:replace="fragments :: column_link('enabled', 'Enabled' , 'none')"/>
 						
 								<th></th>
 							</tr>
@@ -126,13 +129,13 @@
 						<tbody>
 							<!--a new table row for each user object -->
 							<tr th:each="user : ${listUsers}">
-								<td>[[${user.id}]]</td>
+								<td class="hideable-column">[[${user.id}]]</td>
 								<td>
 									<span th:if="${user.photos == null}" class="fa-solid fa-image-portrait icon-silver"></span>
 									<img th:if="${user.photos != null}" th:src"@{${user.photosImagePath}}"
 									style="width: 100px;">
 									</td>  <!--photo icon-->
-								<td>[[${user.email}]]</td>
+								<td class="hideable-column">[[${user.email}]]</td>
 								<td>[[${user.first_name}]]</td>
 								<td>[[${user.last_name}]]</td>
 								<td>[[${user.roles}]]</td>
@@ -165,6 +168,40 @@
 					</table>
 				</div>
 				
+			<div class="less-details">
+			   <div th:each="user : ${listUsers}" class="row m-1">
+			     <div class="col-4">
+                   <span th:if="${user.photos == null}" class="fa-solid fa-image-portrait icon-silver"></span>
+                   <img th:if="${user.photos != null}" th:src"@{${user.photosImagePath}}"
+                   style="width: 100px;">
+			     </div>
+			     <div class="col-8">
+					 <div>[[${user.fullName}]]</div>
+					  <div>[[${user.roles}]]</div>
+				 <div class="mt-2">
+					 <!--if user is disabled the link says enable user and vice versa-->
+					<a  
+				       th:if="${user.enabled==true}" 
+					   class="fa-light fa-square-check icon-green" 
+					   th:href="@{'/users/' + ${user.id} + '/enabled/false'}"
+					   title="Disable this user"></a>
+					<a th:if="${user.enabled==false}" 
+					   class="fa-light fa-square-check icon-dark" 
+					   th:href="@{'/users/' + ${user.id} + '/enabled/true'}"
+					   title="Enable this user"></a>
+					   &nbsp;
+					 <a class"fa-light fa-pen-to-square icon-dark" th:href="@{'/users/edit/' + ${user.id}}" 
+						title="Edit this user"></a>
+						&nbsp;
+					 <a class"fa-light fa-trash icon-dark link-delete" 
+						th:href="@{'/users/delete/' + ${user.id}}" 
+						th:userId="${user.id}"
+						title="Delete this user"></a>
+				 </div>
+				 </div>
+			     <div>&nbsp;</div>
+			   </div>
+		    </div>
 				
 				<!--Displaying how many/which users out of how many on page
 				(shown only if greater than 0)-->
@@ -180,7 +217,7 @@ Show pagination section if more pages than 1 in the search
 Searchresults will be paginated-->
 <div th:if="${totalPages > 1}">
 <nav>
-  <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center flex-wrap">
 	<li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
     <a th:replace="fragments :: page_link(1, 'First')"></a>
 	</li>
