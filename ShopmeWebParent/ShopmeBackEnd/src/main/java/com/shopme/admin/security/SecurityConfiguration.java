@@ -60,7 +60,10 @@ public DaoAuthenticationProvider authenticationProvider() {
                     .usernameParameter("email")
                     .permitAll()
                 .and()
-                .rememberMe().key("AbcdEfghIjklmNopQrsTuvXyz_0123456789")
+                //for cookies to survive when app is restrted
+                .rememberMe()
+                      .key("AbcdEfghIjklmNopQrsTuvXyz_0123456789")
+                      .tokenValiditySeconds(7 * 24 * 60 * 60) //1 week  
                 .and()
                 .logout().permitAll();
  
