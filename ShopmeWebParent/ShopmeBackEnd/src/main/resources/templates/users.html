@@ -70,13 +70,13 @@
 			
 			    <div>
 				<h2>Manage Users</h2>
-				<a th:href="@{/users/new}">Create new user</a>
+				<a th:href="@{/users/new}" class="fa-light fa-user-plus icon-dark mr-2"></a>
 				&nbsp;|&nbsp;
-				<a th:href="@{/users/export/csv}">Export to CSV</a>
+				<a th:href="@{/users/export/csv}" class="fa-light fa-file-csv icon-dark mr-2"></a>
 				&nbsp;|&nbsp;
-				<a th:href="@{/users/export/excel}">Export to Excel</a>
+				<a th:href="@{/users/export/excel}" class="fa-light fa-file-excel icon-dark mr-2"></a>
 				&nbsp;|&nbsp;
-				<a th:href="@{/users/export/pdf}">Export to PDF</a>
+				<a th:href="@{/users/export/pdf}" class="fa-light fa-file-pdf icon-dark mr-2"></a>
 				</div>
 				
 				<div th:if="${message != null}" class="alert alert-success text-center">
@@ -89,10 +89,10 @@
 						<input type="hidden" name="sortField" th:value="${sortField}"/>
                         <input type="hidden" name="sortDir" th:value="${sortDir}"/>
 						Filter:&nbsp;
-						<input type="search" name="keyword" th:value="${keyword}" clas="form-control" required />
+						<input type="search" name="keyword" th:value="${keyword}" clas="form-control" required/>
 					    &nbsp;&nbsp;
-					<input type="submit" value="Search" class="btn btn-primary"/>
-					<input type="button" value="Clear" class="btn btn-secondary" onclick="clearFilter()"/>
+					<button type="submit" class="btn btn-primary"><i class="fa-regular fa-magnifying-glass"></i></button>
+					<button type="button" class="btn btn-secondary" onclick="clearFilter()"><i class="fa-light fa-eraser"></i></button>
 					</form>	
 				</div>
 				
