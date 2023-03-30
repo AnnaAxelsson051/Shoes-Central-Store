@@ -24,6 +24,10 @@
 				<p class="text-danger">[[${session.SPRING.SECURITY.LAST.EXCEPTION.message}]]</p>
 			</div>
 			
+			<div th:if="${param.logout}">
+				<p class="text-warning">You have been logged out.</p>
+			</div>
+			
 			<div class="border border-secondary rounded p-3">
 				<p>Access to Shopme Control Panel</p>
 				<p>
