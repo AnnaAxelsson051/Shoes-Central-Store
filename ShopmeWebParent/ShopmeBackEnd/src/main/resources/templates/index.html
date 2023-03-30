@@ -65,8 +65,12 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 								<span class="fa-solid fa-user icon-silver"></span>
 							</li>
 							<!--For testing username-->
-								<li class="nav-item">
-								<a class="nav-link" sec:authentication="principal.fullname" ></a>
+								<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" data-toggle="dropdown"
+								sec:authentication="principal.fullname" ></a>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" href="">Logout</a>
+							</div>
 							</li>
 														
 						</ul>
