@@ -53,7 +53,8 @@
 							</li>
 							<!--For testing username-->
 								<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" data-toggle="dropdown"
+								<a class="nav-link dropdown-toggle" data-toggle="dropdown" 
+								th:href="@{/account}"
 								sec:authentication="principal.fullname" ></a>
 							<div class="dropdown-menu">
 								<a class="dropdown-item" id="logoutLink" href="">Logout</a>
