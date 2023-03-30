@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th"http://thymeLeaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<!--for responsivity-->
+		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0">
+		<title>Login - Shopme Admin</title>
+		<!--css and js files from bootstrap and jquery framework-->
+		<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+
+	</head>
+	<body>
+	<!--fluid css clss for responsivity provided by bootstrap-->	
+		<div class="container-fluid text-center">
+			
+		<div>
+			<img th:src="@{/images/ShopmeAdminBig.png}"/>
+		</div>
+		
+		<form th:action="@{/login}" method="post" style="max-width: 350px; margin: 0 auto">
+			<div class="border border-secondary rounded p-3">
+				<p>Access to Shopme Control Panel</p>
+				<p>
+				<input type="email" name="email" class="form-control" placeholder="Email" required/>
+				</p>
+				<p>
+				<input type="password" name="password" class="form-control" placeholder="Password" required/>
+				</p>
+				<p>
+				<input typr="submit" value="Login" class="btn btn-primary"/>
+				</p>
+			</div>
+		</form>
+		
+		<div>
+			<p>Shopme Control Panel - Copyright &copy; Shopme</p>
+		</div>
+	  </div>
+	</body>
+</html>
+
+<!--
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Welcome to Shopme</title>
+	</head>
+	<body>
+		
+	<h1>Welcome to Shopme E commerce</h1>
+	</body>
+</html>-->

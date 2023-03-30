@@ -44,6 +44,8 @@ public class SecurityConfiguration {
         return http.build();
     }
  
+    //Ignoring authentication for images js and webjars directory
+    //So can be displayed when not logged in
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**");
