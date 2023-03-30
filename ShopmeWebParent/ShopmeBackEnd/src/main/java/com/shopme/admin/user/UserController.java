@@ -1,6 +1,7 @@
 package com.shopme.admin.user;
 
 import java.io.IOException;
+import com.shopme.common.entity.Role;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,8 +96,8 @@ public class UserController {
 			RedirectAttributes redirectAttributes, 
 			@RequestParam("image") MultipartFile multipartFile) throws IOException {
 		if(!multipartFile.isEmpty()) {
-			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-			//String fileName = multipartFile.getOriginalFilename();
+			//String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+			String fileName = multipartFile.getOriginalFilename();
 			user.setPhotos(fileName);
 			User savedUser = service.save(user);
 			
