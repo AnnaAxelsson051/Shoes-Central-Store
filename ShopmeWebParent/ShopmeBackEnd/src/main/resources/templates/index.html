@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th"http://thymeLeaf.org">
+<html xmlns:th"http://thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		
@@ -8,6 +10,8 @@
 		<title>Home - Shopme Admin</title>
 		<!--css and js files from bootstrap and jquery framework-->
 		<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"/></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"/></script>
 	</head>
@@ -56,6 +60,13 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" th:href="@{/settings}">Settings</a>
+							</li>
+							<li>
+								<span class="fa-solid fa-user icon-silver"></span>
+							</li>
+							<!--For testing username-->
+								<li class="nav-item">
+								<a class="nav-link" sec:authentication="principal.fullname" ></a>
 							</li>
 														
 						</ul>
