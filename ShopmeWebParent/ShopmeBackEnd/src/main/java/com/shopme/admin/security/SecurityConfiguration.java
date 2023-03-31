@@ -47,6 +47,7 @@ public DaoAuthenticationProvider authenticationProvider() {
  
     //http.authenticationProvider(authenticationProvider());
     
+   //Admin can access users module and settings
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
      
