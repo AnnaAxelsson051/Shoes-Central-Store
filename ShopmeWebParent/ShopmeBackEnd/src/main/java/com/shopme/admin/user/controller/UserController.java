@@ -1,4 +1,4 @@
-package com.shopme.admin.user;
+package com.shopme.admin.user.controller;
 
 import java.io.IOException;
 import com.shopme.common.entity.Role;
@@ -19,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.util.StringUtils;
 
 import com.shopme.admin.FileUploadUtil;
+import com.shopme.admin.user.UserNotFoundException;
+import com.shopme.admin.user.UserService;
 import com.shopme.admin.user.export.UserCsvExporter;
 import com.shopme.admin.user.export.UserExcelExporter;
 import com.shopme.admin.user.export.UserPdfExporter;
@@ -69,7 +71,7 @@ public class UserController {
 	model.addAttribute("sortDir", sortDir);
 	model.addAttribute("reverseSortDir", reverseSortDir);
 	model.addAttribute("keyword", keyword);
-	return "users";
+	return "users/users";
 	
 	}
 	
@@ -86,7 +88,7 @@ public class UserController {
 		model.addAttribute("user",user);
 		model.addAttribute("listRoles",listRoles); //add list roles to model
 		model.addAttribute("pageTitle","Create New User"); //set page title
-		return "user_form";
+		return "users/user_form";
 		
 	}
 	
@@ -139,7 +141,7 @@ public class UserController {
 		model.addAttribute("pageTitle","Edit User (Id: " + id + ")"); 
 		model.addAttribute("listRoles",listRoles); 
 		
-		return "user_form";
+		return "users/user_form";
 		}catch(UserNotFoundException ex) {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
 			return "redirect:/users";  
