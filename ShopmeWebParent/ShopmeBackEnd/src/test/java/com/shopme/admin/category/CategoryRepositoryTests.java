@@ -14,7 +14,7 @@ import org.springframework.test.annotation.Rollback;
 import com.shopme.common.entity.Category;
 
 //spring data jpa test
-@DataJpaTest
+@DataJpaTest(showSql = false)
 //runt tests agaits real db not the in memory
 @AutoConfigureTestDatabase
 //Keep the data deposited into db
@@ -55,5 +55,35 @@ public class CategoryRepositoryTests {
 		assertThat(children.size()).isGreaterThan(0);
 	}
 	
+	@Test
+	public void testPrintHierarchicalCategories() {
+		Iterable<Category> categories = repo.findAll();
+		
+		for(Category category : categories) {
+			if (category.getParent() == null) {
+				System.out.println(category.getName());
+				
+				Set<Category> children = category.getChildren();
+				for(Category subCategory : children) {
+					System.out.println("--" + subCategory.getName());
+				printChildren(subCategory, 1);
+				}
+			}
+		}
+		
+	}
 	
+	private void printChildren(Category parent, int subLevel) {
+		int newSubLevel = subLevel + 1;
+		Set<Category> children = parent.getChildren();
+		
+		for(Category subCategory : children) {
+			for (int i = 0; i < newSubLevel; i++) {
+				System.out.println("--");
+			}
+			System.out.println(subCategory.getName());
+			
+			printChildren(subCategory, newSubLevel);
+		}
+	}
 }
