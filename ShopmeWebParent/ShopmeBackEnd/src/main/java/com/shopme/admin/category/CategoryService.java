@@ -18,6 +18,12 @@ public class CategoryService {
 			return (List<Category>) repo.findAll();
 		}
 		
+		public Category save(Category category) {
+			return repo.save(category);
+		}
+		
+		
+		
 		//making categories appear hierarchical in form to select from
 		public List <Category> listCategoriesUsedInForm(){
 			List<Category> categoriesUsedInForm = new ArrayList<>();

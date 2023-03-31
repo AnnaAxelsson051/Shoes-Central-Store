@@ -17,9 +17,8 @@ import ch.qos.logback.classic.Logger;
 public class FileUploadUtil {
 	//private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadUtil.class);
 	
-	//saves image
-	//Saves data in multipartfile
-	//Ovverrides a file w same name
+	//saves file/image, creates dir if does not exist
+	//Saves data in multipartfile, Ovverrides a file w same name
 	public static void saveFile(String uploadDir, 
 			String fileName, MultipartFile multipartFile) throws IOException {
 		Path uploadPath = Paths.get(uploadDir);
