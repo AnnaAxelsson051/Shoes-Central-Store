@@ -1,16 +1,21 @@
 package com.shopme.admin;
 
 import java.io.IOException;
+
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
+
+import ch.qos.logback.classic.Logger;
 
 
 public class FileUploadUtil {
+	//private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadUtil.class);
 	
 	//saves image
 	//Saves data in multipartfile
@@ -40,11 +45,13 @@ public static void cleanDir(String dir) {
 				try {
 				Files.delete(file);
 			}catch (IOException ex){
+				//LOGGER.error("Could not delete file " + file);
 				System.out.println("Could not delete file " + file);
 			}
 			}
 		});	
-}catch(IOException ex2) {
+}catch(IOException ex) {
+	//LOGGER.error("Could not delete file " + dirPath);
 	System.out.println("Could not list directory " + dirPath);
 }
 }
