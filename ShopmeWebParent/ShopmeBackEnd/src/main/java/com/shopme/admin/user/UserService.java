@@ -78,16 +78,35 @@ public class UserService {
 		return userRepo.save(user);
 	}
 	
+	//Updating pw, name, photo for currently logged in user (userInForm) with
+	//details user specifies in form saves as userInDB
+	public User updateAccount(User userInForm) {
+		User userInDB = userRepo.findById(userInForm.getId()).get();
+		if(!userInForm.getPassword().isEmpty()) {
+			userInDB.setPassword(userInForm.getPassword());
+			encodePassword(userInDB);
+		}
+		if(userInForm.getPhotos() != null) {
+			userInDB.setPhotos(userInForm.getPhotos());
+		}
+		
+		userInDB.setFirstName(userInForm.getFirstName());
+		userInDB.setLastName(userInForm.getLastName());
+		
+		return userRepo.save(userInDB);
+	}
+	
+	
 	private void encodePassword(User user) {
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
 	}
 	
-	//if returns null user email is unique
+	//Checks if user email is unique
 	public boolean isEmailUnique(Integer id, String email) {
 		User userByEmail = userRepo.getUserByEmail(email);
 		
-		if(userByEmail == null)return true;
+		if(userByEmail == null) return true;
 		
 		boolean isCreatingNew = (id == null); //if user being edited
 		if(isCreatingNew) {
@@ -108,7 +127,7 @@ public class UserService {
 		}
 	}
 	
-	
+	//Deletes a user
 	public void delete(Integer id) throws UserNotFoundException {
 		Long countById = userRepo.countById(id);
 		if (countById == null || countById == 0) {
