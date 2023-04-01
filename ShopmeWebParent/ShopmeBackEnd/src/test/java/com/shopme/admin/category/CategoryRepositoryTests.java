@@ -54,6 +54,7 @@ public class CategoryRepositoryTests {
 			}
 		assertThat(children.size()).isGreaterThan(0);
 	}
+}
 	
 	@Test
 	public void testPrintHierarchicalCategories() {
@@ -86,4 +87,10 @@ public class CategoryRepositoryTests {
 			printChildren(subCategory, newSubLevel);
 		}
 	}
+	
+	@Test 
+	public void testListRootCategories() {
+		List <Category> rootCategories = repo.listRootCategories();
+		rootCategories.forEach(cat -> System.out.println(cat.getName()));
 }
+	}

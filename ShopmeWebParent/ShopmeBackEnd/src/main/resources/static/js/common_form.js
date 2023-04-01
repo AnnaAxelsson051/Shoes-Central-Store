@@ -4,11 +4,11 @@ $(document).ready(function(){
 	});
 	
 	//shows image thumbnail when uploading user photo
-	//first checks so photo is not larger than 1MB
+	//first checks so photo is not larger than 100kb
 	$("#fileImage").change(function(){
 	fileSize = this.files[0].size;
-	if (fileSize > 1048576){
-		this.setCustomValidity("You must chose an image less than 1 MB")
+	if (fileSize > 102400){
+		this.setCustomValidity("You must chose an image less than 100KB")
 		this.reportValidity();
 	}else{
 		this.setCustomValidity("");

@@ -11,6 +11,10 @@
 				<h2>Manage Categories | [[${pageTitle}]]</h2>
 				</div>
 				
+				<div th:if="${message != null}" class="alert alert-success text-center">
+					[[${message}]]
+				</div>
+				
 				<a th:href="@{/users/new}">Create new user</a>
 				<!--maps to usercontroller-->
 				</div>
