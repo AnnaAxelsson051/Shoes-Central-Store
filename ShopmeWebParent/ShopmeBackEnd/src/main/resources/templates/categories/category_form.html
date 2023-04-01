@@ -21,11 +21,13 @@
 				
 				<!--form to fill in user specifications-->
 				<!--maps user to model form
-				(enctype allows fileupload to form)-->
+				(enctype allows fileupload to form)
+				checks if this obj is uniqe-->
 				<form th:action="@{/categories/save}" 
 				method="post" 
 				style="max-width: 500px; margin: 0 auto"
 				enctype="multipart/form-data"
+				onsubmit="return checkUnique(this)"
 				th:object="${category}">
 				<input type="hidden" th:field="*{id}"/>
 				<div class="border border-secondary rounded p-3 ">
@@ -108,6 +110,26 @@
 
 	<script type="text/javascript">
 		moduleURL = "[[@{/categories}]]";
+		
+		function checkUnique(form){
+			catId = $("#id").val();
+			catName = $("#name").val();
+			catAlias = $("#alias").val();
+			
+			csrfValue = $("input[name='_csrf']").val();
+			
+			url = "[[@{/categories/check_unique}]]";
+		
+			params = {id: catId, name: catName, alias: catAlias, _csrf: csrfValue};
+			
+	    	$.post(url, params, function(response){
+				alert(response);
+			}).fail(function(){
+				alert('failed');
+			});
+			
+			return false;
+		}
 	</script>
 	<script th:src="@{/js/common_form.js}"></script>
 	</body>
