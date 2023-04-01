@@ -161,5 +161,13 @@ public class Category {
 	public void setChildren(Set<Category> children) {
 		this.children = children;
 	}
+	
+	//returns image path of directory
+	@Transient 	//So Hibernate wont map this getter to a column in db
+	public String getImagePath() {
+		return "/category-images/" + this.id + "/" + this.image;
+	}
+	
+	
 
 }

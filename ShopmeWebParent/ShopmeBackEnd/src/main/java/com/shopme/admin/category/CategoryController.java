@@ -43,7 +43,7 @@ public String newCategory(Model model) {
 }
 
 //Saves category with save file, ctreates upload directory if not exixts
-//Upload dir  on same level as shopme backens n shopme frontend
+//Upload dir  on same level as shopme backend n shopme frontend
 @PostMapping("/categories/save")
 public String saveCategory(Category category,
 		@RequestParam("fileimage") MultipartFile multipartFile, RedirectAttributes ra) throws IOException {
