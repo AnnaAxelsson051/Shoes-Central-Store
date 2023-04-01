@@ -30,23 +30,23 @@ public class CategoryService {
 			
 			
 		 List<Category> rootCategories = repo.findRootCategories(sort);
-		return listHierarchicalCategories(rootCategories);
+		return listHierarchicalCategories(rootCategories, sortDir);
 		}
 		
 		
-		private List <Category> listHierarchicalCategories(List<Category> rootCategories){
+		private List <Category> listHierarchicalCategories(List<Category> rootCategories, String sortDir){
 			List <Category> hierarchicalCategories = new ArrayList<>();;
 			
 			for(Category rootCategory : rootCategories) {
 				hierarchicalCategories.add(Category.copyFull(rootCategory));
 			
-			Set<Category> children = sortSubCategories(rootCategory.getChildren());
+			Set<Category> children = sortSubCategories(rootCategory.getChildren(),sortDir);
 			
 			for(Category subCategory : children) {
 				String name = "--" + subCategory.getName();
 				hierarchicalCategories.add(Category.copyFull(subCategory, name));
 			
-			listSubHierarchicalCategories(hierarchicalCategories, subCategory, 1);
+			listSubHierarchicalCategories(hierarchicalCategories, subCategory, 1, sortDir);
 			}
 			}
 			
@@ -54,8 +54,8 @@ public class CategoryService {
 		}
 		
 		private void listSubHierarchicalCategories(List<Category> 
-		hierarchicalCategories, Category parent, int subLevel) {
-			Set<Category> children = sortSubCategories(parent.getChildren());
+		hierarchicalCategories, Category parent, int subLevel, String sortDir) {
+			Set<Category> children = sortSubCategories(parent.getChildren(), sortDir);
 			int newSubLevel = subLevel +1;
 			
 			for(Category subCategory : children) {
@@ -68,7 +68,7 @@ public class CategoryService {
 				hierarchicalCategories.add(Category.copyFull(subCategory,name));
 			
 				listSubHierarchicalCategories(hierarchicalCategories, subCategory, 
-						newSubLevel);
+						newSubLevel, sortDir);
 			}
 		}
 		
@@ -156,17 +156,28 @@ public class CategoryService {
 			return "OK";
 			}
 		
+		//Used by method that retuns list om cat used in form 
 		private SortedSet<Category> sortSubCategories(Set<Category> children){
-			SortedSet<Category> sortedChildren = new TreeSet<>(new Comparator<Category>)() {
+		return sortSubCategories(children, "asc");
+		}
+		
+		//Subcategories sorted in asch/desc
+		private SortedSet<Category> sortSubCategories(Set<Category> children, String sortDir){
+			SortedSet<Category> sortedChildren = new TreeSet<>(new Comparator<Category>() {
 			
 			@Override
 			public int compare(Category cat1, Category cat2) {
-				return cat1.getName().compareTo(cat2.getName());
+				if(sortDir.equals("asc")) {
+					return cat1.getName().compareTo(cat2.getName());
+				}else {
+					return cat2.getName().compareTo(cat1.getName());
+				}
 			}
 			});
 			
-			return sortedChildren;
+			sortedChildren.addAll(children);
 			
+			return sortedChildren;
 		}
 		
 	
