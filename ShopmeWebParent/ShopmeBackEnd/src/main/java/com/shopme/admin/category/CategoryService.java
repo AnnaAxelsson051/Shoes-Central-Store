@@ -107,6 +107,14 @@ public class CategoryService {
 			listSubCategoriesUsedInForm(categoriesUsedInForm, subCategory, newSubLevel);
 		}
 	}
+		
+		public Category get(Integer id) throws CategoryNotFoundException{
+			try {
+				return repo.findById(id).get();
+			}catch (NoSuchElementException ex) {
+				throw new CategoryNotFoundException("Could not find any category with id " + id);
+			}
+		}
 	}
 
 

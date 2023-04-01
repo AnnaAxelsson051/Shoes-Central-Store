@@ -163,8 +163,10 @@ public class Category {
 	}
 	
 	//returns image path of directory
+	//if image path is null returns a default image
 	@Transient 	//So Hibernate wont map this getter to a column in db
 	public String getImagePath() {
+		if (this.id == null) return "/images/image-thumbnail.png";
 		return "/category-images/" + this.id + "/" + this.image;
 	}
 	

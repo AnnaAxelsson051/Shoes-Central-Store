@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,19 +43,48 @@ public String newCategory(Model model) {
 	return "categories/category_form";
 }
 
-//Saves category with save file, ctreates upload directory if not exixts
-//Upload dir  on same level as shopme backend n shopme frontend
+//Saves category with save file, creates upload directory if not exixts
+//on same level as shopme backend n shopme frontend
+//if no image just saves category
 @PostMapping("/categories/save")
 public String saveCategory(Category category,
-		@RequestParam("fileimage") MultipartFile multipartFile, RedirectAttributes ra) throws IOException {
-	String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-	category.setImage(fileName);
-	
-	Category savedCategory = service.save(category);
-	String uploadDir = "../category-images/" + savedCategory.getId();
-	FileUploadUtil.saveFile(uploadDir, fileName,  multipartFile);
+		@RequestParam("fileImage") MultipartFile multipartFile, 
+		RedirectAttributes ra) throws IOException {
+	if (!multipartFile.isEmpty()) {
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		category.setImage(fileName);
+		
+		Category savedCategory = service.save(category);
+		String uploadDir = "../category-images/" + savedCategory.getId();
+		FileUploadUtil.saveFile(uploadDir, fileName,  multipartFile);
+	}else {
+		service.save(category);
+	}
 	ra.addFlashAttribute("message", "The category has been saved successfully");
 			return "redirect:/categories";
 }
+
+//Shows category form, creates cat obj from db and a list of 
+//categories to be used in the form 
+//put cat obj and list onto model and updates page title
+//if no category found redirects to listing page
+@GetMapping("/categories/edit/{id}")
+public String editCategory(@PathVariable(name = "id") 
+Integer id, Model model, RedirectAttributes ra) {
+	try {
+		Category category = service.get(id);
+		List<Category> listCategories = service.listCategoriesUsedInForm();
+		
+		model.addAttribute("category", category);
+		model.addAttribute("listCategories", listCategories);
+		model.addAttribute("pageTitle", "Edit Category (ID: " + id +")");
+		
+		return "categories/category_form";
+	}catch (CategoryNotFoundException ex) {
+		ra.addFlashAttribute("message", ex.getMessage());
+		return "redirect:/categpories";
+	}
+}
+
 
 }
