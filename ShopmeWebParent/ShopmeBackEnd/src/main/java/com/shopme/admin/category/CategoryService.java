@@ -16,8 +16,20 @@ public class CategoryService {
 		private CategoryRepository repo;
 		
 
-		public List<Category> listAll(){
-		 List<Category> rootCategories = repo.findRootCategories(Sort.by("name").ascending());
+		//categories listed sorted asc by default or toggled by user
+		public List<Category> listAll(String sortDir){
+			Sort sort = Sort.by("name");
+			
+			if(sortDir == null || sortDir.isEmpty()) {
+				sort = sort.ascending();
+			} else if(sortDir.equals("asc")) { 
+				sort = sort.ascending();
+			} else if (sortDir.equals("desc")) {
+				sort = sort.descending();
+			}
+			
+			
+		 List<Category> rootCategories = repo.findRootCategories(sort);
 		return listHierarchicalCategories(rootCategories);
 		}
 		
