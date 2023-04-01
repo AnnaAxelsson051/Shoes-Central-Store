@@ -7,9 +7,11 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Sort;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.data.domain.Sort;
 
 import com.shopme.common.entity.Category;
 
@@ -51,10 +53,11 @@ public class CategoryRepositoryTests {
 		
 		for(Category subCategory : children) {
 			System.out.println(subCategory.getName());
+		
 			}
 		assertThat(children.size()).isGreaterThan(0);
 	}
-}
+
 	
 	@Test
 	public void testPrintHierarchicalCategories() {
@@ -90,7 +93,7 @@ public class CategoryRepositoryTests {
 	
 	@Test 
 	public void testListRootCategories() {
-		List <Category> rootCategories = repo.findRootCategories();
+		List <Category> rootCategories = repo.findRootCategories(Sort.by("name").ascending());
 		rootCategories.forEach(cat -> System.out.println(cat.getName()));
 }
 	

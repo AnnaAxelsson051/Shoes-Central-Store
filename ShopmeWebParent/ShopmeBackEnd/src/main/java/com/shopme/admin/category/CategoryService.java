@@ -2,8 +2,9 @@ package com.shopme.admin.category;
 
 import java.util.*;
 
-import org.junit.jupiter.api.Test;
+//import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.shopme.common.entity.Category;
@@ -16,7 +17,7 @@ public class CategoryService {
 		
 
 		public List<Category> listAll(){
-		 List<Category> rootCategories = repo.findRootCategories();
+		 List<Category> rootCategories = repo.findRootCategories(Sort.by("name").ascending());
 		return listHierarchicalCategories(rootCategories);
 		}
 		
@@ -70,7 +71,7 @@ public class CategoryService {
 		public List <Category> listCategoriesUsedInForm(){
 			List<Category> categoriesUsedInForm = new ArrayList<>();
 			
-			Iterable<Category> categoriesInDB = repo.findAll();
+			Iterable<Category> categoriesInDB = repo.findRootCategories(Sort.by("name").ascending());
 				
 				for(Category category : categoriesInDB) {
 					if (category.getParent() == null) {
@@ -142,6 +143,8 @@ public class CategoryService {
 			}
 			return "OK";
 			}
+		
+	
 	}
 
 
