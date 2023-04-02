@@ -19,11 +19,10 @@
 				<a th:href="@{/users/export/pdf}" class="fa-light fa-file-pdf icon-dark mr-2"></a>
 				</div>
 				
-				<div th:if="${message != null}" class="alert alert-success text-center">
-					[[${message}]]
-				</div>
+		
+	
 				
-				<div th:replace="fragments :: search_form('/users/page/1')"/>
+				<div th:replace="fragments :: search_form_and_message('/users/page/1')"/>
 				
 				
 					<!--list/column for admin to see

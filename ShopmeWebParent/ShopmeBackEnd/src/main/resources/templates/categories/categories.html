@@ -13,11 +13,7 @@
 			<a th:href="@{/categories/export/csv}" class="fas fa-file-csv icon-dark mr-2"></a>
 		</div>
 		
-		<div th:if="${message != null}" class="alert alert-success text-center">
-					[[${message}]]
-				</div>
-		
-	<div th:replace="fragments :: search_form('/categories/page/1')"/>
+	<div th:replace="fragments :: search_form_and_message('/categories/page/1')"/>
 		
 		<div class="full-details">
 			<table class="table table-bordered table-striped table-hover table-responsive-xl">
