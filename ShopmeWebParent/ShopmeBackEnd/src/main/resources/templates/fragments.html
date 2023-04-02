@@ -1,5 +1,5 @@
 
-
+<!---->
 
 <!DOCTYPE html>
 <html xmlns:th"http://thymeLeaf.org">
@@ -25,9 +25,9 @@
 		
 		
 	<!--listing top-->
-		<th th:fragment="column_link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
+		<th th:fragment="column_link(moduleURL, fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
      <a class="text-white"
-	    th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >
+	    th:href="@{${moduleURL} + '/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >
 	    [[${columnLabel}]]
     </a>
 	
@@ -41,6 +41,23 @@
    class="page_link"
    th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
 
+<div th:fragment="user_photos" th:remove="tag">
+		<span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon-silver"></span>
+		<img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}"
+			style="width: 100px" />	
+	</div>
+	
+<div th:fragment="status(enabled, entityName, entityURL)" th:remove="tag">
+		<a th:if="${enabled == true}" class="fas fa-check-circle fa-2x icon-green" 
+			th:href="@{${entityURL} + '/enabled/false'}"
+			th:title="'Disable this ' + ${entityName}"
+			></a>
+			
+		<a th:if="${enabled == false}" class="fas fa-circle fa-2x icon-dark" 
+			th:href="@{${entityURL} + '/enabled/true'}"
+			th:title="'Enable this ' + ${entityName}"
+			></a>	
+	</div>
 
 		
 		<!--Showing green checkmark symbol when category enabled / grey checkmark when disabled-->
