@@ -20,9 +20,7 @@ public class CategoryService {
 		public List<Category> listAll(String sortDir){
 			Sort sort = Sort.by("name");
 			
-			if(sortDir == null || sortDir.isEmpty()) {
-				sort = sort.ascending();
-			} else if(sortDir.equals("asc")) { 
+			if(sortDir.equals("asc")) { 
 				sort = sort.ascending();
 			} else if (sortDir.equals("desc")) {
 				sort = sort.descending();
