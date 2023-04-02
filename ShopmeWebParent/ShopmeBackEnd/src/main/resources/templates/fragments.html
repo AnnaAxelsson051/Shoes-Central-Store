@@ -1,4 +1,4 @@
-<!--Errors in this file?-->
+<!--Errors in this file, remove bottom sections?-->
 
 
 <!DOCTYPE html>
@@ -23,7 +23,7 @@
 			<p>Shopme Control Panel - Copyright &copy; Shopme</p>
 		</div>
 		
-		<!--Showing green checkmark when enabled / grey checkmark when disabled-->
+		<!--Showing green checkmark symbol when category enabled / grey checkmark when disabled-->
 	<div th:fragment="category_status" th:remove="tag">
 		<a th:if="${cat.enabled == true}" class="fas fa-check-circle icon-green"
 		th:href="@{'/categories/' + ${cat.id} + '/enabled/false'}" title="Disable this category" >
@@ -33,15 +33,33 @@
 		</a>
 	</div>	
 	
+	<!--Showing edit / delete symbols next to categories-->
     <div th:fragment="category_actions" th:remove="tag">
-		<a class="fas fa-check-edit icon-green"
-		th:href="@{'/categories/edit/' + ${cat.id}}" title="Edit this category" >
+		<a class="fas fa-edit icon-green"
+		th:href="@{'/categories/edit/' + ${cat.id}}" 
+		title="Edit this category" >
+		</a>&nbsp;
+	<!--Show delete btn if category has no children
+	Specify entityId so possible to show catid in confirm modal dialog
+	(in common_list.js)-->	
+		<th:block th:if="${cat.hasChildren == false}">
+		<a class="fas fa-trash icon-dark link-delete"
+		th:href="@{'/categories/delete/' + ${cat.id}}"
+		th:entityId="${cat.id}" 
+		title="Delete this category" >
 		</a>
-		<a class="fas fa-check-edit icon-dark link-delete"
-		th:href="@{'/categories/delete/' + ${cat.id}}" title="Delete this category" >
-		</a>
+		</th:block>
 	</div>	
 		
+		
+		
+		
+	
+	
+	
+	
+	
+	
 	<!--listing top-->
 		<th th:fragment="column_link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
      <a class="text-white"

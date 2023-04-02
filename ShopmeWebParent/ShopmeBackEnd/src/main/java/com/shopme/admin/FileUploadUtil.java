@@ -54,4 +54,16 @@ public static void cleanDir(String dir) {
 	System.out.println("Could not list directory " + dirPath);
 }
 }
+
+//removing cat
+//Remove all files from dir, delet dir itself
+public static void removeDir(String dir) {
+	cleanDir(dir);
+	try {
+		Files.delete(Paths.get(dir));
+	}catch (IOException e) {
+		//LOGGER.error("Could nor remove directory: " + dir);
+		System.out.println("Could not remove directory " + dir);
+	}
+}
 }

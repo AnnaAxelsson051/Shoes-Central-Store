@@ -104,5 +104,22 @@ public String updateCetegoryEnabledStatus(@PathVariable("id") Integer id,
 	return "redirect:/categories";
 	}
 
+//Deletes cat, removes image dir
+@GetMapping("/categories/delete/{id}")
+public String deleteCategory(@PathVariable(name = "id") Integer id, 
+		Model model, RedirectAttributes redirectAttributes) {
+	try {
+		service.delete(id);
+		String categoryDir = "../category-images/" + id;
+		FileUploadUtil.removeDir(categoryDir);
+		
+		redirectAttributes.addFlashAttribute("message", 
+				"The category Id " + id + " has been deleted successfully");
+	}catch (CategoryNotFoundException ex) {
+		redirectAttributes.addFlashAttribute("message", ex.getMessage());
+	}
+	return "redirect:/categories";
+}
+
 }
 

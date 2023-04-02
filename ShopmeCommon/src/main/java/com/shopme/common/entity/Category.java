@@ -62,6 +62,7 @@ public class Category {
 		return copyCategory;
 		}
 	
+	//Factory method
 	//copy details of root category obj
 	public static Category copyFull(Category category) {
 		Category copyCategory = new Category();
@@ -70,6 +71,7 @@ public class Category {
 		copyCategory.setImage(category.getImage());
 		copyCategory.setAlias(category.getAlias());
 		copyCategory.setEnabled(category.isEnabled());
+		copyCategory.setHasChildren(category.getChildren().size() >0); //true if cat has children
 		
 		return copyCategory;
 	}
@@ -178,5 +180,15 @@ public class Category {
 	}
 	
 	
+	//If Categories have no child categories, used for displaying delete button
+	public boolean isHasChildren() {
+		return hasChildren;
+	}
+	
+	public void setHasChildren(boolean hasChildren) {
+		this.hasChildren = hasChildren;
+	}
 
+	@Transient
+	private boolean hasChildren;
 }
