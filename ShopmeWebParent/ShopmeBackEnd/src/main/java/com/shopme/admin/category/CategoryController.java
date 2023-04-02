@@ -88,9 +88,21 @@ Integer id, Model model, RedirectAttributes ra) {
 		return "categories/category_form";
 	}catch (CategoryNotFoundException ex) {
 		ra.addFlashAttribute("message", ex.getMessage());
-		return "redirect:/categpories";
+		return "redirect:/categories";
 	}
 }
 
 
+@GetMapping("/categories/{id}/enabled/{status}")
+public String updateCetegoryEnabledStatus(@PathVariable("id") Integer id,
+		@PathVariable("status") boolean enabled, RedirectAttributes redirectAttributes) {
+	service.updateCategoryEnabledStatus(id, enabled);
+	String status = enabled ? "enabled" : "disabled";
+	String message = "The category ID " + id + " has been " + status;
+	redirectAttributes.addFlashAttribute("message", message);
+	
+	return "redirect:/categories";
+	}
+
 }
+

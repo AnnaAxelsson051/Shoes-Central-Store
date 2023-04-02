@@ -1,3 +1,6 @@
+<!--Errors in this file?-->
+
+
 <!DOCTYPE html>
 <html xmlns:th"http://thymeLeaf.org">
 <head th:fragment="page_head(title)">
@@ -20,6 +23,25 @@
 			<p>Shopme Control Panel - Copyright &copy; Shopme</p>
 		</div>
 		
+		<!--Showing green checkmark when enabled / grey checkmark when disabled-->
+	<div th:fragment="category_status" th:remove="tag">
+		<a th:if="${cat.enabled == true}" class="fas fa-check-circle icon-green"
+		th:href="@{'/categories/' + ${cat.id} + '/enabled/false'}" title="Disable this category" >
+		</a>
+		<a th:if="${cat.enabled == false}" class="fas fa-check-circle icon-dark"
+		th:href="@{'/categories/' + ${cat.id} + '/enabled/true'}" title="Enable this category" >
+		</a>
+	</div>	
+	
+    <div th:fragment="category_actions" th:remove="tag">
+		<a class="fas fa-check-edit icon-green"
+		th:href="@{'/categories/edit/' + ${cat.id}}" title="Edit this category" >
+		</a>
+		<a class="fas fa-check-edit icon-dark link-delete"
+		th:href="@{'/categories/delete/' + ${cat.id}}" title="Delete this category" >
+		</a>
+	</div>	
+		
 	<!--listing top-->
 		<th th:fragment="column_link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
      <a class="text-white"
@@ -36,6 +58,8 @@
    <a th:fragment="page_link(pageNum, label)"
    class="page_link"
    th:href="@{'/users/page/' + ${pageNum} + '?sortField=' + ${sortField} '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
+
+
 
 	</body>
 </html>

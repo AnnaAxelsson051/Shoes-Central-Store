@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.shopme.common.entity.Category;
 
+import jakarta.transaction.Transactional;
+
 @Service 
+@Transactional
 public class CategoryService {
 
 		@Autowired
@@ -178,6 +181,9 @@ public class CategoryService {
 			return sortedChildren;
 		}
 		
+		public void updateCategoryEnabledStatus(Integer id, boolean enabled) {
+			repo.updateEnabledStatus(id, enabled);
+		}
 	
 	}
 
