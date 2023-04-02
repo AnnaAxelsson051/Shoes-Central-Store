@@ -19,7 +19,7 @@ import jakarta.transaction.Transactional;
 public class CategoryService {
 
 	//page size = 4 toplevel cats per page
-	private static final int ROOT_CATEGORIES_PER_PAGE = 4;
+	public static final int ROOT_CATEGORIES_PER_PAGE = 4;
 		@Autowired
 		private CategoryRepository repo;
 		
