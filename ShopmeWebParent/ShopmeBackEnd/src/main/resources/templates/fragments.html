@@ -47,6 +47,7 @@
 			style="width: 100px" />	
 	</div>
 	
+	<!--Showing green checkmark symbol when category enabled / grey checkmark when disabled-->
 <div th:fragment="status(enabled, entityName, entityURL)" th:remove="tag">
 		<a th:if="${enabled == true}" class="fas fa-check-circle fa-2x icon-green" 
 			th:href="@{${entityURL} + '/enabled/false'}"
@@ -59,16 +60,20 @@
 			></a>	
 	</div>
 
-		
-		<!--Showing green checkmark symbol when category enabled / grey checkmark when disabled-->
-	<div th:fragment="category_status" th:remove="tag">
-		<a th:if="${cat.enabled == true}" class="fas fa-check-circle icon-green"
-		th:href="@{'/categories/' + ${cat.id} + '/enabled/false'}" title="Disable this category" >
-		</a>
-		<a th:if="${cat.enabled == false}" class="fas fa-check-circle icon-dark"
-		th:href="@{'/categories/' + ${cat.id} + '/enabled/true'}" title="Enable this category" >
-		</a>
+	<div th:fragment="edit(entityName, editURL)" th:remove="tag">
+		<a class="fas fa-edit fa-2x icon-green" th:href="@{${editURL}}"
+			th:title="'Edit this ' + ${entityName}"></a>
 	</div>	
+		
+		<div th:fragment="delete(entityName, entityId, deleteURL, visible)" th:remove="tag">
+		<th:block th:if="${visible}">		
+		<a class="fas fa-trash fa-2x icon-dark link-delete" 
+			th:href="@{${deleteURL}}"
+			th:entityId="${entityId}"
+			th:title="'Delete this ' + ${entityName}"></a>
+		</th:block>	
+	</div>
+
 	
 	<!--Showing edit / delete symbols next to categories-->
     <div th:fragment="category_actions" th:remove="tag">
