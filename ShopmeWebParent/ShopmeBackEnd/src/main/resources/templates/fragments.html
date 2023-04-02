@@ -60,11 +60,15 @@
 			></a>	
 	</div>
 
+<!--Showing edit / delete symbols next to categories-->
 	<div th:fragment="edit(entityName, editURL)" th:remove="tag">
 		<a class="fas fa-edit fa-2x icon-green" th:href="@{${editURL}}"
 			th:title="'Edit this ' + ${entityName}"></a>
 	</div>	
 		
+			<!--Show delete btn if category has no children
+	Specify entityId so possible to show catid in confirm modal dialog
+	(in common_list.js)-->	
 		<div th:fragment="delete(entityName, entityId, deleteURL, visible)" th:remove="tag">
 		<th:block th:if="${visible}">		
 		<a class="fas fa-trash fa-2x icon-dark link-delete" 
@@ -74,24 +78,7 @@
 		</th:block>	
 	</div>
 
-	
-	<!--Showing edit / delete symbols next to categories-->
-    <div th:fragment="category_actions" th:remove="tag">
-		<a class="fas fa-edit icon-green"
-		th:href="@{'/categories/edit/' + ${cat.id}}" 
-		title="Edit this category" >
-		</a>&nbsp;
-	<!--Show delete btn if category has no children
-	Specify entityId so possible to show catid in confirm modal dialog
-	(in common_list.js)-->	
-		<th:block th:if="${cat.hasChildren == false}">
-		<a class="fas fa-trash icon-dark link-delete"
-		th:href="@{'/categories/delete/' + ${cat.id}}"
-		th:entityId="${cat.id}" 
-		title="Delete this category" >
-		</a>
-		</th:block>
-	</div>	
+
 		
 	<div th:fragment="pagination(moduleURL, entityName)" th:remove="tag">	
 	<!--Displaying how many/which users out of how many on page

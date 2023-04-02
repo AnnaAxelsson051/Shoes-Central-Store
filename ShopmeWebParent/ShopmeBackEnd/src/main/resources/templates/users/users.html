@@ -71,9 +71,9 @@
 									<div th:replace="fragments :: status(${user.enabled}, 'user', '/users/', ${user.id})"></div>
 								</td>
 								<td>
-									<div th:replace="fragments :: user_actions"></div>
-								</td>
-									
+									<div th:replace="fragments :: edit('user', '/users/edit/' + ${user.id})"/>
+								&nbsp;&nbsp;</td>
+									<div th:replace="fragments :: delete('user', '/users/delete/' + ${user.id}, true)"/>
 									<!--if user is disabled the link says enable user and vice versa-->
 									<a  
 									th:if="${user.enabled==true}" 
@@ -116,7 +116,7 @@
 					 <!--if user is disabled the link says enable user and vice versa-->
 						<div th:replace="fragments :: status(${user.enabled}, 'user', '/users/', ${user.id})"></div>
 				 &nbsp;
-				 <div th:replace="fragments :: user_actions"/>
+					<div th:replace="fragments :: delete('user', '/users/delete/' + ${user.id}, true)"/>
 				 </div>
 				 </div>
 			     <div>&nbsp;</div>
