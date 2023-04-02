@@ -1,4 +1,4 @@
-<!--Errors in this file, remove bottom sections?-->
+
 
 
 <!DOCTYPE html>
@@ -22,6 +22,26 @@
 		<div th:fragment="footer" class="text-center m-3">
 			<p>Shopme Control Panel - Copyright &copy; Shopme</p>
 		</div>
+		
+		
+	<!--listing top-->
+		<th th:fragment="column_link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
+     <a class="text-white"
+	    th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >
+	    [[${columnLabel}]]
+    </a>
+	
+   <span th:if="${sortField == fieldName}"
+		 th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'">
+	</span>
+   </th>
+   
+   <!--Pagination bottom-->
+   <a th:fragment="page_link(moduleURL, pageNum, label)"
+   class="page_link"
+   th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
+
+
 		
 		<!--Showing green checkmark symbol when category enabled / grey checkmark when disabled-->
 	<div th:fragment="category_status" th:remove="tag">
@@ -51,33 +71,45 @@
 		</th:block>
 	</div>	
 		
+	<div th:fragment="pagination(moduleURL, entityName)" th:remove="tag">	
+	<!--Displaying how many/which users out of how many on page
+				(shown only if greater than 0)-->
+				<div class="text-center m-1" th:if="${totalItems > 0}">
+					<span>Showing [[${entityName}]] # [[${startCount}]] to [[${endCount}]] of [[${totalItems}}]]</span>
+				</div>
+				<div class="text-center m-1" th:unless="${totalItems > 0}">
+					<span>No [[${entityName}]] found</span></div>
+					
+	<!--Bootstrap for pagination, pages pointing right,, styling for bläddra mellan sidor av users funktion 
+Show pagination section if more pages than 1 in the search
+Searchresults will be paginated-->
+<div th:if="${totalPages > 1}">
+<nav>
+  <ul class="pagination justify-content-center flex-wrap">
+	<li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+    <a th:replace="fragments :: page_link(${moduleURL}, 1, 'First')"></a>
+	</li>
+    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}" >
+	<a th:replace="fragments :: page_link(${moduleURL}, ${currentPage -1}, 'Previous')"></a>
+	</li>
+	<!--for blue bg on active page-->
+    <li th:class="${currentPage != i ? 'page-item': 'page-item active'}"  
+        th:each="i : ${#numbers.sequence(1, totalPages)}">
+			<a th:replace="fragments :: page_link(${moduleURL}, ${i}, ${i})"></a>
+	</li>
+    <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'">
+		<a th:replace="fragments :: page_link(${moduleURL}, ${currentPage + 1}, 'Next')"></a>
+	</li>
+   <li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'">
+	  <a th:replace="fragments :: page_link(${moduleURL}, ${totalPages}, 'Last')"></a>
+	</li>
+  </ul>
+</nav>
+</div>	
+</div>
 		
 		
-		
 	
-	
-	
-	
-	
-	
-	<!--listing top-->
-		<th th:fragment="column_link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
-     <a class="text-white"
-	    th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >
-	    [[${columnLabel}]]
-    </a>
-	
-   <span th:if="${sortField == fieldName}"
-		 th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'">
-	</span>
-   </th>
-   
-   <!--Pagination bottom-->
-   <a th:fragment="page_link(pageNum, label)"
-   class="page_link"
-   th:href="@{'/users/page/' + ${pageNum} + '?sortField=' + ${sortField} '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${label}]]</a>
-
-
 
 	</body>
 </html>

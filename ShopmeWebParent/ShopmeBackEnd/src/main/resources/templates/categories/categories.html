@@ -39,7 +39,7 @@
 						<th>ID</th>
 						<th>Category Image</th>
 						<th>
-							<a class="text-white" th:href="@{'/categories?sortDir=' + ${reverseSortDir}}">Category Name</a>
+							<a class="text-white" th:href="@{'/categories/page/' + ${pageNum} + '?sortDir=' + ${reverseSortDir}}">Category Name</a>
 					       <!--sort icon-->
 					        <span th:class="${reverseSortDir == 'desc' ? 'fas fa-sort-up' : 'fas fa-sort-down'">
 	                        </span>
@@ -68,6 +68,11 @@
 			</tbody>
 			</table>
 		</div>
+		
+   <!--'/categories' = moduleURL
+	'top-level cat' = entity name-->
+		<div th:replace="fragments :: pagination('/categories', 'top-level catagories')"></div>	
+		 
 		<div th:replace="modal_fragments :: confirm_modal"></div> 
 		
 		<div th:replace="fragments :: footer"></div>
