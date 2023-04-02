@@ -1,9 +1,12 @@
 package com.shopme.admin.category;
 
+import java.awt.print.Pageable;
 import java.util.*;
 
 //import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +18,15 @@ import jakarta.transaction.Transactional;
 @Transactional
 public class CategoryService {
 
+	//page size = 4 toplevel cats per page
+	private static final int ROOT_CATEGORIES_PER_PAGE = 4;
 		@Autowired
 		private CategoryRepository repo;
 		
 
 		//categories listed sorted asc by default or toggled by user
-		public List<Category> listAll(String sortDir){
+		public List<Category> listByPage(CategoryPageInfo pageInfo, 
+				int pageNum, String sortDir) {
 			Sort sort = Sort.by("name");
 			
 			if(sortDir.equals("asc")) { 
@@ -29,10 +35,18 @@ public class CategoryService {
 				sort = sort.descending();
 			}
 			
+		 Pageable pageable = PageRequest.of(pageNum -1, ROOT_CATEGORIES_PER_PAGE, sort);
 			
-		 List<Category> rootCategories = repo.findRootCategories(sort);
-		return listHierarchicalCategories(rootCategories, sortDir);
+		 Page<Category> pageCategories = repo.findRootCategories(pageable);
+		 List<Category> rootCategories = pageCategories.getContent();
+		 
+		 pageInfo.setTotalElements(pageCategories.getTotalElements());
+		 pageInfo.setTotalPages(pageCategories.getTotalPages());
+		 
+		 return listHierarchicalCategories(rootCategories, sortDir);
 		}
+		
+		
 		
 		
 		private List <Category> listHierarchicalCategories(List<Category> rootCategories, String sortDir){
@@ -87,7 +101,7 @@ public class CategoryService {
 			Iterable<Category> categoriesInDB = repo.findRootCategories(Sort.by("name").ascending());
 				
 				for(Category category : categoriesInDB) {
-					if (category.getParent() == null) {
+					//if (category.getParent() == null) {
 						categoriesUsedInForm.add(Category.copyIdAndName(category));
 						
 						Set<Category> children = sortSubCategories(category.getChildren());
@@ -96,7 +110,7 @@ public class CategoryService {
 					    categoriesUsedInForm.add(Category.copyIdAndName(subCategory.getId(),name));
 						
 					    listSubCategoriesUsedInForm(categoriesUsedInForm, subCategory, 1);
-						}
+						//}
 					}
 				}
 			
