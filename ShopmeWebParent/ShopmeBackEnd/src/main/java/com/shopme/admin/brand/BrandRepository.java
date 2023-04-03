@@ -10,4 +10,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 		
 		public Long countById(Integer id);
+		
+		Brand findByName(String name);
 }
