@@ -48,6 +48,45 @@ public DaoAuthenticationProvider authenticationProvider() {
     //http.authenticationProvider(authenticationProvider());
     
    //Admin can access users module and settings
+   
+   @Bean
+   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    
+       http.authorizeRequests()
+               .antMatchers("/users/**").hasAuthority("Admin")
+               .antMatchers("/categories/**", "/brands/**").hasAnyAuthority("Admin", "Editor")
+                .antMatchers("/products/**").hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
+               .anyRequest().authenticated()
+               .and()
+               .formLogin()
+               .loginPage("/login")
+                   .usernameParameter("email")
+                   .permitAll()
+               .and().logOut().permitAll()
+               .and()
+                    .rememberMe()
+                     .key("AbcdEfghIjklmNopQrsTuvXyz_0123456789")
+                     .tokenValiditySeconds(7 * 24 * 60 * 60) //1 week  
+               .and()
+               .logout().permitAll();
+
+       http.headers().frameOptions().sameOrigin();
+
+       return http.build();
+   }
+  
+   
+ 
+    //Ignoring authentication for images js and webjars directory
+    //So can be displayed when not logged in
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**");
+    }
+ 
+}
+
+/*
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
      
@@ -64,41 +103,6 @@ public DaoAuthenticationProvider authenticationProvider() {
                 .and()
                 //for cookies to survive when app is restrted
                 .rememberMe()
-                      .key("AbcdEfghIjklmNopQrsTuvXyz_0123456789")
-                      .tokenValiditySeconds(7 * 24 * 60 * 60) //1 week  
-                .and()
-                .logout().permitAll();
- 
-        http.headers().frameOptions().sameOrigin();
- 
-        return http.build();
-    }
- 
-    //Ignoring authentication for images js and webjars directory
-    //So can be displayed when not logged in
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**");
-    }
- 
-}
-
-/*
-     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-     
-        http.authorizeRequests()
-                .antMatchers("/users/**").hasAuthority("Admin")
-                .antMatchers("/categories/**", "/brands/**").hasAnyAuthority("Admin", "Editor")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                    .usernameParameter("email")
-                    .permitAll()
-                .and().logOut().permitAll()
-                .and()
-                     .rememberMe()
                       .key("AbcdEfghIjklmNopQrsTuvXyz_0123456789")
                       .tokenValiditySeconds(7 * 24 * 60 * 60) //1 week  
                 .and()
