@@ -1,9 +1,6 @@
-package com.shopme.admin;
+package com.shopme.common.entity;
 
 import java.sql.Date;
-
-import com.shopme.common.entity.Brand;
-import com.shopme.common.entity.Category;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -57,7 +54,7 @@ private float width;
 private float height;
 private float weight;
 
-//Category_id = oreign key referring to pri key of cat table
+//Category_id = foreign key referring to pri key of cat table
 @ManyToOne
 @JoinColumn(name = "category_id")
 private Category category;
