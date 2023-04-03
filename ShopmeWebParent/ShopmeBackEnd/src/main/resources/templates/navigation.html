@@ -1,14 +1,12 @@
+
 <!DOCTYPE html>
-<html xmlns:th"http://thymeLeaf.org">
-
-	<body>
-	<div th:fragment="menu">
-				<form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
-					<input type"submit"/>
-				</form>
-				
-
-		<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="menu">
+	<form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+		<input type="submit" />
+	</form>
+	<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
 		<a class="navbar-brand" th:href="@{/}">
 			<img th:src="@{/images/ShopmeAdminSmall.png}" />
 		</a>
@@ -16,8 +14,6 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="topNavbar">
-			
-	<!--Nav where different logged in users have access to fifferent categories-->
 			<ul class="navbar-nav">
 				
 				<th:block sec:authorize="hasAuthority('Admin')">
@@ -130,8 +126,6 @@
 		</div>
 		
 	</nav>
-				
-				
-			</div>
-	</body>
+</div>
+</body>
 </html>

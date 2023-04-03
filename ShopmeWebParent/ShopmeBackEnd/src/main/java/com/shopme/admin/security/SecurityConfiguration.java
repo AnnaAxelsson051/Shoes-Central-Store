@@ -51,7 +51,8 @@ public DaoAuthenticationProvider authenticationProvider() {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
      
-        http.authorizeRequests().antMatchers("/login").permitAll()
+        http.authorizeRequests()
+                .antMatchers("/login").permitAll()
                 .antMatchers("/users/**", "/settings/**").hasAuthority("Admin")
                 .hasAnyAuthority("Admin", "Editor", "Salesperson")
                 .hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
@@ -81,3 +82,30 @@ public DaoAuthenticationProvider authenticationProvider() {
     }
  
 }
+
+/*
+     @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+     
+        http.authorizeRequests()
+                .antMatchers("/users/**").hasAuthority("Admin")
+                .antMatchers("/categories/**", "/brands/**").hasAnyAuthority("Admin", "Editor")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                    .usernameParameter("email")
+                    .permitAll()
+                .and().logOut().permitAll()
+                .and()
+                     .rememberMe()
+                      .key("AbcdEfghIjklmNopQrsTuvXyz_0123456789")
+                      .tokenValiditySeconds(7 * 24 * 60 * 60) //1 week  
+                .and()
+                .logout().permitAll();
+ 
+        http.headers().frameOptions().sameOrigin();
+ 
+        return http.build();
+    }
+ * */
