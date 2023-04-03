@@ -31,13 +31,21 @@
 
 <!-- Tab panes -->
 <div class="tab-content">
-  <div class="tab-pane active" id="overview" role="tabpanel" >Overview</div>
+  <div class="tab-pane active p-3" id="overview" role="tabpanel" >
+	  <div th:replace="products/product_overview :: content "></div>
+  </div>
   <div class="tab-pane" id="description" role="tabpanel" >Description</div>
   <div class="tab-pane" id="images" role="tabpanel" >Images</div>
   <div class="tab-pane" id="details" role="tabpanel" >Details</div>
 </div>
 </div>
-		
+
+<div class="text-center">
+	<input type="submit" value="Save" class="btn btn-primary m-2">
+	<input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel">
+</div>
+
+
 	</form>
 	
 	<div th:replace="modal_fragments :: modal_dialog"></div>
