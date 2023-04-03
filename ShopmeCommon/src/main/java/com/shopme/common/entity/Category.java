@@ -32,7 +32,7 @@ public class Category {
 	private boolean enabled;
 	
 	@OneToOne
-	@JoinColum(name = "parent_id")
+	@JoinColumn(name = "parent_id")
 	private Category parent;
 	
 	
@@ -191,4 +191,9 @@ public class Category {
 
 	@Transient
 	private boolean hasChildren;
+	
+	@Override 
+	public String toString() {
+		return this.name;
+	}
 }
