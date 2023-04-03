@@ -1,3 +1,4 @@
+<!---->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: page_head('Brands - Shopme Admin', 'none')" />
@@ -17,9 +18,10 @@
 		<table class="table table-bordered table-striped table-hover table-responsive-xl">
 			<thead class="thead-dark">
 				<tr>
-					<th>Brand ID</th>
+					<th class="hideable-column">Brand ID</th>
 					<th>Logo</th>
-					<th>Brand Name </th>
+					<!--Sortable column brand link-->
+					<th th:replace="fragments :: column_link('name', 'Brand Name', 'none')" />
 					<th>Categories</th>
 					<th></th>
 				</tr>								
