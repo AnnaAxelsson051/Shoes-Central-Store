@@ -36,9 +36,9 @@ dropdownCategories = $("#category");
 	
 	function addNextExtraImageSection(index){
 		html = `<div class"col border m-3 p-2">
-			<div><label>Extra Image #${index}:</label></div>
+			<div><label>Extra Image #${index +1}:</label></div>
 			<div class="m-2">
-				<img id="extraThumbnail${index}" alt="Extra image #${index} preview" class="img-fluid"
+				<img id="extraThumbnail${index}" alt="Extra image #${index +1} preview" class="img-fluid"
 				th:src="${defaultImageThumbnailSrc}">
 			</div>
 			<div>
