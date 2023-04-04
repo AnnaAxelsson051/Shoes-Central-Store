@@ -19,8 +19,8 @@ dropdownCategories = $("#category");
 	//shows image thumbnail when uploading user photo
 	//first checks so photo is not larger than 100kb
 	$("input[name='extraImage']").each(function(index) {
+		extraImagesCount++;
 		$(this).change(function() {
-			extraImagesCount++;
 			showExtraImageThumbnail(this, index);
 		});	
 	});
@@ -61,12 +61,11 @@ dropdownCategories = $("#category");
 			$("#divProductImages").append(htmlExtraImage);
 			
 			$("extraImageHeader" + (index -1)).append(htmlLinkRemove);
-			
+			extraImagesCount++;
 	}
 	
 	function removeExtraImage(index){
 		$("#divExtraImage" + index).remove();	
-		extraImagesCount--;
 		}
 	
 	
