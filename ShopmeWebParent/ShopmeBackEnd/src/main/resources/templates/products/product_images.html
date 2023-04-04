@@ -13,6 +13,18 @@
 				<input type="file" id="fileImage" name="fileImage" 
 				required accept="image/png, image/jpeg"/>
 			</div>
+			
+			<div class"col border m-3 p-2">
+			<div><label>Extra Image #1:</label></div>
+			<div class="m-2">
+				<img id="extraThumbnail1" alt="Extra image #1 preview" class="img-fluid"
+				th:src="@{/images/image-thumbnail.png}">
+			</div>
+			<div>
+				<input type="file" id="extraImage1" name="extraImage1" 
+				accept="image/png, image/jpeg"/>
+			</div>
+			
 		</div>
 	</div>
 </body>

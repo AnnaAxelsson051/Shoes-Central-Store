@@ -13,7 +13,25 @@ dropdownCategories = $("#category");
 			getCategories();
 		});
 		getCategories();
+		
+			//shows image thumbnail when uploading user photo
+	//first checks so photo is not larger than 100kb
+	$("#extraImage1").change(function(){
+	if(!checkFileSize(this)){
+		return;
+	}	
+	showExtraImageThumbnail(this);
 	});
+	});
+	
+	function showExtraImageThumbnail(fileInput){
+		var file = fileInput.files[0];
+		var reader = new FileReader();
+		reader.onload = function(e){
+			$("#extraThumbnail1").attr("src", e.target.result);
+		};
+		reader.readAsDataURL(file);
+	}
 	
 	function getCategories(){
 		brandId = dropdownBrands.val();
