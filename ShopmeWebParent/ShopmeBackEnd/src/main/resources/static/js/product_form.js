@@ -1,3 +1,5 @@
+
+var extraImagesCount = 0;
 dropdownBrands = $("#brand");
 dropdownCategories = $("#category");
 
@@ -18,6 +20,7 @@ dropdownCategories = $("#category");
 	//first checks so photo is not larger than 100kb
 	$("input[name='extraImage']").each(function(index) {
 		$(this).change(function() {
+			extraImagesCount++;
 			showExtraImageThumbnail(this, index);
 		});	
 	});
@@ -31,7 +34,9 @@ dropdownCategories = $("#category");
 		};
 		reader.readAsDataURL(file);
 		
-		addNextExtraImageSection(index +1);
+		if(index >= extraImagesCount -1){
+				addNextExtraImageSection(index +1);
+		}
 	}
 	
 	function addNextExtraImageSection(index){
@@ -61,6 +66,7 @@ dropdownCategories = $("#category");
 	
 	function removeExtraImage(index){
 		$("#divExtraImage" + index).remove();	
+		extraImagesCount--;
 		}
 	
 	
