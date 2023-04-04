@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.shopme.common.entity.Product;
 
+import jakarta.transaction.Transactional;
+
 
 @Service
+@Transactional
 public class ProductService {
 	
 	@Autowired
@@ -53,4 +56,7 @@ public String CheckUnique(Integer id, String name) {
 	return "OK";
 }
 
+public void updateProductEnabledStatus(Integer id, boolean enabled) {
+	repo.updateEnabledStatus(id,  enabled);
+}
 }
