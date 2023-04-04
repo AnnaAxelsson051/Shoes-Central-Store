@@ -2,7 +2,7 @@
 <html xmlns:th"http://thymeLeaf.org">
 <body>
 <div th:fragment="content" th:remove="tag">
-	<div class="row">
+	<div class="row" id="divProductImages">
 		<div class"col border m-3 p-2">
 			<div><label>Main Image:</label></div>
 			<div class="m-2">
@@ -21,7 +21,7 @@
 				th:src="@{/images/image-thumbnail.png}">
 			</div>
 			<div>
-				<input type="file" id="extraImage1" name="extraImage1" 
+				<input type="file" name="extraImage1" 
 				accept="image/png, image/jpeg"/>
 			</div>
 			

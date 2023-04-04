@@ -14,24 +14,42 @@ dropdownCategories = $("#category");
 		});
 		getCategories();
 		
-			//shows image thumbnail when uploading user photo
+	//shows image thumbnail when uploading user photo
 	//first checks so photo is not larger than 100kb
-	$("#extraImage1").change(function(){
-	if(!checkFileSize(this)){
-		return;
-	}	
-	showExtraImageThumbnail(this);
+	$("input[name='extraImage']").each(function(index) {
+		$(this).change(function() {
+			showExtraImageThumbnail(this, index);
+		});	
 	});
 	});
 	
-	function showExtraImageThumbnail(fileInput){
+	function showExtraImageThumbnail(fileInput, index){
 		var file = fileInput.files[0];
 		var reader = new FileReader();
 		reader.onload = function(e){
-			$("#extraThumbnail1").attr("src", e.target.result);
+			$("#extraThumbnail" + index).attr("src", e.target.result);
 		};
 		reader.readAsDataURL(file);
+		
+		addNextExtraImageSection(index +1);
 	}
+	
+	function addNextExtraImageSection(index){
+		html = `<div class"col border m-3 p-2">
+			<div><label>Extra Image #${index}:</label></div>
+			<div class="m-2">
+				<img id="extraThumbnail${index}" alt="Extra image #${index} preview" class="img-fluid"
+				th:src="${defaultImageThumbnailSrc}">
+			</div>
+			<div>
+				<input type="file" name="extraImage" 
+				onchange="showExtraImageThumbnail1(this, ${index})"
+				accept="image/png, image/jpeg"/>
+			</div>`;
+			
+			$("#divProductImages").append(html);
+	}
+	
 	
 	function getCategories(){
 		brandId = dropdownBrands.val();
