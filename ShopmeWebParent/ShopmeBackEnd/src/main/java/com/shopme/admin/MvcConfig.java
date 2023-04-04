@@ -22,14 +22,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		
 		
-	//User photos
 	exposeDirectory("user-photos", registry);
 	
-	//Item images
 	exposeDirectory("../category-images", registry);
 	
-	//Brand logos
 	exposeDirectory("../brand-logos", registry);
+	
+	exposeDirectory("../product-images", registry);
 
 	}
 	
