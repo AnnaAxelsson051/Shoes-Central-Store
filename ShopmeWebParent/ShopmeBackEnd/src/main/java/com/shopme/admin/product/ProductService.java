@@ -56,7 +56,19 @@ public String CheckUnique(Integer id, String name) {
 	return "OK";
 }
 
+//Updates the status enabled/disabled on products
 public void updateProductEnabledStatus(Integer id, boolean enabled) {
 	repo.updateEnabledStatus(id,  enabled);
+}
+
+//Deletes a product
+public void delete(Integer id) throws ProductNotFoundException{
+	Long countById = repo.countById(id);
+	
+	if (countById == null || countById == 0) {
+		throw new ProductNotFoundException("Could not find any product with ID " + id);
+		
+repo.deleteById(id);
+	}
 }
 }
