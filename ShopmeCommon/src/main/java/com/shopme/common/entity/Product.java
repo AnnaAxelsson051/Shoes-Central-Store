@@ -31,13 +31,6 @@ private String shortDescription;
 @Column(name = "full_desctription",length = 4096, nullable = false )
 private String fullDescription;
 
-/*
-@Column(name = "created_time")
-private Date createdTime;
-
-@Column(name = "updated_time")
-private Date updatedTime;*/
-
 @Column(name = "created_time", nullable = false, updatable = false)
 private Date createdTime;
 

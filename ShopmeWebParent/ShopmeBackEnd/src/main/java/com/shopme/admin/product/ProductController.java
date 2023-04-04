@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
 
 import com.shopme.admin.brand.BrandService;
@@ -41,13 +42,12 @@ public class ProductController {
 		return "products/product_form";
 	}
 	
-	//Handeler method for submission of product form
+	//Saving a product with form
+	//for submission of product form
 	@PostMapping("/products/save)")
-	public String saveProduct(Product product) {
-		System.out.println("Product Name: " + product.getName());
-		System.out.println("Brand ID: " + product.getBrand().getId());
-		System.out.println("Category ID: " + product.getCategory().getId());
-	
+	public String saveProduct(Product product, RedirectAttributes ra) {
+		productService.save(product);
+		ra.addFlashAttribute("message", "The product has been saved successfully");
 	return "redirect:/products";
 	}
 }
