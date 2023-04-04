@@ -39,7 +39,9 @@
   <div class="tab-pane active p-3" id="overview" role="tabpanel" >
 	  <div th:replace="products/product_overview :: content "></div>
   </div>
-  <div class="tab-pane" id="description" role="tabpanel" >Description</div>
+  <div class="tab-pane" id="description" role="tabpanel" >
+	  <div th:replace="products/product_description :: content "></div>
+  </div>
   <div class="tab-pane" id="images" role="tabpanel" >Images</div>
   <div class="tab-pane" id="details" role="tabpanel" >Details</div>
 </div>

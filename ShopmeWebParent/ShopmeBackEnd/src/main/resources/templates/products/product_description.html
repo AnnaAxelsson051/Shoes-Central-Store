@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th"http://thymeLeaf.org">
+	<body>
+<div th:fragment="content" th:remove="tag">
+	<div>
+		<label>Short Description</label>
+		<textarea class="form-control" th:field="*{shortDescription}" rows="5" required></textarea>
+	</div>
+</div>
+	</body>
+</html>
