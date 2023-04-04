@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html xmlns:th"http://thymeLeaf.org">
-<head th:fragment="page_head(title)">
+<head th:fragment="page_head(title, remove)" th:remove="${remove}">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		
 		<!--for responsivity-->
