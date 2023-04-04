@@ -17,7 +17,8 @@
 		
 	<!--calls js function passing form instance-->		
 	<form th:action="@{/products/save}" method="post"
-	onsubmit="return checkUnique(this)" 
+	onsubmit="return checkUnique(this)"
+	enctype="multipart/form-data"
 	th:object="${product}">
 	<div>
 		
@@ -48,7 +49,9 @@
   <div class="tab-pane" id="description" role="tabpanel" >
 	  <div th:replace="products/product_description :: content "></div>
   </div>
-  <div class="tab-pane" id="images" role="tabpanel" >Images</div>
+  <div class="tab-pane" id="images" role="tabpanel" >
+	   <div th:replace="products/product_images :: content "></div>
+  </div>
    <div class="tab-pane" id="details" role="tabpanel" >Details</div>
   <div class="tab-pane p-3" id="shipping" role="tabpanel" ></div>
 <div th:replace="products/product_shipping :: content "></div>
@@ -73,6 +76,7 @@
 for user to select brand from dropdown 
 categories and adds selected brand-->
 <script type="text/javascript">
+	MAX_FILE_SIZE = 502400; //500KB
 	moduleURL = "[[@{/products}]]";
 	brandModuleURL = "[[@{/brands}]]";
 

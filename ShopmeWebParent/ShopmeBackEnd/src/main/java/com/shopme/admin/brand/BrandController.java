@@ -98,8 +98,8 @@ return "brands/brands";
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			brand.setLogo(fileName);
 			
-			Brand saveBrand = brandService.save(brand);
-			String uploadDir = "../brand-logos/" + saveBrand.getId();
+			Brand savedBrand = brandService.save(brand);
+			String uploadDir = "../brand-logos/" + savedBrand.getId();
 			
 			FileUploadUtil.cleanDir(uploadDir);
 			FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
