@@ -14,10 +14,13 @@
 	<div>
 		<h2>Manage Products | [[${pageTitle}]]</h2>	
 	</div>
-			
-	<form th:action="@{/products/save}" method="post" 
-		th:object="${product}">
-		<div>
+		
+	<!--calls js function passing form instance-->		
+	<form th:action="@{/products/save}" method="post"
+	onsubmit="return checkUnique(this)" 
+	th:object="${product}">
+	<div>
+		
 		<!-- Nav tabs -->
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
@@ -101,6 +104,31 @@ dropdownCategories = $("#category");
 		});
 	});
 	
+	}
+
+	
+	function checkUnique(form){
+		productId = $("#id").val();
+		productName = $("#name").val();
+		
+		csrfValue = $("input[name'_csrf']").val();
+		
+		url = "[[@{/products/check_unique}]]";
+		
+		params = {id: productId, name: productName, _csrf: csrfValue};
+		
+		$.post(url, params, function(response){
+			if (response == "OK"){
+				form.submit();
+			} else if (response == "Duplicate"){
+				showWarningModal("There is another product having the name " + productName);
+			} else {
+				showErrorModal("Unknown reposnse from server");
+			}
+		}).fail(function(){
+			showErrorModal("Could not connect to the server")
+		});
+		return false;
 	}
 	
 	
