@@ -1,7 +1,9 @@
 package com.shopme.common.entity;
 
 import java.sql.Date;
+import java.util.*;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -54,6 +57,9 @@ private float width;
 private float height;
 private float weight;
 
+@Column(name = "main_image", nullable = false)
+private String mainImage;
+
 //Category_id = foreign key referring to pri key of cat table
 @ManyToOne
 @JoinColumn(name = "category_id")
@@ -64,6 +70,10 @@ private Category category;
 @ManyToOne
 @JoinColumn(name = "brand_id")
 private Brand brand;
+
+@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+private Set<ProductImage> images = new HashSet<>();
+
 
 public Integer getId() {
 	return id;
@@ -193,6 +203,14 @@ public void setWeight(float weight) {
 	this.weight = weight;
 }
 
+public String getMainImage() {
+	return mainImage;
+}
+
+public void setMainImage(String mainImage) {
+	this.mainImage = mainImage;
+}
+
 public Category getCategory() {
 	return category;
 }
@@ -209,6 +227,17 @@ public void setBrand(Brand brand) {
 	this.brand = brand;
 }
 
+public Set<ProductImage> getImages() {
+	return images;
+}
+
+public void setImages(Set<ProductImage> images) {
+	this.images = images;
+}
+
+public void addExtraImage(String imageName) {
+	this.images.add(new ProductImage(imageName, this));
+}
 
 
 }
