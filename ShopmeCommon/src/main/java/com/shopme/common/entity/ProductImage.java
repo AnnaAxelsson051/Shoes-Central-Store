@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "product_images")
@@ -56,6 +57,12 @@ public class ProductImage {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+	
+	@Transient //so it will not be mapped to any columns in db
+	public String getImagePath() {
+		return "/product-images/" + product.getId() + "/extras/" + this.name;
+		
 	}
 	
 	
