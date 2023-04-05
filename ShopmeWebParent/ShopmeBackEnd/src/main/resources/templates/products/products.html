@@ -19,6 +19,7 @@
 			<thead class="thead-dark">
 				<tr>
 					<th>ID</th>
+					<th th:replace="fragments :: column_link('/products', 'id', 'ID', 'none')" />
 					<th>Main Image</th>
 					<!--Sortable column brand link-->
 					<th>Product Name</th>
@@ -69,6 +70,7 @@
 			</div>
 		</div>
 	</div>
+	<div th:replace="fragments :: pagination('/products', 'products)"></div>
 	
 	<div th:replace="fragments :: footer"></div>
 	
