@@ -16,7 +16,7 @@
 			<input type="hidden" th:field="*{mainImage}">
 			</div>
 			
-			<th:block th:each="productImage, status: ${productImages}">
+			<th:block th:each="productImage, status: ${product.images}">
 					<div class"col border m-3 p-2" th:id="$'divExtraImage' + ${status.index}">
 			<div>
 				<label>Extra Image #[[${status.index +1}]]: [[${productImage.name}]]</label>
@@ -30,7 +30,7 @@
 				th:src="@{${productImage.imagePath}}">
 			</div>
 			<div>
-				<input type="file" id="fileImage" name="fileImage" required
+				<input type="file" name="extraImage"
 				accept="image/png, image/jpeg"/>
 			</div>
 			<input type="hidden" name="imageIDs" th:id="'imageId' + ${status.index}"
