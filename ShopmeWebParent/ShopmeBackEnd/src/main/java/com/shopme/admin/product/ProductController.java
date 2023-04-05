@@ -1,7 +1,7 @@
 package com.shopme.admin.product;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +18,7 @@ import com.shopme.admin.FileUploadUtil;
 import com.shopme.admin.brand.BrandService;
 import com.shopme.common.entity.Brand;
 import com.shopme.common.entity.Product;
+import com.shopme.common.entity.ProductImage;
 
 @Controller
 public class ProductController {
@@ -56,9 +57,12 @@ public class ProductController {
 			@RequestParam("fileImage") MultipartFile mainImageMultipart,
 			@RequestParam("extraImage") MultipartFile [] extraImageMultiparts,
 			@RequestParam(name = "detailNames", required = false) String [] detailNames,
-			@RequestParam(name = "detailValues", required = false) String [] detailValues) throws IOException {
+			@RequestParam(name = "detailValues", required = false) String [] detailValues,
+		    @RequestParam(name = "imageIDs", required = false) String [] imageIDs,
+		    @RequestParam(name = "imageNames", required = false) String [] imageNames)throws IOException {
 		setMainImageName(mainImageMultipart, product);
-		setExtraImageNames(extraImageMultiparts, product);
+		setExistingExtraImageNames(imageIDs, imageNames, product);
+		setNewExtraImageNames(extraImageMultiparts, product);
 		setProductDetails(detailNames, detailValues, product);
 			
 			Product savedProduct = productService.save(product);
@@ -69,6 +73,23 @@ public class ProductController {
 	    return "redirect:/products";
 	} 
 	
+	static void setExistingExtraImageNames(String[] imageIDs, String[] imageNames, 
+			Product product) {
+		if (imageIDs == null || imageIDs.length == 0) return;
+		
+		Set<ProductImage> images = new HashSet<>();
+		
+		for (int count = 0; count < imageIDs.length; count++) {
+			Integer id = Integer.parseInt(imageIDs[count]);
+			String name = imageNames[count];
+			
+			images.add(new ProductImage(id, name, product));
+		}
+		
+		product.setImages(images);
+		
+	}
+
 	//Adds details to product before saving, (if details are specified)
 	private void setProductDetails(String[] detailNames, String[] detailValues, Product product) {
 		if (detailNames == null || detailNames.length == 0) 
@@ -105,12 +126,14 @@ public class ProductController {
 	}
 
 	
-	private void setExtraImageNames(MultipartFile [] extraImageMultiparts, Product product) {
+	private void setNewExtraImageNames(MultipartFile [] extraImageMultiparts, Product product) {
 		if (extraImageMultiparts.length > 0) {
 			for (MultipartFile multipartFile : extraImageMultiparts) {
 				if (!multipartFile.isEmpty()) {
 					String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-				product.addExtraImage(fileName);
+				if (!product.containsImageName(fileName)) {
+					product.addExtraImage(fileName);
+				}
 				}
 			}
 		}
@@ -155,7 +178,8 @@ public class ProductController {
 	
 	//Handles request for edit a product
 	@GetMapping("/products/edit/{id}")
-	public String editProduct(@PathVariable("id") Integer id, Model model,
+	public String editProduct(
+			@PathVariable("id") Integer id, Model model,
 			RedirectAttributes ra) {
 		try {
 			Product product = productService.get(id);

@@ -34,6 +34,15 @@ public class ProductImage {
 		this.name = name;
 		this.product = product;
 	}
+	
+	
+
+	public ProductImage(Integer id, String name, Product product) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.product = product;
+	}
 
 	public Integer getId() {
 		return id;
