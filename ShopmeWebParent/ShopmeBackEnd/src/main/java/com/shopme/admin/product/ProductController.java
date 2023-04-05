@@ -62,6 +62,7 @@ public class ProductController {
 	public String saveProduct(Product product, RedirectAttributes ra,
 			@RequestParam("fileImage") MultipartFile mainImageMultipart,
 			@RequestParam("extraImage") MultipartFile [] extraImageMultiparts,
+			@RequestParam(name = "detailIDs", required = false) String [] detailIDs,
 			@RequestParam(name = "detailNames", required = false) String [] detailNames,
 			@RequestParam(name = "detailValues", required = false) String [] detailValues,
 		    @RequestParam(name = "imageIDs", required = false) String [] imageIDs,
@@ -69,7 +70,7 @@ public class ProductController {
 		setMainImageName(mainImageMultipart, product);
 		setExistingExtraImageNames(imageIDs, imageNames, product);
 		setNewExtraImageNames(extraImageMultiparts, product);
-		setProductDetails(detailNames, detailValues, product);
+		setProductDetails(detailIDs, detailNames, detailValues, product);
 			
 			Product savedProduct = productService.save(product);
 			
@@ -102,6 +103,7 @@ public class ProductController {
 		}
 	}
 
+	
 	static void setExistingExtraImageNames(String[] imageIDs, String[] imageNames, 
 			Product product) {
 		if (imageIDs == null || imageIDs.length == 0) return;
@@ -119,16 +121,19 @@ public class ProductController {
 		
 	}
 
-	//Adds details to product before saving, (if details are specified)
-	private void setProductDetails(String[] detailNames, String[] detailValues, Product product) {
+	//Adds details to product before saving, (if details are specified by user)
+	private void setProductDetails(String[] detailIDs, String[] detailNames, String[] detailValues, Product product) {
 		if (detailNames == null || detailNames.length == 0) 
 			return;
 		
 		for(int count = 0; count < detailNames.length; count++) {
 			String name = detailNames[count];
 			String value = detailValues[count];
+			Integer id = Integer.parseInt(detailIDs[count]);
 			
-			if (!name.isEmpty() && !value.isEmpty())
+			if (id != 0) {
+				product.addDetail(id,  name, value);
+			} else if (!name.isEmpty() && !value.isEmpty())
 				product.addDetail(name,  value);
 		}
 		
@@ -228,4 +233,22 @@ public class ProductController {
 				return "redirect:/products";
 			}
 	}
+	
+	@GetMapping("/products/detail/{id}")
+	public String viewProductDetails(
+			@PathVariable("id") Integer id, Model model,
+			RedirectAttributes ra) {
+		try {
+			Product product = productService.get(id);
+			
+			model.addAttribute("product", product);
+
+			return "products/product_detail_modal";
+			
+			} catch  (ProductNotFoundException e) {
+				ra.addFlashAttribute("message", e.getMessage());
+				
+				return "redirect:/products";
+			}
+}
 }
