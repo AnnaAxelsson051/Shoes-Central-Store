@@ -51,7 +51,7 @@ var extraImagesCount = 0;
 			htmlLinkRemove =`
 			<a class="btn fas fa-times-circle fa-2x icon-dark float-right" 
 			href="javascript:removeExtraImage(${index -1})"
-			title="Remove this image"></a>;
+			title="Remove this image"></a>
 			`;
 			
 			$("#divProductImages").append(htmlExtraImage);

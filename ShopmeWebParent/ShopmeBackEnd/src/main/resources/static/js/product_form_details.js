@@ -1,3 +1,17 @@
+
+	//shows image thumbnail when uploading user photo
+	//first checks so photo is not larger than allowed
+	$(document).ready(function(){
+
+	$("a[name='linkRemoveExtraDetail']").each(function(index){
+		$(this).click(function(){
+			removeDetailSectionByIndex(index);
+		});
+	});
+	
+	});
+
+
 //Functionality for adding and removig details when creating new product
 
 function addNextDetailSection(){
@@ -33,4 +47,8 @@ function addNextDetailSection(){
 
 function removeDetailSectionById(id){
 	$("#" + id).remove();
+}
+
+function removeDetailSectionByIndex(){
+	$("#divDetail" + index).remove();
 }
