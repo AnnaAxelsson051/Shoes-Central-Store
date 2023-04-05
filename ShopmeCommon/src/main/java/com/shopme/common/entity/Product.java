@@ -3,6 +3,7 @@ package com.shopme.common.entity;
 import java.sql.Date;
 import java.util.*;
 
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,6 +15,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+
+
+
+
 
 @Entity
 @Table(name = "products")
@@ -75,6 +80,8 @@ private Brand brand;
 @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
 private Set<ProductImage> images = new HashSet<>();
 
+@OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+private List<ProductDetail> details = new ArrayList<>();
 
 public Integer getId() {
 	return id;
@@ -234,6 +241,22 @@ public Set<ProductImage> getImages() {
 
 public void setImages(Set<ProductImage> images) {
 	this.images = images;
+}
+
+public List<ProductDetail> getDetails() {
+	return details;
+}
+
+public void setDetails(List<ProductDetail> details) {
+	this.details = details;
+}
+
+public void addDetail(String name, String value) {
+	this.details.add(new ProductDetail(name, value, this));
+}
+
+public void addDetail(Integer id, String name, String value) {
+	this.details.add(new ProductDetail(id, name, value, this));
 }
 
 public void addExtraImage(String imageName) {
