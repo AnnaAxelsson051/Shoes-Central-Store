@@ -1,8 +1,12 @@
 package com.shopme.admin.product;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +26,8 @@ import com.shopme.common.entity.ProductImage;
 
 @Controller
 public class ProductController {
+	//private static final logger LOGGER = LoggerFactory.getLogger(ProductController.class);
+	
 	@Autowired private ProductService productService;
 	@Autowired private BrandService brandService;
 	
@@ -68,11 +74,34 @@ public class ProductController {
 			Product savedProduct = productService.save(product);
 			
 			saveUploadedImages(mainImageMultipart, extraImageMultiparts, savedProduct);
+		
+			deleteExtraImageWhenRemovedFromForm(product);
 			
 		ra.addFlashAttribute("message", "The product has been saved successfully");
 	    return "redirect:/products";
 	} 
 	
+	//Deleting extra images also in db if object contains such a file
+	private void deleteExtraImageWhenRemovedFromForm(Product product) {
+	     String extraImageDir = "../product-images/" + product.getId() + "/extras";
+		Path dirPath = Paths.get(extraImageDir);
+		
+		try {
+			Files.list(dirPath).forEach(file -> {
+				String filename = file.toFile().getName();
+				try {
+					Files.delete(file);
+					System.out.println("Deleted extra image " + filename);
+				} catch (IOException e) {
+					//LOGGER.error("Could not delete extra image " + filename);
+			System.out.println("Could not delete extra image " + filename);
+				}
+			});
+		} catch (IOException ex) {
+			System.out.println("Could not list directory " + dirPath);
+		}
+	}
+
 	static void setExistingExtraImageNames(String[] imageIDs, String[] imageNames, 
 			Product product) {
 		if (imageIDs == null || imageIDs.length == 0) return;
