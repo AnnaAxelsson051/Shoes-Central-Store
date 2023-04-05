@@ -281,5 +281,12 @@ while (iterator.hasNext()) {
 	return false;
 }
 
+//Special sort display for products with longer names than 70 char
+public String getShortName() {
+	if (name.length() > 70) {
+		return name.substring(0, 70).concat("...");
+	}
+	return name;
+}
 
 }
