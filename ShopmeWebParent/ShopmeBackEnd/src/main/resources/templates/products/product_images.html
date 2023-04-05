@@ -22,15 +22,19 @@
 				<label>Extra Image #[[${status.index +1}]]: [[${productImage.name}]]</label>
 				<a name="linkRemoveExtraImage" 
 				class="btn fas fa-times-circle fa-2x icon-dark float-right" 
-			title="Remove this image"></a></div>
+			title="Remove this image"></a>
+			</div>
 			<div class="m-2">
-				<img th:id="$'extraThumbnail'' + ${status.index}" 
-				alt="Extra image #[[${status.index}]]" class="img-fluid"
+				<img th:id="$'extraThumbnail' + ${status.index}" 
+				th:alt="'Extra image' + ${status.index +1} + ' preview'" class="img-fluid"
 				th:src="@{${productImage.imagePath}}">
 			</div>
 			<div>
 				<input type="file" id="fileImage" name="fileImage" required
 				accept="image/png, image/jpeg"/>
+			</div>
+			<input type="hidden" name="imageIDs" th:id="'imageId' + ${status.index}"/>
+			<input type="hidden" name="imageNames" th:id="'imageName' + ${status.index}"/>
 			</div>
 			</th:block>
 			
@@ -40,7 +44,7 @@
 				</div>
 			<div class="m-2">
 				<img id="'extraThumbnail' + ${numberOfExistingExtraImages}" 
-				alt="Extra image #[[${status.index}]] preview" class="img-fluid"
+				th:alt="'Extra image' + ${numberOfExistingExtraImages} + ' preview'" class="img-fluid"
 				th:src="@{/images/image-thumbnail.png}">
 			</div>
 			<div>
