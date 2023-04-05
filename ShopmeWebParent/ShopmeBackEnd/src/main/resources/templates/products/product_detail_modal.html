@@ -151,6 +151,8 @@
 			</th:block>
   </div>
    </div>
+   
+   <!--Showing product details in a table-->
    <div class="tab-pane p-3" id="details" role="tabpanel" >
 	   <div>
 		   <table class="table table-striped table-bordered table-hover" >
@@ -169,7 +171,34 @@
 		   </table>
 	   </div>
    </div>
+   
   <div class="tab-pane p-3" id="shipping" role="tabpanel" >
+	  <div class="form-group row">
+		<label class="col-sm-2 col-form-label">Length (inch):</label>
+			<div class="col-sm-10">
+			<!--Step is for up/down arrows to increasing lengthvalue 1% at a time-->	
+			<input type="text" class="form-control" th:field="*{product.length}" readonly/>
+		</div>
+		  <div class="form-group row">
+		<label class="col-sm-2 col-form-label">Width (inch):</label>
+			<div class="col-sm-10">
+			<!--Step is for up/down arrows to increasing lengthvalue 1% at a time-->	
+			<input type="text" class="form-control" th:field="*{product.width}" readonly/>
+		</div>
+		  <div class="form-group row">
+		<label class="col-sm-2 col-form-label">Height (inch):</label>
+			<div class="col-sm-10">
+			<!--Step is for up/down arrows to increasing lengthvalue 1% at a time-->	
+			<input type="text" class="form-control" th:field="*{product.height}" readonly/>
+		</div>
+		  <div class="form-group row">
+		<label class="col-sm-2 col-form-label">Weight (pounds):</label>
+			<div class="col-sm-10">
+			<!--Step is for up/down arrows to increasing lengthvalue 1% at a time-->	
+			<input type="text" class="form-control" th:field="*{product.weight}" readonly/>
+		</div>
+		
+	</div>
   </div>
 </div>
 	</div>						
