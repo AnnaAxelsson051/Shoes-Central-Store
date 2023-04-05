@@ -1,3 +1,5 @@
+//Functionality for adding and removig details when creating new product
+
 function addNextDetailSection(){
 	
 	allDivDetails = $("[id^='divDetail']");
