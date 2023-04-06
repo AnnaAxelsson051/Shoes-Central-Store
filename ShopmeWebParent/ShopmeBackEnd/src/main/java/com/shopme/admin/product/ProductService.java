@@ -29,7 +29,7 @@ public class ProductService {
 		return (List<Product>) repo.findAll();
 	}
 	
-	//Sorts products accoring to keyword displaying 5 per page
+	//Sorts products and subcategories accoring to keyword displaying 5 per page
 	public Page <Product> listByPage(int pageNum, String sortField, 
 			String sortDir, String keyword, Integer categoryId){
 		Sort sort = Sort.by(sortField);
