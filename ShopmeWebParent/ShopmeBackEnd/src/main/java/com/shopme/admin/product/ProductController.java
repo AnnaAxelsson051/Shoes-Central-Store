@@ -50,7 +50,7 @@ public class ProductController {
 			@Param("categoryId") Integer categoryId
 			) {
 		Page<Product> page = productService.listByPage(
-				pageNum, sortField, sortDir, keyword);
+				pageNum, sortField, sortDir, keyword, categoryId);
 		List<Product> listProducts = page.getContent();
 		
 		List<Category> listCategories = categoryService.listCategoriesUsedInForm();
@@ -63,6 +63,8 @@ public class ProductController {
 
 	String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
 
+	if (categoryId != null) model.addAttribute("categoryId", categoryId);
+	
 	model.addAttribute("currentPage", pageNum);
 	model.addAttribute("totalPages", page.getTotalPages());
 	model.addAttribute("startCount", startCount);

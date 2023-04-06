@@ -31,16 +31,24 @@ public class ProductService {
 	
 	//Sorts products accoring to keyword displaying 5 per page
 	public Page <Product> listByPage(int pageNum, String sortField, 
-			String sortDir, String keyword){
+			String sortDir, String keyword, Integer categoryId){
 		Sort sort = Sort.by(sortField);
 		
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-	Pageable pageable = PageRequest.of(pageNum - 1,  PRODUCTS_PER_PAGE, sort);
+	Pageable pageable = (Pageable) PageRequest.of(pageNum - 1,  PRODUCTS_PER_PAGE, sort);
 	
 	
-	if(keyword != null) {
-		return repo.findAll(keyword,  pageable);}
+	if(keyword != null && !keyword.isEmpty()) {
+		return repo.findAll(keyword,  pageable);
+		}
+	
+	if(categoryId != null && categoryId > 0) {
+		String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
+	return repo.findAllInCategory(categoryId, categoryIdMatch, pageable);
 	}
+	return repo.findAll(pageable);
+	}
+
 	
 	//for saving a product when creating one
 	//saving alias as productname where white spaces 

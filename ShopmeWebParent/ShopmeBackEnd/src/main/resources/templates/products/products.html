@@ -22,7 +22,8 @@
 						<select class="form-control" name="categoryId" id="dropdownCategory">
 							<option value="0">All Categories</option>
 						<th:block th:each="cat : ${listCategories}">
-							<option th:value="${cat.id}">[[${cat.name}]]</option>
+							<option th:value="${cat.id}" 
+							th:selected="(${categoryId} == ${cat.id})">[[${cat.name}]]</option>
 						</th:block>
 						</select>
 						

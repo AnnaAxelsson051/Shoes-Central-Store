@@ -32,4 +32,8 @@ public interface ProductRepository extends CrudRepository<Product, Integer>{
 			+ "OR p.category.name LIKE %?1%")
 	public Page<Product> findAll(String keyword, Pageable pageable);
 	
+	//Selects
+	@Query("SELECT p FROM Product p WHERE p.category.id = ?1 "
+			+ "OR p.category.allParentIDs LIKE %?2%")
+	public Page<Product> findAllInCategory(Integer categoryId, String categoryIdMatch, Pageable pageable);
 }
