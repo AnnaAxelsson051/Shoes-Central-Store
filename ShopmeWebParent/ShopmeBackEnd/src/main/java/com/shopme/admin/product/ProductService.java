@@ -39,6 +39,10 @@ public class ProductService {
 	
 	
 	if(keyword != null && !keyword.isEmpty()) {
+		if(categoryId != null && categoryId > 0) {
+			String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
+		return repo.findAllInCategory(categoryId, categoryIdMatch, pageable);
+		}
 		return repo.findAll(keyword,  pageable);
 		}
 	
