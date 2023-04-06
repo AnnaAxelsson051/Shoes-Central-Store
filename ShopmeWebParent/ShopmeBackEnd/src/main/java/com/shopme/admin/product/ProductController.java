@@ -38,7 +38,7 @@ public class ProductController {
 	
 	@GetMapping("/products")
 	public String listFirstPage(Model model) {
-		return listByPage(1, model, "name", "asc", null);
+		return listByPage(1, model, "name", "asc", null, 0);
 	}
 	
 	@GetMapping("/products/page/{pageNum}")
@@ -46,7 +46,8 @@ public class ProductController {
 			@PathVariable(name="pageNum") int pageNum, Model model,
 			@Param("sortField") String sortField,
 			@Param("sortDir") String sortDir,
-			@Param("keyword") String keyword
+			@Param("keyword") String keyword,
+			@Param("categoryId") Integer categoryId
 			) {
 		Page<Product> page = productService.listByPage(
 				pageNum, sortField, sortDir, keyword);

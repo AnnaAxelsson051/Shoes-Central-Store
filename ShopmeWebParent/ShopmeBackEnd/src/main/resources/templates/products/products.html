@@ -13,13 +13,13 @@
 	</div>
 		
 	<div>
-			<form th:action="@{/products/page/1}" class="form-inline m-3" >
+			<form th:action="@{/products/page/1}" class="form-inline m-3" id="searchForm" >
 						<input type="hidden" name="sortField" th:value="${sortField}"/>
                         <input type="hidden" name="sortDir" th:value="${sortDir}"/>
 						
 						<!--Dropdown list categories-->
 						Category:&nbsp;
-						<select class="form-control" name="categoryId">
+						<select class="form-control" name="categoryId" id="dropdownCategory">
 							<option value="0">All Categories</option>
 						<th:block th:each="cat : ${listCategories}">
 							<option th:value="${cat.id}">[[${cat.name}]]</option>
@@ -117,6 +117,10 @@
 			e.preventDefault();
 			linkDetailURL = $(this).attr("href");
 			$("#detailModal").modal("show").find(".modal-content").load(linkDetailURL);
+		});
+		
+		$("#dropdownCategory").on("change", function(){
+			$("#searchForm").submit();
 		});
 		
 	});
