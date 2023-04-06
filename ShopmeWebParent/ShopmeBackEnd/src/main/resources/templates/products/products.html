@@ -48,12 +48,17 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 		<table class="table table-bordered table-striped table-hover table-responsive-xl">
 			<thead class="thead-dark">
 				<tr>
+					<th class="hideable-column">
 					<th th:replace="fragments :: column_link('/products', 'id', 'ID', 'none')" />
+					</th>
 					<th>Main Image</th>
 					<th th:replace="fragments :: column_link('/products','name', 'Product Name', 'none')" />>
+	                <th class="hideable-column">
 					<th th:replace="fragments :: column_link('/products','brand', 'Brand', 'none')" />
+					</th>
+					  <th class="hideable-column">
 					<th th:replace="fragments :: column_link('/products','category', 'Category', 'none')" />
-					
+					</th>
 						<!--Block visible to only admin and editor-->
 					<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">	
 					<th>Enabled</th>
@@ -63,7 +68,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 			</thead>
 			<tbody>
 				<tr th:each="product : ${listproducts}">
-					<td >[[${product.id}]]</td>
+					<td class="hideable-column">[[${product.id}]]</td>
 					<td>
 						<img th:src="@{${product.mainImagePath}}" style="width: 120px" class="image-fluid">
 					</td>
@@ -73,8 +78,8 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 						th:title="${product.name}">[[${product.shortName}]]</a>
 						</td>
 						
-					<td>[[${product.brand.name}]]</td>
-					<td>[[${product.category.name}]]</td>
+					<td class="hideable-column">[[${product.brand.name}]]</td>
+					<td class="hideable-column">[[${product.category.name}]]</td>
 					
 						<!--Block visible to only admin and editor-->
 		            <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">	

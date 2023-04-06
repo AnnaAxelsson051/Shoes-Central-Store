@@ -115,8 +115,7 @@ public class ProductController {
 		    @RequestParam(name = "imageNames", required = false) String [] imageNames,
 		    @AuthenticationPrincipal ShopmeUserDetails loggedUser)throws IOException {
 		   
-		//Saving price only if salesperson is logged in, otherwise
-		//Saving product detaisl only
+		//Saving price if salesperson
 		if(loggedUser.hasRole("Salesperson")) {
 			productService.saveProductPrice(product);
 			ra.addFlashAttribute("message", "The product has been saved successfully");
