@@ -1,6 +1,5 @@
 package com.shopme.admin.product;
 
-import java.awt.print.Pageable;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -10,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 
 import com.shopme.common.entity.Brand;
 import com.shopme.common.entity.Product;

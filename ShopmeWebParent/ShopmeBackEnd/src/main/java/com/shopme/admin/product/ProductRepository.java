@@ -2,16 +2,18 @@ package com.shopme.admin.product;
 
 import org.springframework.data.repository.CrudRepository;
 
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
+
+import com.shopme.common.entity.Brand;
 import com.shopme.common.entity.Product;
 
-public interface ProductRepository extends CrudRepository<Product, Integer>{
+public interface ProductRepository extends CrudRepository <Product, Integer>, PagingAndSortingRepository <Product, Integer>{
 	//public interface ProductRepository extends PagingAndSortingRepository <Product, Integer>{
 
 	public Product findByName(String name);

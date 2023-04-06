@@ -21,6 +21,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 
+
 //import com.shopme.admin.paging.PagingAndSortingHelper;
 import com.shopme.common.entity.Brand;
 
@@ -46,7 +47,9 @@ public class BrandService {
 	if(keyword != null) {
 		return repo.findAll(keyword,  pageable);
 		}
+	return repo.findAll(pageable);
 	}
+	
 	
 	public Brand save (Brand brand) {
 		return repo.save(brand);
