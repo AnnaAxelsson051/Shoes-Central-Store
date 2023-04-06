@@ -73,6 +73,17 @@ public Product save(Product product) {
 	return repo.save(product);
 }
 
+//Saves price information of product
+public void saveProductPrice(Product productInForm) {
+	Product productInDB = repo.findById(productInForm.getId()).get();
+productInDB.setCost(productInForm.getCost());
+productInDB.setPrice(productInForm.getPrice());
+productInDB.setDiscountPercent(productInForm.getDiscountPercent());
+
+repo.save(productInDB);
+}
+
+
 //Checks if productname is unique when user is creating a product 
 public String CheckUnique(Integer id, String name) {
 	boolean isCreatingNew = (id == null|| id == 0);

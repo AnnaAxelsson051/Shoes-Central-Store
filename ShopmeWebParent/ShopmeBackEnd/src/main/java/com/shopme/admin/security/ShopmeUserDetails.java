@@ -12,9 +12,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.shopme.common.entity.User;
 import com.shopme.common.entity.Role;
 
+//Implements serializable interface
 public class ShopmeUserDetails implements UserDetails{
 
 	
+	private static final long serialVersionUID = 1L;
 	private User user;
 	
 	public ShopmeUserDetails(User user) {
@@ -75,6 +77,10 @@ public class ShopmeUserDetails implements UserDetails{
 	
 	public void setLastName(String lastName) {
 		this.user.setLastName(lastName);
+	}
+	
+	public boolean hasRole(String roleName) {
+		return user.hasRole(roleName);
 	}
 	
 

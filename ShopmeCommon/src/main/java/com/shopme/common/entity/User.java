@@ -169,5 +169,18 @@ public class User {
 		return firstName + " " + lastName;
 	}
 	
+	//Checks the role name of given user based on the set of roles
+	//compared to param
+	public boolean hasRole(String roleName) {
+		Iterator<Role> iterator = roles.iterator();
+		while (iterator.hasNext()) {
+			Role role = iterator.next();
+			if (role.getName().equals(roleName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
     
 }
