@@ -1,11 +1,15 @@
 <!DOCTYPE html>
+
 <html xmlns:th"http://thymeLeaf.org">
 	<body>
 <div th:fragment="content" th:remove="tag">
 	<div class="form-group row">
 			<label class="col-sm-2 col-form-label">Product Name:</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" th:field="*{name}" required minlength="3" maxlength="256"  />
+	<!--Readonly so certain users can not modify it-->
+				<input type="text" class="form-control" th:field="*{name}" 
+				th:readonly="${#authorization.expression('hasAuthority (''Salesperson'')')}"
+				required minlength="3" maxlength="256"  />
 			</div>
 		</div>
 		
@@ -14,6 +18,7 @@
 			<div class="col-sm-10">
 				<input type="text" class="form-control" th:field="*{alias}" 
 				placeholder="Default is product name (spaces are replaced by dashes)"
+				th:readonly="${#authorization.expression('hasAuthority (''Salesperson'')')}"
 				minlength="3" maxlength="256"  />
 			</div>
 		</div>
@@ -22,11 +27,17 @@
 			<div class="form-group row">
 			<label class="col-sm-2 col-form-label">Brand:</label>
 			<div class="col-sm-10">
+			 <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">	
 			<select th:field="*{brand}" class="form-control" required>
 			<th:block th:each="brand : ${listBrands}">
 				<option th:value="${brand.id}">[[${brand.name}]]</option>
 			</th:block>
 			</select>
+			</th:block>
+	
+				  <th:block sec:authorize="hasAuthority('Salesperson')">	
+				<input type="text" class="form-control" th:value="${product.brand.name}" readonly  />
+			</th:block>
 			</div>
 		</div>
 		
@@ -34,6 +45,7 @@
 			<div class="form-group row">
 			<label class="col-sm-2 col-form-label">Category:</label>
 			<div class="col-sm-10">
+			<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">	
 				<th:block th:if=""${product.category != null}>
 					<select th:field="{category}" class="form-control" required>
 					<th:block th:each="cat : ${product.brand.categories}">
@@ -46,21 +58,29 @@
 			<select th:field="*{category}" class="form-control" required>	
 			</select>
 			</th:block>
+				</th:block>
+				
+				  <th:block sec:authorize="hasAuthority('Salesperson')">	
+				<input type="text" class="form-control" th:value="${product.category.name}" readonly  />
+			</th:block>
 			</div>
 		</div>
 		
-				<!--Enabled / disabled checkbox-->
+				<!--Enabled / disabled checkbox
+				disabled for certain users-->
 						<div class="form-group-row">		
 						<label class="col-sm-2 col-form-label">Enabled </label>
 						<div class"col-sm-10">
-							<input type="checkbox" th:field="*{enabled}"/>
+							<input type="checkbox" th:field="*{enabled}"
+							th:disabled="${#authorization.expression('hasAuthority (''Salesperson'')')}"/>
 						</div>
 					</div>
 		<!--In Stock checkbox-->
 						<div class="form-group-row">		
 						<label class="col-sm-2 col-form-label">In-Stock</label>
 						<div class"col-sm-10">
-							<input type="checkbox" th:field="*{inStock}"/>
+							<input type="checkbox" th:field="*{inStock}"
+							th:readonly="${#authorization.expression('hasAuthority (''Salesperson'')')}"/>
 						</div>
 					</div>			
 					
