@@ -1,6 +1,7 @@
 package com.shopme.admin.category;
 
-import java.awt.print.Pageable;
+//import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
 import java.util.*;
 
 //import org.junit.jupiter.api.Test;
@@ -103,8 +104,16 @@ public class CategoryService {
 			}
 		}
 		
-		
+		//Whenever a category is updated its parent will be as well 
+		//Gets values of parents of parent categories and concats it
+		//with id of the direct parent (parent)
 		public Category save(Category category) {
+			Category parent = category.getParent();
+			if (parent != null ) {
+				String allParentIds = parent.getAllParentIDs() == null ? "-" : parent.getAllParentIDs();
+			    allParentIds = String.valueOf(parent.getId()) + "-";
+			    category.setAllParentIDs(allParentIds);;
+			}
 			return repo.save(category);
 		}
 		

@@ -22,9 +22,11 @@ import org.springframework.util.StringUtils;
 
 import com.shopme.admin.FileUploadUtil;
 import com.shopme.admin.brand.BrandService;
+import com.shopme.admin.category.CategoryService;
 import com.shopme.common.entity.Brand;
 import com.shopme.common.entity.Product;
 import com.shopme.common.entity.ProductImage;
+import com.shopme.common.entity.Category;
 
 @Controller
 public class ProductController {
@@ -32,6 +34,7 @@ public class ProductController {
 	
 	@Autowired private ProductService productService;
 	@Autowired private BrandService brandService;
+	@Autowired private CategoryService categoryService;
 	
 	@GetMapping("/products")
 	public String listFirstPage(Model model) {
@@ -48,6 +51,8 @@ public class ProductController {
 		Page<Product> page = productService.listByPage(
 				pageNum, sortField, sortDir, keyword);
 		List<Product> listProducts = page.getContent();
+		
+		List<Category> listCategories = categoryService.listCategoriesUsedInForm();
 		
 		long startCount=(pageNum -1) * ProductService.PRODUCTS_PER_PAGE +1;
 		long endCount = startCount + ProductService.PRODUCTS_PER_PAGE -1;
@@ -67,7 +72,8 @@ public class ProductController {
 	model.addAttribute("reverseSortDir", reverseSortDir);
 	model.addAttribute("keyword", keyword);
 	model.addAttribute("listProducts", listProducts);
-
+	model.addAttribute("listCategories", listCategories);
+	
 	return "products/products";
 	}
 		
