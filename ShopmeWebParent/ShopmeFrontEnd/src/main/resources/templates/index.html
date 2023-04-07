@@ -11,11 +11,13 @@
 	<h1>Shopping by Categories</h1>
 	</div>
 	
+	<!--Categories listed on homepage with clickable links-->
 	<div class="row">
 		<div class="col" th:each="cat : ${listCategories}">
-			<div><img th:src="@{${cat.imagePath}}"/></div>
+			<div><img th:src="@{${cat.imagePath}}" width="80"/></div>
 			<div>
-				<a>[[${cat.name}]]</a>
+				<div>
+				<a th:href="@{'/c/' + ${cat.alias}}">[[${cat.name}]]</a>
 			</div>
 		</div>
 	</div>
