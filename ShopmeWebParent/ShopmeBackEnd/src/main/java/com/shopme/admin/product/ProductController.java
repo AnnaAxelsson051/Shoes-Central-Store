@@ -136,11 +136,6 @@ public class ProductController {
 		    return "redirect:/products";
 	} 
 	
-	/******/
-	
-
-	
-	/*****/
 	
 	//Updates enabled/disabled status for product 
 	@GetMapping("/products/{id}/enabled/{status}")
