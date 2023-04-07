@@ -8,9 +8,19 @@
 		<div class="container-fluid">
 		<div th:replace="navigation :: header_menu"></div>
 	
-	
-	<div>
-	<h1>Products in Category</h1>
+	<!--Breadcrumbs display. fi Computers - screens-->
+	<div th:if="${listCategoryParents != null && !listCategoryParents.empty}">
+	<div class="row">
+		<div class="col">
+			<nav>
+				<ol class="breadCrumb">
+					<li class="creadcrumb-item">
+						<a th:href="@{/}">Home</a>
+					</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
 	</div>
 	
 
