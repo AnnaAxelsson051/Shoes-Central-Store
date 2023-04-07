@@ -27,5 +27,10 @@ public class CategoryService {
 	});
 	return listNoChildrenCategories;
 	}
+	
+	//Getting a (enabled) category by alias 
+	public Category getCategory (String alias) {
+		return repo.findByAliasEnabled(alias);
+	}
 
 }
