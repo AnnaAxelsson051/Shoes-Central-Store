@@ -8,9 +8,17 @@
 	
 	
 	<div>
-	<h1>Welcome to Shopme E commerce</h1>
+	<h1>Shopping by Categories</h1>
 	</div>
 	
+	<div class="row">
+		<div class="col" th:each="cat : ${listCategories}">
+			<div><img th:src="@{${cat.imagePath}}"/></div>
+			<div>
+				<a>[[${cat.name}]]</a>
+			</div>
+		</div>
+	</div>
 	
 	<div th:replace="navigation :: header_menu"></div>
 	</body>
