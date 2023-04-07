@@ -16,6 +16,8 @@
 		<div class="collapse navbar-collapse" id="topNavbar">
 			<ul class="navbar-nav">
 				
+				<!--Small menus that drops down when user hovers, 
+				Where different user-types has authority-->
 				<th:block sec:authorize="hasAuthority('Admin')">
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown"
