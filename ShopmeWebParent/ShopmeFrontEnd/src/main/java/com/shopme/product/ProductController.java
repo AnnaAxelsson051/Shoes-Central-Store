@@ -18,11 +18,19 @@ public class ProductController {
 	@Autowired private ProductService productService;
 	@Autowired private CategoryService categoryService;
 	
+	//Listing products by category with pagination
+	@GetMapping("/c/{category_alias}")
+	public String viewCategoryFirstPage(
+			@PathVariable("category_alias") String alias, 
+			Model model) {
+		return viewCategoryByPage(alias, 1, model);
+	}
+	
 	//handeling requests for viewing product in category by id and product details
 	//List product in category, if category not found displays customized
 	//errormessage
-	@GetMapping("/c/category_alias}")
-	public String viewCategory(
+	@GetMapping("/c/{category_alias}/page/{pageNum}")
+	public String viewCategoryByPage(
 			@PathVariable("category_alias") String alias, 
 			@PathVariable("pageNum") int pageNum,
 			Model model) {
@@ -32,7 +40,7 @@ public class ProductController {
 	}
 	    List<Category> listCategoryParents = categoryService.getCategoryParents(category);
 		
-	    Page<Product> pageProducts = productService.listByCategory(1, category.getId());
+	    Page<Product> pageProducts = productService.listByCategory(pageNum, category.getId());
 	    List<Product> listProducts = pageProducts.getContent();
 	    
 		long startCount=(pageNum -1) * ProductService.PRODUCTS_PER_PAGE +1;

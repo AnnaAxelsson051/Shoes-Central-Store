@@ -28,7 +28,18 @@
 	</div>
 	</div>
 	
-
+	<!---->
+<div class="row">
+	<th:block th:each="product : ${listProducts}">
+		<div class="col">
+			<siv>
+				<img th:src="${${product.mainImagePath}}" width="150"/>
+				<br/>
+				<b>[[${product.name}]]</b>
+			</siv>
+		</div>
+	</th:block>
+</div>
 	
 	<div th:replace="navigation :: footer_menu"></div>
 	</body>
