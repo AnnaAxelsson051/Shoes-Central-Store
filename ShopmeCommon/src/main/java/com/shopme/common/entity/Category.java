@@ -39,8 +39,9 @@ public class Category {
 	@JoinColumn(name = "parent_id")
 	private Category parent;
 	
-	
+	//Sorting category objects in alphabetical order
 	@OneToMany(mappedBy = "parent")
+	@OrderBy("name asc")
 	private Set<Category> children = new HashSet<>();
 	
 	public Category() {
