@@ -25,12 +25,12 @@ public class CategoryRepositoryTests {
 			System.out.println(category.getName() + " (" + category.isEnabled() + ")");
 		});
 	}
-	/*
+	
 	@Test
 	public void testFindCategoryByAlias() {
 		String alias = "electronics";
 		Category category = repo.findByAliasEnabled(alias);
 		
 		assertThat(category).isNotNull();
-	}*/
+	}
 }
