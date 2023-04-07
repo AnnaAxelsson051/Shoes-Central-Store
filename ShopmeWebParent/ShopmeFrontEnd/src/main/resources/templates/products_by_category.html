@@ -41,16 +41,24 @@
 		</th:block>
 	</div>
 	
-<!--Listing products-->
+<!--Listing products with price, if discount shows both discount price and regular 
+price with a line over it-->
 <div class="row">&nbsp;</div>
 <div class="row">
 	<th:block th:each="product : ${listProducts}">
 		<div class="col">
-			<siv>
+			<div>
 				<img th:src="${${product.mainImagePath}}" width="150"/>
 				<br/>
 				<b>[[${product.name}]]</b>
-			</siv>
+			</div>
+			<div th:if="${product.discountPercent <= 0}">
+				<span>$ [[${product.price}]]</span>
+			</div>
+				<div th:if="${product.discountPercent > 0}">
+				<span style="font-size: larger; color: darkred">$ [[${product.discountPrice}]]</span>
+				<del><span>$ [[${product.price}]]</span></del>
+			</div>
 		</div>
 	</th:block>
 </div>
