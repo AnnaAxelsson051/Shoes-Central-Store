@@ -41,6 +41,8 @@
 	</th:block>
 </div>
 	
+	<div th:replace="fragment :: pagination('/c/', ${category.alias}, 'product')"></div>
+	
 	<div th:replace="navigation :: footer_menu"></div>
 	</body>
 </html>

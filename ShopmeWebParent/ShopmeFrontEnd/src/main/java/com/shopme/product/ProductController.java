@@ -57,6 +57,7 @@ public class ProductController {
     model.addAttribute("pageTitle", category.getName());
 	model.addAttribute("listCategoryParents", listCategoryParents);
 	model.addAttribute("listProducts", listProducts);
+	model.addAttribute("category", category);
 		
 		return "products_by_category";
 	}
