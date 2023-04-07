@@ -17,6 +17,11 @@
 					<li class="creadcrumb-item">
 						<a th:href="@{/}">Home</a>
 					</li>
+					<th:block th:each="parent : ${listCategoryParents}">
+						<li class="creadcrumb-item">
+							<a th:href="@{'/c/' + ${parent.alias}}">[[${parent.name}]]</a>
+						</li>
+					</th:block>
 				</ol>
 			</nav>
 		</div>
