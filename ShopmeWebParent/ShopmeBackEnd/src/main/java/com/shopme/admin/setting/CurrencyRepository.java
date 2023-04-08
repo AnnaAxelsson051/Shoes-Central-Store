@@ -8,5 +8,6 @@ import com.shopme.common.entity.Currency;
 
 public interface CurrencyRepository extends CrudRepository<Currency, Integer> {
 	
+	//List all currencies
 	public List<Currency> findAllByOrderByNameAsc();
 }
