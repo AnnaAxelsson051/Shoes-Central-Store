@@ -10,13 +10,28 @@
 	
 		<div th:replace="breadcrumb :: content"></div>
 	
+	
+	
 	<!--Displaying product image in details, proce, discount, in stock status-->
 	<div class="row">
 		<div class="col-sm">
 			<div>
 				<img th:src="@{${product.mainImagePath}}" class="img-fluid"/>
 			</div>
+			
+			<!--Thumbnail image display, iterates tru extra images-->
+			<div class="row justify-content-center">
+				<div class="m-2">
+					<img th:src="@{${product.mainImagePath}}" height="50"/>
+				</div>
+				<th:block th:each="extraImage : ${product.images}">
+				<div class="m-2">
+					<img th:src="@{${extraImage.imagePath}}" height="50"/>
+				</div>
+				</th:block>
+			</div>
 		</div>
+		
 		<div class="col-sm">
 			<h2>[[${product.name}]]</h2>
 		</div>
