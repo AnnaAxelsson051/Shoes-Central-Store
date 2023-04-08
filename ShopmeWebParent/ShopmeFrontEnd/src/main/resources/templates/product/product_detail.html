@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div class="col-sm">
-			<h2>[[$[product.name]]]</h2>
+			<h2>[[${product.name}]]</h2>
 		</div>
 		<div>
 			<span>Brand: [[${product.brand.name}]]</span>
@@ -47,6 +47,34 @@
 			<div class="mt-3">
 				<input type="button" value="Add to Cart" class="brn btn-primary"/>
 			</div>
+		</div>
+	</div>
+	
+	<!--Displaying product description for customer-->
+	<!--hr = horisontal row-->
+	<div class="row">
+		<div class="col-12">
+			<div><hr/></div>
+			<div>
+				<h3>Product Description</h3>
+			</div>
+			<div th:utext="${product.fullDescription}"></div>
+		</div>
+	</div>
+	
+		<!--hr = horisontal row-->
+	<div class="row">
+		<div class="col-12">
+			<div><hr/></div>
+			<div>
+				<h3>Product Details</h3>
+			</div>
+			<th:block th:each="detail : ${product.details}">
+			<div>
+			<b>[[${detail.name}]]</b>:
+			<span>[[${detail.value}]]</span>
+			</div>
+			</th:block>
 		</div>
 	</div>
 	
