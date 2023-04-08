@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th"http://thymeleaf.org">
+	<!--<head>
+		<meta charset="ISO-8859-1">
+		<title>Welcome to Shopme</title>
+	</head>-->
+	<body>
+		
+<div th:fragment="content" th:remove="tag">
+	<!--Breadcrumbs display. fi Computers - screens-->
+	<div th:if="${listCategoryParents != null && !listCategoryParents.empty}">
+	<div class="row">
+		<div class="col">
+			<nav>
+				<ol class="breadCrumb">
+					<li class="creadcrumb-item">
+						<a th:href="@{/}">Home</a>
+					</li>
+					<th:block th:each="parent : ${listCategoryParents}">
+						<li class="creadcrumb-item">
+							<a th:href="@{'/c/' + ${parent.alias}}">[[${parent.name}]]</a>
+						</li>
+					</th:block>
+			<!--Displayingreadcrumbs when clicking products-->
+					<li class="breadcrumb-item" th:if="${product != null}">
+						<span>[[${product.shortName}]]</span>
+					</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+	</div>
+</div>
+
+	</body>
+</html>
