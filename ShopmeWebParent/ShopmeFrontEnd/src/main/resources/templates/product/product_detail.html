@@ -16,17 +16,18 @@
 	<div class="row">
 		<div class="col-sm">
 			<div>
-				<img th:src="@{${product.mainImagePath}}" class="img-fluid"/>
+				<img id="bigImage" th:src="@{${product.mainImagePath}}" class="img-fluid" index="0"/>
 			</div>
 			
 			<!--Thumbnail image display, iterates tru extra images-->
 			<div class="row justify-content-center">
-				<div class="m-2">
-					<img th:src="@{${product.mainImagePath}}" height="50"/>
+				<div class="m-2 border border-secondary">
+					<img class="image-thumbnail" th:src="@{${product.mainImagePath}}" height="50" index="0"/>
 				</div>
-				<th:block th:each="extraImage : ${product.images}">
-				<div class="m-2">
-					<img th:src="@{${extraImage.imagePath}}" height="50"/>
+				<th:block th:each="extraImage, status : ${product.images}">
+				<div class="m-2 border border-secondary p-1">
+					<img class="image-thumbnail" th:src="@{${extraImage.imagePath}}" height="50"
+					th:index="${status.count}"/>
 				</div>
 				</th:block>
 			</div>
@@ -93,7 +94,33 @@
 		</div>
 	</div>
 	
+	<div th:replace="product/image_carousel :: content">
 	
-	<div th:replace="navigation :: footer_menu"></div>
+	<div th:replace="navigation :: footer_menu">
+	</div>
+	
+	<!--Changing images when hovering over thumbnails-->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			bigImage = $("#bigImage");
+			
+			$(".image-thumbnail").mouseover(function(){
+				currentImageSource = $(this).attr("src");
+				currentImageIndex = $(this).attr("index");
+				
+				bigImage.attr("src", currentImageSource);
+				imageIndex = parseInt(bigImage.attr("index"));
+				$("#carouselExampleIndicators").carousel(imageIndex);
+			});
+			
+	//When clicking modal
+	bigImage.on("click",function() {
+		$("#carouselModal").modal("show");
+		imageIndex = bigImage.attr("index");
+	});		
+		});
+		
+		
+	</script>
 	</body>
 </html>
