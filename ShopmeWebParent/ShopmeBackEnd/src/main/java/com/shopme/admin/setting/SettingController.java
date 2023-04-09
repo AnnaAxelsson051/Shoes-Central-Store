@@ -2,6 +2,7 @@ package com.shopme.admin.setting;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,11 +54,15 @@ public class SettingController {
 	GeneralSettingBag settingBag = service.getGeneralSettings();
 		
 	saveSiteLogo(multipartFile, settingBag);
+	saveCurrencySymbol(request, settingBag);
+	updateSettingValuesFromForm(request, settingBag.list());
+	
 		ra.addFlashAttribute("message", "General settings have been saved.");
 		
 		return "redirect:/settings";
 	}
 	
+	//Saving webpage logo
 	private void saveSiteLogo(MultipartFile multipartFile, GeneralSettingBag settingBag) throws IOException {
 		if (!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename);
@@ -70,4 +75,26 @@ public class SettingController {
 			FileUploadUtil.saveFile(uploadDir,  fileName, multipartFile);
 		}
 	}
+	
+	//Method for saving currency symbol
+	private void saveCurrencySymbol(HttpServletRequest request, GeneralSettingBag settingBag) {
+		Integer currencyId = Integer.parseInt(request.getParameter("CURRENCY_ID"));
+        Optional <Currency> findByIdResult = currencyRepo.findById(currencyId);
+        
+        if (findByIdResult.isPresent()) {
+        	Currency currency = findByIdResult.get();
+        settingBag.updateCurrencySymbol(currency.getSymbol());
+        }
+        }
+	
+	//Reading values of the rest of the setting formfields
+private void updateSettingValuesFromForm(HttpServletRequest request, List<Setting> listSettings) {
+	for (Setting setting : listSettings) {
+	String value = request.getParameter(setting.getKey());
+if(value != null){
+	setting.setValue(value);
+}
+	}
+	service.saveAll(listSettings);
+}
 }
