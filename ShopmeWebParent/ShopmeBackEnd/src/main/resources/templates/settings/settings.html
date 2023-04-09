@@ -4,7 +4,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <!--removes headtag for appending code for richtext editor-->	
-<head th:replace="fragments :: page_head(${pageTitle}, 'tag')" />
+<head th:replace="fragments :: page_head('Settings - Shopme Admin', 'tag')" />
 <link rel="stylesheet" th:href="@{/richtext/richtext.min.css}" />
 <script th:src="@{richtext/jquery.richtext.min.js}"></script>
 </head>
@@ -47,7 +47,7 @@
  </div>
  
   <div class="tab-pane" id="countries" role="tabpanel" >
-	   <h2>Countries</h2>
+	<div th:replace="settings/general :: content"/>
 	</div>
 	
 		  <div class="tab-pane p-3" id="states" role="tabpanel">
@@ -70,9 +70,12 @@
 </div>
 </div>
 
+<script type="text/javascript">
+	MAX_FILE_SIZE = 102400; //100kb
+</script>
+<!--For showing thumbnail image when selecting site logo-->
 <script th:src="@{/js/common_form.js}"></script>
-<script th:src="@{/js/product_form_overview.js}"></script>
-<script th:src="@{/js/product_form_images.js}"></script>
-<script th:src="@{/js/product_form_details.js}"></script>
+
+
 </body>
 </html>
