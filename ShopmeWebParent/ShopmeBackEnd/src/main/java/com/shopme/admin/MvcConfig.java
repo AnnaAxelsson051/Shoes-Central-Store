@@ -30,6 +30,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 	
 	exposeDirectory("../product-images", registry);
 
+	exposeDirectory("../site-logo", registry); //when admin changes logo
 	}
 	
 	private void exposeDirectory(String pathPattern, ResourceHandlerRegistry registry) {

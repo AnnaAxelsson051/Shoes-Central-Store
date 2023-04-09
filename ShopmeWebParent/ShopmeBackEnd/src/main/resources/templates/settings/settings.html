@@ -15,7 +15,9 @@
 		<h2>Site Settings</h2>	
 	</div>
 	
-	
+		<div th:if="${message != null}" class="alert alert-success text-center">
+					[[${message}]]
+		</div>
 	
 	<div>
 		
