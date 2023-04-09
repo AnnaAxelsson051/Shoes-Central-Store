@@ -43,6 +43,65 @@
 			</div>
 		</div>	
 		
+				<!--For displaying currency symbol, currency_symbol_position is the
+				key of the setting-->
+				
+			<div class="form-group row">
+			<label class="col-sm-4 col-form-label">Currency Symbol Position</label>
+			<div class="col-sm-8">
+				<select name="CURRENCY_SYMBOL_POSITION" class="form-control">
+			<th:block th:each="currency : ${listCurrencies}">
+				<option value="Before Price" th:selected="(${CURRENCY_SYMBOL_POSITION} == 'before')">Before price</option>
+				<option value="Before Price" th:selected="(${CURRENCY_SYMBOL_POSITION} == 'after')">After price</option>
+			</th:block>
+			</select>
+			</div>
+		</div>	
+		
+				<!--Allows user to select decimal point type as point or comma-->
+				
+			<div class="form-group row">
+			<label class="col-sm-4 col-form-label">Decimal Point Type</label>
+			<div class="col-sm-8">
+				<select name="DECIMAL_POINT_TYPE" class="form-control">
+			<th:block th:each="currency : ${listCurrencies}">
+				<option value="POINT" th:selected="(${DECIMAL_POINT_TYPE} == 'POINT')">Point (.)</option>
+				<option value="COMMA" th:selected="(${DECIMAL_POINT_TYPE} == 'COMMA')">Comma (,)</option>
+			</th:block>
+			</select>
+			</div>
+		</div>	
+		
+					<!--Allows user to select decimal point type as point or comma-->
+				
+			<div class="form-group row">
+			<label class="col-sm-4 col-form-label">Thousands Point Type</label>
+			<div class="col-sm-8">
+				<select name="THOUSANDS_POINT_TYPE" class="form-control">
+			<th:block th:each="currency : ${listCurrencies}">
+				<option value="POINT" th:selected="(${THOUSANDS_POINT_TYPE} == 'POINT')">Point (.)</option>
+				<option value="COMMA" th:selected="(${THOUSANDS_POINT_TYPE} == 'COMMA')">Comma (,)</option>
+			</th:block>
+			</select>
+			</div>
+		</div>	
+		
+					<!--Allows user to select decimal digits-->
+				
+			<div class="form-group row">
+			<label class="col-sm-4 col-form-label">Decimal Digits</label>
+			<div class="col-sm-8">
+				<select name="DECIMAL_DIGITS" class="form-control">
+			<th:block th:each="currency : ${listCurrencies}">
+				<option value="1" th:selected="(${DECIMAL_DIGITS} == 1)">1</option>
+				<option value="2" th:selected="(${DECIMAL_DIGITS} == 2)">2</option>
+				<option value="3" th:selected="(${DECIMAL_DIGITS} == 3)">3</option>
+				<option value="4" th:selected="(${DECIMAL_DIGITS} == 4)">4</option>
+			</th:block>
+			</select>
+			</div>
+		</div>
+		
 		<div class="text-center">
 	<input type="submit" value="Save" class="btn btn-primary m-2">
         </div>
