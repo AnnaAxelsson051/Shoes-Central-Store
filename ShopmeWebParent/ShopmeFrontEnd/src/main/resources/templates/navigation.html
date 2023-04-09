@@ -6,7 +6,7 @@
 	
 	<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
 		<a class="navbar-brand" th:href="@{/}">
-			<img th:src="@{/images/storeicon.png"/>
+			<img th:src="@{${SITE_LOGO}}"/>
 			<!--<img th:src="@{/images/ShopmeAdminSmall.png}" />-->
 		</a>
 		
@@ -92,7 +92,7 @@ git add
 		
 		
 		<div th:fragment="footer" class="text-center m-3">
-			<p>Shopme - Copyright &copy; Shopme Ltd.</p>
+			<p>[[${COPYRIGHT}]]</p>
 		</div>
 </body>
 </html>

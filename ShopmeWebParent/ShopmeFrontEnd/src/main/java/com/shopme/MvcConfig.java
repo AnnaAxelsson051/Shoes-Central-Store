@@ -26,6 +26,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 	exposeDirectory("../brand-logos", registry);
 	
 	exposeDirectory("../product-images", registry);
+	
+	exposeDirectory("../site-logo", registry);//logo for site set by admin
 
 	}
 	
