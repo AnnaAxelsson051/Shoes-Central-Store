@@ -9,14 +9,24 @@
 				<b>[[${product.shortName}]]</b>
 				</a>
 			</div>
-			<div th:if="${product.discountPercent <= 0}">
-				<span>$ [[${product.price}]]</span>
+			
+			<!--If no discpunt percent-->
+			<!--Lets admin display currency symbol after or before price depending on currency-->
+			<div th:if="${product.discountPercent < = 0}">
+				<div th:replace="product/price_fragment :: price(${product.price})"></div>
 			</div>
+			
+			<!--If there is a discount-->
 				<div th:if="${product.discountPercent > 0}">
-				<span style="font-size: larger; color: darkred">$ [[${product.discountPrice}]]</span>
-				<del><span>$ [[${product.price}]]</span></del>
+				<span style="font-size: larger; color: darkred"><div th:replace="product/price_fragment :: price(${product.discountPrice})"></div></span>
+				<del><span><div th:replace="product/price_fragment :: price(${product.discountPrice})"></span></del>
 			</div>
 		
 		</div>
+		
+	<div th:fragment="price_fragment(productPrice)" th:remove="tag">
+      <span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>[[${#numbers.formatDecimal(productPrice, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]<span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+    </div>
+    
 	</body>
 </html>
