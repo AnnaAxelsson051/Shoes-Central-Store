@@ -43,13 +43,12 @@
 <!-- Tab panes -->
 
 <div class="tab-content">
- 
   <div class="tab-pane active p-3" id="general" role="tabpanel" >
- <h2>General</h2>
+	<div th:replace="settings/general :: content"></div>
  </div>
  
-  <div class="tab-pane" id="countries" role="tabpanel" >
-	<div th:replace="settings/general :: content"/>
+  <div class="tab-pane p-3" id="countries" role="tabpanel" >
+	<div th:replace="settings/countries :: content"></div>
 	</div>
 	
 		  <div class="tab-pane p-3" id="states" role="tabpanel">
