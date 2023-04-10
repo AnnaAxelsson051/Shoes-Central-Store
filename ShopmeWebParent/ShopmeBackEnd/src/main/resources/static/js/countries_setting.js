@@ -1,15 +1,46 @@
 var buttonLoad;
 var dropDownCountry;
+var nuttonAddCountry;
+var buttonEditCountry;
+var buttonDeleteCountry;
+var labelCountryName;
+var fieldCountryName;
+var fieldCountryCode;
 
 //Loads countries in list upon btn click
 $(document).ready(function(){
 	buttonLoad = $("#dropDownCountries");
 	dropDownCountry = $("#dropDownCountries");
+	buttonAddCountry = $("#buttonAddCountry");
+	buttonUpdateCountry = $("#buttonUpdateCountry");
+	buttonDeleteCountry = $("#buttonDeleteCountry");
+	labelCountryName = $("#labelCountryName");
+	fieldCountryName = $("#fieldCountryName");
+    fieldCountryCode = $("#fieldCountryCode");
 	
 	buttonLoad.click(function(){
 		loadCountries();
 	});
+	
+	dropDownCountry.on("change",function(){
+		changeFormStateToSelectedCountry();
+	});
 });
+
+//Handeling what buttons are clickeable
+//Setting values for text field, country code etc
+function changeFormStateToSelectedCountry(){
+	buttonAddCountry.prop("value", "New");
+	buttonEditCountry.prop("disabled", false);
+	buttonDeleteCountry.prop("disabled", false);
+	
+	labelCountryName.text("Selected Country:");
+	selectedCountryName = $("#dropDownCountries option:selected").text();
+    fieldCountryName.val(selectedCountryName);
+    
+    contryCode = dropDownCountry.val().split("-")[1];
+    fieldCountryCode.val(countryCode);
+}
 
 //Clears dropdown iterates tru each country in the response Json
 //from server coming from listAll (converted to Json) and gets values
