@@ -1,5 +1,7 @@
 package com.shopme.admin.setting.state;
 
+//Lightweight easily converted to Json, reducing network load
+
 public class StateDTO {
 	private Integer id;
 	private String name;

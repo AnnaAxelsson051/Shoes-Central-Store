@@ -5,6 +5,7 @@
 			});
 			
 				customizeDropDownMenu();
+				customizeTabs();
 		});
 		
 		//Function for log out menu sliding down when mouse hover over drop down link 

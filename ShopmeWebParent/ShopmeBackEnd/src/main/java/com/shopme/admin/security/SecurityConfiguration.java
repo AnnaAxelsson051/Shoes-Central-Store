@@ -57,7 +57,8 @@ public DaoAuthenticationProvider authenticationProvider() {
    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     
        http.authorizeRequests()
-               .antMatchers("/users/**").hasAuthority("Admin")
+       //Admin can access users, settings, countries, states and everything after that
+               .antMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
                .antMatchers("/categories/**", "/brands/**").hasAnyAuthority("Admin", "Editor")
                 
                .antMatchers("/products/new**", "/products/delete/**").hasAnyAuthority("Admin", "Editor")

@@ -28,6 +28,7 @@ public class CountryRestController {
 		return String.valueOf(savedCountry.getId());
 	}
 	
+	//So only http deletemapping will be applied for this
 	@DeleteMapping("/countries/delete/{id}")
 	public void delete(@PathVariable("id") Integer id) {
 		repo.deleteById(id);

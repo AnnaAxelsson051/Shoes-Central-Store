@@ -32,7 +32,7 @@ $(document).ready(function(){
 		if(buttonAddCountry.val() == "Add"){
 			addCountry();
 		}else{
-			changeFormStateToNew();
+			changeFormStateToNewCountry();
 		}
 	});
 	
@@ -48,12 +48,18 @@ $(document).ready(function(){
 function deleteCountry(){
 	optionValue = dropDownCountry.val();
 	countryId = optionValue.spint("-")[0];
+	
 	url = contextPath + "countries/delete/" + countryId;
 
-	$.get(url, function(responseJSON){
-		$("#dropDownCountries option[value='" + optionValue + "']").remove();
-		changeFormStateToNew();
+    $.ajax({
+		type: 'DELETE',
+		url: url,
+	    beforeSend:function(xhr){
+		xhr.setRequestHeader(csrfHeaderName, csrfValue);
+	}
 	}).done(function(){
+		$("#dropDownCountries option[value='" + optionValue + "']").remove();
+		changeFormStateToNewCountry();
 		showToastMessage("The country has been deleted")
 	}).fail(function(){
 		showToastMessage("ERROR: Could not connect to server or server encountered an error")
@@ -82,7 +88,7 @@ function updateCountry(){
 		 $("#dropDownCountries option:selected").text(countryName);
 		showToastMessage("The country has been updated");
 	
-	changeFormStateToNew();
+	changeFormStateToNewCountry();
 	
 	}).fail(function(){
 		showToastMessage("ERROR: Could not connect to server or server encountered an error")
@@ -128,7 +134,7 @@ fieldCountryName.val("").focus();
 //New is for enterig values, Add is for saving values to db
 //Toasmessage appering after adding, country appears in list
 //and fields are cleared
-function changeFormStateToNew(){
+function changeFormStateToNewCountry(){
 	buttonAddCountry.val("Add");
 	labelCountryName.text("Country Name:");
 	
