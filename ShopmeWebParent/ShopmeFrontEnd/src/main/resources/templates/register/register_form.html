@@ -26,77 +26,83 @@
 			<div class="col-sm-8">
 				<input type="text" th:field="*{lasttName}" class="form-control"
 				required="required" maxLength="45" minLength="2"/>
-			</div>
+			</div></div>
 			
 			<div class="form-group row">
 				<label class="col-sm-4 col-form-label">E-mail:</label>
 			<div class="col-sm-8">
 				<input type="text" th:field="*{email}" class="form-control" 
 				required="required" maxLength="45" minLength="8"/>
-			</div>
+			</div></div>
 			
 			<div class="form-group row">
 				<label class="col-sm-4 col-form-label">Password:</label>
 			<div class="col-sm-8">
 				<input type="text" th:field="*{password}" class="form-control"
-				required="required" maxLength="15" minLength="6"/>
-			</div>
+				required="required" maxLength="15" minLength="6" 
+				oninput="checkPasswordMatch(document.getElementById('confirmPassword'))"
+				/>
+			</div></div>
 			
 				<div class="form-group row">
 				<label class="col-sm-4 col-form-label">Re-type Password:</label>
 			<div class="col-sm-8">
 				<input type="text" id="confirmPassword" class="form-control" 
-				required="required" maxLength="15" minLength="6"/>
-			</div>
+				required="required" maxLength="15" minLength="6" 
+				oninput="checkPasswordMatch(this)"/>
+			</div></div>
 			
 			<div class="form-group row">
 				<label class="col-sm-4 col-form-label">Phone Number:</label>
 			<div class="col-sm-8">
 				<input type="text" th:field="*{phoneNumber}" class="form-control" 
 				required="required" maxLength="15" minLength="6"/>
-			</div>
+			</div></div>
 			
 			<div class="form-group row">
 				<label class="col-sm-4 col-form-label">Address Line 1:</label>
 			<div class="col-sm-8">
 				<input type="text" th:field="*{addressLine1}" class="form-control" 
 				required="required" maxLength="64" minLength="3"/>
-			</div>
+			</div></div>
 			
 				<div class="form-group row">
 				<label class="col-sm-4 col-form-label">Address Line 2:</label>
 			<div class="col-sm-8">
 				<input type="text" th:field="*{addressLine2}" class="form-control" 
 				 maxLength="64" />
-			</div>
+			</div></div>
 			
 			<div class="form-group row">
 				<label class="col-sm-4 col-form-label">City:</label>
 			<div class="col-sm-8">
 				<input type="text" th:field="*{city}" class="form-control" 
 				 maxLength="45" minLength="2"/>
-			</div>
+			</div></div>
 			
 			<div class="form-group row">
 				<label class="col-sm-4 col-form-label">Country:</label>
 			<div class="col-sm-8">
-				<input type="text" th:field="*{country}" class="form-control" 
-				 />
-			</div>
+				<select class="form-control" th:field="${country}">
+					<th:block th:each="country : ${listCountries}">
+						<option th:value="${country.id}">[[${country.name}]]</option>
+					</th:block>
+				</select>
+			</div></div>
 			
 				<div class="form-group row">
 				<label class="col-sm-4 col-form-label">State/Province:</label>
 			<div class="col-sm-8">
 				<input type="text" th:field="*{state}" class="form-control" 
 				 maxLength="45" minLength="3" />
-			</div>
+			</div></div>
 			
 				<div class="form-group row">
 				<label class="col-sm-4 col-form-label">Postal Code:</label>
 			<div class="col-sm-8">
 				<input type="text" th:field="*{postalCode}" class="form-control" 
 				  maxLength="10" minLength="2"/>
-			</div>
+			</div></div>
 			
 			<div class="text-center">
 				<input type="submit" value="Create Account" class="btn btn-primary"/>
@@ -106,6 +112,18 @@
 	</form>
 			<div>&nbsp;</div>
 	<div th:replace="navigation :: footer_menu"></div>
+	
+	<script type="text/javascript">
+		moduleURL = "[[@{/}]]"; //homepage
+		
+	function checkPasswordMatch(confirmPassword){
+		if(confirmPassword.value != $("#password").val()){
+			confirmPassword.setCustomValidity("Passwords do not match");
+		}else{confirmPassword.setCustomValidity("");
+		}
+	}
+	
+	</script>
 	</body>
 </html>
 
