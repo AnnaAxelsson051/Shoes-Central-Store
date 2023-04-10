@@ -1,4 +1,4 @@
-package com.shopme.admin.setting.country;
+package com.shopme.admin.setting.state;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
