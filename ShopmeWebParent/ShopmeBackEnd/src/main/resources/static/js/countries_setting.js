@@ -25,6 +25,13 @@ function loadCountries(){
 		
 	}).done(function(){
 		buttonLoad.val("Refresh Country List");
-		alert("All countries have been loaded")
+		showToastMessage("All countries have been loaded")
+	}).fail(function(){
+		showToastMessage("ERROR: Could not connect to server or server encountered an error")
 	})
+}
+
+function showToastMessage(message) {
+	$("#toastMessage").text(message);
+	$(".toast").toast('show');
 }
