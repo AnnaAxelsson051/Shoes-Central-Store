@@ -20,7 +20,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfiguration {
  
 
-  
+	   @Bean
+	    public BCryptPasswordEncoder passwordEncoder() {
+	        return new BCryptPasswordEncoder();
+	    }
  
     //http.authenticationProvider(authenticationProvider());
     
