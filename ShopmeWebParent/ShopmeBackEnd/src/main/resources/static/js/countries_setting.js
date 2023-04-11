@@ -67,6 +67,8 @@ function deleteCountry(){
 }
 
 function updateCountry(){
+	if(!validateFormCountry())return;
+	
 	url = contextPath + "countries/save";
 	countryName = fieldCountryName.val();
 	countryCode = fieldCountryCode.val();
@@ -97,9 +99,21 @@ function updateCountry(){
 
 //Making an ajax call to server to the countries/save urö
 //Getting country name and code from the textfields
+//checking so its a valid country
 //creating a json obj that will be sent with the request with key n val
 //Tru security check, vonverting json obj to string
+function validateFormCountry(){
+	formCountry = document.getElementById("formCountry");
+	if (!formCountry.checkValidity()){
+		formCountry.repostValidity();
+		return false;
+	}
+	return true;
+}
+
 function addCountry(){
+	if(!validateFormCountry())return;
+		
 	url = contextPath + "countries/save";
 	countryName = fieldCountryName.val();
 	countryCode = fieldCountryCode.val();
