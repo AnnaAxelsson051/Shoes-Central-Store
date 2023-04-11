@@ -2,6 +2,7 @@ package com.shopme.admin.customer;
 
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import jakarta.transaction.Transactional;
 
@@ -13,13 +14,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.shopme.common.entity.AuthenticationType;
 import com.shopme.common.entity.Country;
 import com.shopme.common.entity.Customer;
 import com.shopme.common.exception.CustomerNotFoundException;
-import com.shopme.setting.CountryRepository;
 
-import net.bytebuddy.utility.RandomString;
+//import net.bytebuddy.utility.RandomString;
 
 @Service
 @Transactional
@@ -53,7 +52,7 @@ public class CustomerService {
 	public Customer get(Integer id) throws CustomerNotFoundException{
 		try {
 			return customerRepo.findById(id).get();
-		} catch (noSuchElementException ex) {
+		} catch (NoSuchElementException ex) {
 			throw new CustomerNotFoundException("Could not find any customers with ID " + id);
 		}
 	}
@@ -88,7 +87,7 @@ public class CustomerService {
 	public void delete (Integer id) throws CustomerNotFoundException{
 		Long count = customerRepo.countById(id);
 		if(count == null || count == 0) {
-			throw new CustomeNotFoundException("Could not find any customers with id " + id);
+			throw new CustomerNotFoundException("Could not find any customers with id " + id);
 		}
 		customerRepo.deleteById(id);
 	}
