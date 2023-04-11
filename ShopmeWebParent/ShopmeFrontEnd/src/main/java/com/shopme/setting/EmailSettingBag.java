@@ -18,8 +18,8 @@ public class EmailSettingBag extends SettingBag{
 	}
 	
 
-	public String getPort() {
-		return super.getValue("MAIL_PORT");
+	public int getPort() {
+		return Integer.parseInt(super.getValue("MAIL_PORT"));
 	}
 
 	public String getUsername() {
