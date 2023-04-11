@@ -38,4 +38,15 @@ public class SettingService {
 	public void saveAll(Iterable<Setting> settings ) {
 		repo.saveAll(settings);
 	}
+	
+	//Returning a list of mail server setting
+	//For mail server form
+	public List <Setting> getMailTemplateSettings(){
+		return repo.findByCategory(SettingCategory.MAIL_SERVER);
+	}
+	
+	//Returning a list of mail template settngs
+	public List <Setting> getMailServerSettings(){
+		return repo.findByCategory(SettingCategory.MAIL_TEMPLATES);
+	}
 }

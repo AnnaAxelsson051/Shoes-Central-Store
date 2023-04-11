@@ -97,4 +97,24 @@ if(value != null){
 	}
 	service.saveAll(listSettings);
 }
+
+//Handeling submission/saving of mail server form
+@PostMapping("/settings/save_mail_server")
+public String saveMailServerSettings(HttpServletRequest request, RedirectAttributes ra) {
+	List<Setting> mailServerSettings = service.getMailServerSettings();
+	updateSettingValuesFromForm(request, mailServerSettings);
+	
+	ra.addFlashAttribute("message", "Mail server settings have been saved");
+return "redirect:/settings";
+}
+
+//Handeling submission/saving of mail template settings form
+@PostMapping("/settings/save_mail_templates")
+public String saveMailTemplateSettings(HttpServletRequest request, RedirectAttributes ra) {
+	List<Setting> mailTemplateSettings = service.getMailTemplateSettings();
+	updateSettingValuesFromForm(request, mailTemplateSettings);
+	
+	ra.addFlashAttribute("message", "Mail template settings have been saved");
+return "redirect:/settings";
+}
 }
