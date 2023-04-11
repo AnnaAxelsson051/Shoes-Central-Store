@@ -3,6 +3,7 @@ package com.shopme.customer;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -82,5 +83,13 @@ public class CustomerController {
 	
 	helper.setText(content, true);
 	mailSender.send(message);
+	}
+	
+	//verifying customer account
+	@GetMapping("/verify")
+	public String verifyAccount(@Param("code") 
+	String code, Model model) {
+		boolean verified = customerService.verify(code);
+		return "register/" + (verified ? "verify_success" : "verify_fail");
 	}
 }

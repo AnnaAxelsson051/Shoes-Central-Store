@@ -45,11 +45,28 @@ public class CustomerService {
 		
 		String randomCode = RandomString.make(64);
 		customer.setVerificationCode(randomCode);
+		
+		customerRepo.save(customer);
 	}
 	
 	//Setting encoded pw to user obj
 	private void encodePassword(Customer customer) {
 		String encodedPassword = passwordEncoder.encode(customer.getPassword());
 		customer.setPassword(encodedPassword);
+	}
+	
+	//verifying cusomeraccount
+	//getting customer by verificationcode and updates the enabled
+	//status on that customer
+	public boolean verify(String verificationCode) {
+		Customer customer = customerRepo.findByVerificationCode(verificationCode);
+	
+		if(customer == null || customer.isEnabled()) {
+			return false;	
+	} else {
+		customerRepo.enable(customer.getId());
+		return true;
+	}
+		
 	}
 }

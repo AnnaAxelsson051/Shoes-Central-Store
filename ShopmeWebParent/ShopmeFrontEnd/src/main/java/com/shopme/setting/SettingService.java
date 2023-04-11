@@ -10,7 +10,11 @@ import com.shopme.common.entity.GeneralSettingBag;
 import com.shopme.common.entity.Setting;
 import com.shopme.common.entity.SettingCategory;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
+
 public class SettingService {
 	@Autowired private SettingRepository repo;
 	
