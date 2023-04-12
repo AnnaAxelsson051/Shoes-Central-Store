@@ -15,7 +15,7 @@ public class MainController {
 		return "index";
 	}
 	
-	//If user is not logged in return login site otherwose 
+	//If user is not logged in return login site otherwose
 	//redirect to homepage
 	@GetMapping("/login")
 	public String viewLoginPage() {
@@ -25,5 +25,4 @@ public class MainController {
 		}
 		return "redirect:/";
 	}
-
 }
