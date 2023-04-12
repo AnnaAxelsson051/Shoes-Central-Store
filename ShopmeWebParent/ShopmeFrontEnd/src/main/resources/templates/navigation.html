@@ -10,13 +10,13 @@
 			<!--<img th:src="@{/images/ShopmeAdminSmall.png}" />-->
 		</a>
 		
-		<!--Responsive top menu-->
+		<!--Menu items for authenticated customer-->
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar, #searchNavbar">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div class="collapse navbar-collapse" id="topNavbar">
 			<ul class="navbar-nav">
-git add
+
 				<li class="nav-item">
 					<a class="nav-link dropdown-toggle"
 						href="">Careers</a>
@@ -31,7 +31,7 @@ git add
 				</li>
 				<li class="nav-item">
 					<a class="nav-link dropdown-toggle"
-						href="">Login</a>
+						th:href="@{/login}">Login</a>
 				</li>		
 				<li class="nav-item">
 					<a class="nav-link dropdown-toggle"
@@ -49,6 +49,14 @@ git add
 <!--Searching for products with fulltext search-->
 <div th:fragment="search_nav" class="row">
 	<div class="col-md">
+		
+		<!--If user is authenticated generatting the code + button for the log out form -->
+		<th:block sec:authorize="isAuthenticated()">
+			<form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm" >
+				<input type="submit" value="logout"/>
+			</form>
+		</th:block>
+		
 		<nav class="navbar navbar-expand-sm bg-light">
 				<div class="collapse navbar-collapse" id="searchNavbar">
 				<form class="form-inline" th:action="@{/search}" method="get">
@@ -57,6 +65,34 @@ git add
 					placeholder="keyword" required/>
 					<input type="submit" value="Search" class="btn brn-outline-success"/>
 				</form>
+				
+				<ul class="navbar nav">
+					<th:block sec:authorize="isAuthenticated()">
+					<li class="nav-item">
+						<b><a class="nav-link" th:href="@{/customer}"
+						sec:authentication="principal.fullName"></a></b>
+					</li>
+					
+					<li class="nav-item"><a class="nav-link" href="">Addresses</a>
+					</li>
+					
+					<li class="nav-item"><a class="nav-link" href="">Questions</a>
+					</li>
+					
+					<li class="nav-item"><a class="nav-link" href="">Reviews</a>
+					</li>
+					
+					<li class="nav-item"><a class="nav-link" href="">Orders</a>
+					</li>
+					
+					<li class="nav-item"><a class="nav-link" href="">Cart</a>
+					</li>
+					
+					<li class="nav-item"><a class="nav-link" href="javascript: document.logoutForm.submit()">Logout</a>
+					</li>
+					
+					</th:block>
+				</ul>
 				</div>
 		</nav>
 	</div>
