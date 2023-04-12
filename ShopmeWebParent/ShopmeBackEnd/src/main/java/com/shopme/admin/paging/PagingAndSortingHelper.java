@@ -38,9 +38,9 @@ public class PagingAndSortingHelper {
 		model.addAttribute("startCount", startCount);
 		model.addAttribute("endCount", endCount);
 		model.addAttribute("totalItems", page.getTotalElements());
-		model.addAttribute("listUsers", listItems);
+		model.addAttribute("listName", listItems);
 		
-		model.addAttribute("moduleURL", "/users");
+		model.addAttribute("moduleURL", moduleURL);
 	}
 
 }
