@@ -82,7 +82,7 @@ public DaoAuthenticationProvider authenticationProvider() {
                .and()
                     .rememberMe()
                      .key("AbcdEfghIjklmNopQrsTuvXyz_0123456789")
-                     .tokenValiditySeconds(7 * 24 * 60 * 60) //1 week  
+                     .tokenValiditySeconds(14 * 24 * 60 * 60) //2 week  
                .and()
                .logout().permitAll();
 
