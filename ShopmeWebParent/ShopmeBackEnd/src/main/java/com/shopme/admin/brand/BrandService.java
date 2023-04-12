@@ -37,18 +37,7 @@ public class BrandService {
 	}
 	
 	public void listByPage(int pageNum, PagingAndSortingHelper helper){
-		Sort sort = Sort.by(helper.getSortField());
-		
-		sort = helper.getSortDir().equals("asc") ? sort.ascending() : sort.descending();
-	Pageable pageable = PageRequest.of(pageNum - 1,  BRANDS_PER_PAGE, sort);
-	Page<Brand> page = null;
-	
-	if(helper.getKeyword() != null) {
-		page = repo.findAll(helper.getKeyword(),  pageable);
-		} else {
-	   page = repo.findAll(pageable);
-		}
-	helper.updateModelAttributes(pageNum,  page);
+		helper.listEntities(pageNum,  BRANDS_PER_PAGE, repo);
 	}
 	
 	
