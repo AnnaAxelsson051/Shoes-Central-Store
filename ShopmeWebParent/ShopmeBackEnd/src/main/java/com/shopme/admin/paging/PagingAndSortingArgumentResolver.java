@@ -28,6 +28,9 @@ public class PagingAndSortingArgumentResolver implements HandlerMethodArgumentRe
 		model.addAttribute("sortDir", sortDir);
 		model.addAttribute("reverseSortDir", reverseSortDir);
 		model.addAttribute("keyword", keyword);
+		
+		PagingAndSortingParam annotation = parameter.getParameterAnnotation(PagingAndSortingParam.class);
+		
 		return new PagingAndSortingHelper();
 	}
 

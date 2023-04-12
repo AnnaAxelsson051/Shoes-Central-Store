@@ -47,29 +47,13 @@ public class UserController {
 	//Listing users by page (pageNum)
 	//Using Paging and sorting helper class
 	@GetMapping("/users/page/{pageNum}")
-	public String listByPage(@PagingAndSortingParam PagingAndSortingHelper helper,
+	public String listByPage(
+			@PagingAndSortingParam (listName = "listUsers", moduleURL = "/users") PagingAndSortingHelper helper,
 			@PathVariable(name = "pageNum") int pageNum, Model model, 
 			@Param("sortField") String sortField, 
 	        @Param("sortDir") String sortDir,
 	        @Param("keyword") String keyword) {
-	Page <User> page = service.listByPage(pageNum, sortField, sortDir, keyword);
-	List <User> listUsers = page.getContent();
-	
-	long startCount = (pageNum -1) * UserService.USERS_PER_PAGE +1;
-	long endCount = startCount + UserService.USERS_PER_PAGE - 1;
-	if (endCount > page.getTotalElements()) {
-		endCount = page.getTotalElements();
-	}
-	
-	
-	model.addAttribute("currentPage", pageNum);
-	model.addAttribute("totalPages", page.getTotalPages());
-	model.addAttribute("startCount", startCount);
-	model.addAttribute("endCount", endCount);
-	model.addAttribute("totalItems", page.getTotalElements());
-	model.addAttribute("listUsers", listUsers);
-	
-	model.addAttribute("moduleURL", "/users");
+		Page <User> page = service.listByPage(pageNum, sortField, sortDir, keyword);
 	
 	return "users/users";
 	
