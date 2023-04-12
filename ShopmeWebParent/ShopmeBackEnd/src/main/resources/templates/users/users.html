@@ -22,7 +22,7 @@
 		
 	
 				
-				<div th:replace="fragments :: search_form_and_message('/users/page/1')"/>
+				<div th:replace="fragments :: search_form_and_message"/>
 				
 				
 					<!--list/column for admin to see
@@ -128,7 +128,7 @@
 
 	<!--'/users' = moduleURL
 	'users' = entity name-->			
-   <div th:replace="fragments :: pagination('/users', 'users')"></div>	
+   <div th:replace="fragments :: pagination('users')"></div>	
 				
 	<div th:replace="modal_fragments :: confirm_modal"></div>
 				
