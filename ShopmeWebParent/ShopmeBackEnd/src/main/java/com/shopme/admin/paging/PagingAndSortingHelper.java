@@ -15,7 +15,6 @@ import com.shopme.common.entity.User;
 public class PagingAndSortingHelper {
 	
 	private ModelAndViewContainer model;
-	private String moduleURL;
 	private String listName;
 	private String sortField;
 	private String sortDir;
@@ -23,10 +22,9 @@ public class PagingAndSortingHelper {
 	
 	//contructor that enables use of model below
 	public PagingAndSortingHelper(ModelAndViewContainer model,
-			String moduleURL, String listName, String sortField, 
+			String listName, String sortField, 
 			String sortDir, String keyword){
 		this.model = model;
-		this.moduleURL = moduleURL;
 		this.listName = listName;
 		this.sortField = sortField;
 		this.sortDir = sortDir;
@@ -51,7 +49,6 @@ public class PagingAndSortingHelper {
 		model.addAttribute("totalItems", page.getTotalElements());
 		model.addAttribute("listName", listItems);
 		
-		model.addAttribute("moduleURL", moduleURL);
 	}
 	
 	public void listEntities(int pageNum, int pageSize, SearchRepository <?, Integer> repo) {
