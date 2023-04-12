@@ -42,18 +42,21 @@ public class UserService {
 
 	//Returning a small set of users for a specific page number
 	//Sorting users on keyword if it is provided 
-	public Page<User> listByPage(int pageNum, PagingAndSortingHelper helper){
-		Sort sort = Sort.by(sortField);
+	public void listByPage(int pageNum, PagingAndSortingHelper helper){
+		Sort sort = Sort.by(helper.getSortField());
 		
-		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+		sort = helper.getSortDir().equals("asc") ? sort.ascending() : sort.descending();
 		
 		Pageable pageable = PageRequest.of(pageNum -1, USERS_PER_PAGE, sort);
-	
-		if (keyword != null) {
-			return userRepo.findAll(keyword, pageable);
+	    Page<User> page = null;
+		
+		if (helper.getKeyword() != null) {
+			page = userRepo.findAll(helper.getKeyword(), pageable);
+		} else {
+			page = userRepo.findAll(pageable);
 		}
 		
-		return userRepo.findAll(pageable);
+		helper.updateModelAttributes(pageNum, page);
 	}
 	
 	
