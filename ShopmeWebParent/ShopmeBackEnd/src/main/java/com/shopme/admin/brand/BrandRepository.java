@@ -12,8 +12,8 @@ import com.shopme.admin.paging.SearchRepository;
 //import com.shopme.admin.paging.SearchRepository;
 import com.shopme.common.entity.Brand;
 
-public interface BrandRepository extends SearchRepository <Brand, Integer>{
-//public interface BrandRepository extends CrudRepository <Brand, Integer>, PagingAndSortingRepository <Brand, Integer>{
+//public interface BrandRepository extends SearchRepository <Brand, Integer>{
+public interface BrandRepository extends SearchRepository <Brand, Integer>, CrudRepository <Brand, Integer>, PagingAndSortingRepository <Brand, Integer>{
 
 		
 		public Long countById(Integer id);

@@ -65,7 +65,7 @@ public class SettingController {
 	//Saving webpage logo
 	private void saveSiteLogo(MultipartFile multipartFile, GeneralSettingBag settingBag) throws IOException {
 		if (!multipartFile.isEmpty()) {
-			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename);
+			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			//String fileName = multipartFile.getOriginalFilename;
 			String value = "/site-logo/" + fileName;
 			settingBag.updateSiteLogo(value);

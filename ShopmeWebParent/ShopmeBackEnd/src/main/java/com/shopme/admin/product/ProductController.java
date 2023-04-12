@@ -101,6 +101,7 @@ public class ProductController {
 			ra.addFlashAttribute("message", "The product has been saved successfully");
 		    return "redirect:/products";
 		}
+		}
 		
 		ProductSaveHelper.setMainImageName(mainImageMultipart, product);
 		ProductSaveHelper.setExistingExtraImageNames(imageIDs, imageNames, product);
@@ -116,6 +117,7 @@ public class ProductController {
 			ra.addFlashAttribute("message", "The product has been saved successfully");
 		    return "redirect:/products";
 	} 
+	
 	
 	
 	//Updates enabled/disabled status for product 

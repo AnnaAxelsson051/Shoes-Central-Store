@@ -2,7 +2,12 @@ package com.shopme.admin.category;
 
 import java.io.IOException;
 import com.shopme.common.exception.CategoryNotFoundException;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.util.List;
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -20,7 +25,7 @@ import com.shopme.admin.FileUploadUtil;
 import com.shopme.admin.user.UserService;
 import com.shopme.common.entity.Category;
 
-import jakarta.servlet.http.HttpServletResponse;
+
 
 @Controller
 public class CategoryController {
@@ -152,8 +157,8 @@ public String deleteCategory(@PathVariable(name = "id") Integer id,
 }
 
 @GetMapping("/categories/export/csv")
-public void exportToCSV(HttpServletResponse response) throws IOException{
-	List <Category> listCategories = service.listCategoriesUsedInForm();
+public void exportToCSV(HttpServletResponse response) throws IOException {
+	List<Category> listCategories = service.listCategoriesUsedInForm();
 	CategoryCsvExporter exporter = new CategoryCsvExporter();
 	exporter.export(listCategories, response);
 }

@@ -11,7 +11,9 @@ import com.shopme.common.entity.Country;
 import com.shopme.common.entity.Customer;
 import com.shopme.setting.CountryRepository;
 
-import net.bytebuddy.utility.RandomString;
+import jakarta.annotation.Resource.AuthenticationType;
+
+//import net.bytebuddy.utility.RandomString;
 
 @Service
 public class CustomerService {
@@ -48,6 +50,7 @@ public class CustomerService {
 		
 		customerRepo.save(customer);
 	}
+	
 	
 	//Setting encoded pw to user obj
 	private void encodePassword(Customer customer) {

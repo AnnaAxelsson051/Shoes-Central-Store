@@ -2,6 +2,11 @@ package com.shopme.customer;
 
 import java.io.UnsupportedEncodingException;
 import java.util.*;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -16,10 +21,10 @@ import com.shopme.common.entity.Customer;
 import com.shopme.setting.EmailSettingBag;
 import com.shopme.setting.SettingService;
 
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
+//import jakarta.mail.MessagingException;
+//import jakarta.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class CustomerController {
