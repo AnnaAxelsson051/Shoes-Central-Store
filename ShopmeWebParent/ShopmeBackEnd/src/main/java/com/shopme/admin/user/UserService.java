@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.shopme.admin.paging.PagingAndSortingHelper;
 import com.shopme.common.entity.Role;
 import com.shopme.common.entity.User;
 
@@ -41,7 +42,7 @@ public class UserService {
 
 	//Returning a small set of users for a specific page number
 	//Sorting users on keyword if it is provided 
-	public Page<User> listByPage(int pageNum, String sortField, String sortDir, String keyword){
+	public Page<User> listByPage(int pageNum, PagingAndSortingHelper helper){
 		Sort sort = Sort.by(sortField);
 		
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();

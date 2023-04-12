@@ -54,7 +54,7 @@ public class UserController {
 	        @Param("sortDir") String sortDir,
 	        @Param("keyword") String keyword) {
 		Page <User> page = service.listByPage(pageNum, sortField, sortDir, keyword);
-	
+	helper.updateModelAttributes(pageNum, page);
 	return "users/users";
 	
 	}
