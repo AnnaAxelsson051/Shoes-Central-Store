@@ -45,31 +45,43 @@
 </ul>
 
 <!-- Tab panes -->
-
-	  <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')"> 
+ 
+  <div class="tab-content">
+	    <div class="tab-pane p-3" id="overview" role="tabpanel">
+	  <div th:replace="products/product_overview :: content"></div>
+	    </div>
+	<!--If role is not admin and editor, only Salesperson will see-->    
+  <div class="tab-pane" id="description" role="tabpanel" >
+	 <th:block th:if="${!#authorization.expression('hasAuthority (''Admin'')') && #authorization.expression('hasAuthority (''Editor'')')}"> 
+	   <th:block th:if="#authorization.expression('hasAuthority (''Salesperson'')')">
+	   <div th:replace="products/product_description_read_only :: content"></div>
+	</th:block>
+	</th:block>
+	
+	 <th:block th:if="${#authorization.expression('hasAuthority (''Admin'')') || #authorization.expression('hasAuthority (''Editor'')')}">
 	  <div th:replace="products/product_description :: content "></div>
  </th:block>
- 
-  <div class="tab-pane active p-3" id="images" role="tabpanel" >
-	  <th:block sec:authorize="hasAuthority('Salesperson')"> 
-	  <div th:replace="products/product_images_read_only :: content "></div>
- </th:block>
- 
   </div>
-  <div class="tab-pane" id="description" role="tabpanel" >
-	<th:block sec:authorize="hasAuthority('Admin', 'Editor')">   
-	   <div th:replace="products/product_images :: content"></div>
+	  <div class="tab-pane" id="images" role="tabpanel">
+	 <th:block th:if="${!#authorization.expression('hasAuthority (''Admin'')') && #authorization.expression('hasAuthority (''Editor'')')}"> 
+	   <th:block th:if="#authorization.expression('hasAuthority (''Salesperson'')')">
+	  <div th:replace="products/product_images_read_only :: content "></div>
 	</th:block>
-	</div>
-	
-	  <div class="tab-pane p-3" id="details" role="tabpanel">
-	<!--Admin and editor can edit description-->
-	<th:block sec:authorize="hasAuthority('Salesperson')">
-	  <div th:replace="products/product_details_read_only :: content "></div>
-	</th:block>
+	 </th:block>
    
- <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
-	 <div th:replace="products/product_details :: content "></div>
+ <th:block th:if="${#authorization.expression('hasAuthority (''Admin'')') || #authorization.expression('hasAuthority (''Editor'')')}">
+	 <div th:replace="products/product_images :: content "></div>
+ </th:block>
+	  </div>
+ <div class="tab-pane p-3" id="overview" role="tabpanel">
+		 <th:block th:if="${!#authorization.expression('hasAuthority (''Admin'')') && #authorization.expression('hasAuthority (''Editor'')')}"> 
+	   <th:block th:if="#authorization.expression('hasAuthority (''Salesperson'')')">
+		 <div th:replace="products/product_details_read_only :: content"></div>
+	 </th:block>	
+		 </th:block>
+	   
+	 <th:block th:if="${#authorization.expression('hasAuthority (''Admin'')') || #authorization.expression('hasAuthority (''Editor'')')}">
+	  <div th:replace="products/product_details :: content"></div>
 	  <div>
 		  <input type="button" class="btn btn-secondary" value="Add More Detail"
 	  onclick="addNextDetailSection()"/>
@@ -77,11 +89,13 @@
  </th:block>
    
    <div class="tab-pane p-3" id="shipping" role="tabpanel">
-   <th:block sec:authorize="hasAuthority('Salesperson')">
+ 	 <th:block th:if="${!#authorization.expression('hasAuthority (''Admin'')') && #authorization.expression('hasAuthority (''Editor'')')}"> 
+	   <th:block th:if="#authorization.expression('hasAuthority (''Salesperson'')')">
 	    <div th:replace="products/product_shipping_read_only :: content "></div> 
    </th:block>
+ 	 </th:block>
    
-  <th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
+<th:block th:if="${#authorization.expression('hasAuthority (''Admin'')') || #authorization.expression('hasAuthority (''Editor'')')}">
 <div th:replace="products/product_shipping :: content "></div>
 </th:block>
 </div>
