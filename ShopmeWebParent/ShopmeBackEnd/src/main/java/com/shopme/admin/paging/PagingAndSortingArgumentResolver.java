@@ -14,10 +14,20 @@ public class PagingAndSortingArgumentResolver implements HandlerMethodArgumentRe
 		return parameter.getParameterAnnotation(PagingAndSortingParam.class) != null;
 	}
 
+	//Reading the values of sortdir sortfield and keyword steting the attributes
+	//onto model
 	@Override
-	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-		// TODO Auto-generated method stub
+	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer model,
+			NativeWebRequest request, WebDataBinderFactory binderFactory) throws Exception {
+		String sortDir = request.getParameter("sortDir");
+		String sortField = request.getParameter("sortField");
+		String keyword = request.getParameter("keyword");
+		
+		String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+		model.addAttribute("sortField", sortField);
+		model.addAttribute("sortDir", sortDir);
+		model.addAttribute("reverseSortDir", reverseSortDir);
+		model.addAttribute("keyword", keyword);
 		return new PagingAndSortingHelper();
 	}
 

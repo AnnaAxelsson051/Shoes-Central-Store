@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.util.StringUtils;
 
 import com.shopme.admin.FileUploadUtil;
+import com.shopme.admin.paging.PagingAndSortingHelper;
 import com.shopme.admin.paging.PagingAndSortingParam;
 import com.shopme.admin.user.UserNotFoundException;
 import com.shopme.admin.user.UserService;
@@ -38,15 +39,15 @@ public class UserController {
 	
 	//link to user in navbar
 	@GetMapping("/users")
-	public String listFirstPage(Model model) {
-		return listByPage(1, model, "firstName", "asc", null);
+	public String listFirstPage() {
+		return "redirect:/users/page/1?sortField=firstName&sortDir=asc";
 		
 	}
 	
-	//Lists users by page (pageNum)
-	//sorted
+	//Listing users by page (pageNum)
+	//Using Paging and sorting helper class
 	@GetMapping("/users/page/{pageNum}")
-	public String listByPage(@PagingAndSortingParam
+	public String listByPage(@PagingAndSortingParam PagingAndSortingHelper helper,
 			@PathVariable(name = "pageNum") int pageNum, Model model, 
 			@Param("sortField") String sortField, 
 	        @Param("sortDir") String sortDir,
@@ -60,7 +61,6 @@ public class UserController {
 		endCount = page.getTotalElements();
 	}
 	
-	String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
 	
 	model.addAttribute("currentPage", pageNum);
 	model.addAttribute("totalPages", page.getTotalPages());
@@ -68,10 +68,7 @@ public class UserController {
 	model.addAttribute("endCount", endCount);
 	model.addAttribute("totalItems", page.getTotalElements());
 	model.addAttribute("listUsers", listUsers);
-	model.addAttribute("sortField", sortField);
-	model.addAttribute("sortDir", sortDir);
-	model.addAttribute("reverseSortDir", reverseSortDir);
-	model.addAttribute("keyword", keyword);
+	
 	model.addAttribute("moduleURL", "/users");
 	
 	return "users/users";
