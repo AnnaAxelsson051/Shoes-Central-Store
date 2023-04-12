@@ -49,7 +49,7 @@ public class UserController {
 	@GetMapping("/users/page/{pageNum}")
 	public String listByPage(
 			@PagingAndSortingParam (listName = "listUsers", moduleURL = "/users") PagingAndSortingHelper helper,
-			@PathVariable(name = "pageNum") int pageNum, Model model) {
+			@PathVariable(name = "pageNum") int pageNum) {
 		service.listByPage(pageNum, helper);
 	
 	return "users/users";
