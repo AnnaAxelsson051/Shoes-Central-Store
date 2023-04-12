@@ -73,15 +73,22 @@ public class CustomerService {
 		return true;
 	}
 	
+	//Updating the changes of details of customer in form
+	//Before saving customer in form object copies created time, enabled status and verification
+	//code from the customer in db object (dvs values that are not in the form)
 	//If password in form is not empty encoding the password and updates it  
 	public void save (Customer customerInForm) {
+		Customer customerInDB = customerRepo.findById(customerInForm.getId()).get();
 		if(!customerInForm.getPassword().isEmpty()) {
 		String encodedPassword = passwordEncoder.encode(customerInForm.getPassword());
 		customerInForm.setPassword(encodedPassword);
 	}else {
-		Customer customerInDB = customerRepo.findById(customerInForm.getId()).get();
 		customerInForm.setPassword(customerInDB.getPassword());
 	}
+		customerInForm.setEnabled(customerInDB.isEnabled());
+		customerInForm.setCreatedTime(customerInDB.getCreatedTime());
+		customerInForm.setVerificationCode(customerInDB.getVerificationCode());
+		
 	customerRepo.save(customerInForm);
 }
 	public void delete (Integer id) throws CustomerNotFoundException{
