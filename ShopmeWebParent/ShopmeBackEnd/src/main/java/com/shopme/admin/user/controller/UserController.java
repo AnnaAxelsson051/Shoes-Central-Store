@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.util.StringUtils;
 
 import com.shopme.admin.FileUploadUtil;
+import com.shopme.admin.paging.PagingAndSortingParam;
 import com.shopme.admin.user.UserNotFoundException;
 import com.shopme.admin.user.UserService;
 import com.shopme.admin.user.export.UserCsvExporter;
@@ -45,7 +46,7 @@ public class UserController {
 	//Lists users by page (pageNum)
 	//sorted
 	@GetMapping("/users/page/{pageNum}")
-	public String listByPage(
+	public String listByPage(@PagingAndSortingParam
 			@PathVariable(name = "pageNum") int pageNum, Model model, 
 			@Param("sortField") String sortField, 
 	        @Param("sortDir") String sortDir,
