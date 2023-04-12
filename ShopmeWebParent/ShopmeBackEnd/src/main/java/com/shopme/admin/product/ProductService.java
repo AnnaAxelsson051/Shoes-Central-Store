@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 
+import com.shopme.admin.paging.PagingAndSortingHelper;
 import com.shopme.common.entity.Product;
 import com.shopme.common.exception.ProductNotFoundException;
 
@@ -30,27 +31,29 @@ public class ProductService {
 	}
 	
 	//Sorts products and subcategories accoring to keyword displaying 5 per page
-	public Page <Product> listByPage(int pageNum, String sortField, 
-			String sortDir, String keyword, Integer categoryId){
-		Sort sort = Sort.by(sortField);
-		
-		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
-	Pageable pageable = (Pageable) PageRequest.of(pageNum - 1,  PRODUCTS_PER_PAGE, sort);
+	public void listByPage(int pageNum, PagingAndSortingHelper helper, Integer categoryId){
+	//Pageable pageable = (Pageable) PageRequest.of(pageNum - 1,  PRODUCTS_PER_PAGE, sort);
+	Pageable pageable = helper.createPageable(PRODUCTS_PER_PAGE, pageNum);
+	String keyword = helper.getKeyword();
+	Page<Product> page = null;
 	
 	
 	if(keyword != null && !keyword.isEmpty()) {
 		if(categoryId != null && categoryId > 0) {
 			String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
-		return repo.findAllInCategory(categoryId, categoryIdMatch, pageable);
+		page = repo.findAllInCategory(categoryId, categoryIdMatch, pageable);
+		} else {
+		page = repo.findAll(keyword, pageable);
 		}
-		return repo.findAll(keyword,  pageable);
-		}
-	
-	if(categoryId != null && categoryId > 0) {
-		String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
-	return repo.findAllInCategory(categoryId, categoryIdMatch, pageable);
+	}else {
+		if(categoryId != null && categoryId > 0) {
+			String categoryIdMatch = "-" + String.valueOf(categoryId) + "-";
+		page = repo.findAllInCategory(categoryId, categoryIdMatch, pageable);
+	} else {
+		page = repo.findAll(pageable);
 	}
-	return repo.findAll(pageable);
+	}
+		helper.updateModelAttributes(pageNum, page);
 	}
 
 	

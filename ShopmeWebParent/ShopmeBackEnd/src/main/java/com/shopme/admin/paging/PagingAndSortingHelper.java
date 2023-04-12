@@ -55,9 +55,9 @@ public class PagingAndSortingHelper {
 	}
 	
 	public void listEntities(int pageNum, int pageSize, SearchRepository <?, Integer> repo) {
-Sort sort = Sort.by(sortField);
-		
-		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+    Sort sort = Sort.by(sortField);
+	sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+	
 	Pageable pageable = PageRequest.of(pageNum - 1,  pageSize, sort);
 	Page<?> page = null;
 	
@@ -67,6 +67,13 @@ Sort sort = Sort.by(sortField);
 	   page = repo.findAll(pageable);
 		}
 	updateModelAttributes(pageNum,  page);
+	}
+	
+	//Returning a pageable object based on page size and num
+	public Pageable createPageable(int pageSize, int pageNum) {
+		Sort sort = Sort.by(sortField);
+		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+		return PageRequest.of(pageNum - 2, pageSize, sort);
 	}
 
 	public String getSortField() {
