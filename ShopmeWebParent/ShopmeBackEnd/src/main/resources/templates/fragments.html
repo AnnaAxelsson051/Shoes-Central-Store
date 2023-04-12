@@ -1,5 +1,5 @@
 
-<!---->
+
 
 <!DOCTYPE html>
 <html xmlns:th"http://thymeLeaf.org">
@@ -25,7 +25,7 @@
 		
 		
 	<!--listing top-->
-		<th th:fragment="column_link(moduleURL, fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
+		<th th:fragment="column_link(fieldName, columnLabel, removeTag)" th:remove="${removeTag}">
      <a class="text-white"
 	    th:href="@{${moduleURL} + '/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : reverseSortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}" >
 	    [[${columnLabel}]]
@@ -37,7 +37,7 @@
    </th>
    
    <!--Pagination bottom-->
-   <a th:fragment="page_link(moduleURL, pageNum, label)"
+   <a th:fragment="page_link(pageNum, label)"
    class="page_link"
    th:href="@{${moduleURL} + '/page/' + ${pageNum} + '?sortField=' + ${sortField} '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''} + ${categoryId != null ? '&categoryId=' + categoryId : '' }}">[[${label}]]</a>
 
@@ -80,7 +80,7 @@
 
 
 		
-	<div th:fragment="pagination(moduleURL, entityName)" th:remove="tag">	
+	<div th:fragment="pagination(entityName)" th:remove="tag">	
 	<!--Displaying how many/which users out of how many on page
 				(shown only if greater than 0)-->
 				<div class="text-center m-1" th:if="${totalItems > 0}">
