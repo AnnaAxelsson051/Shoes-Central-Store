@@ -20,10 +20,15 @@ import com.shopme.common.entity.Country;
 import com.shopme.common.entity.Customer;
 import com.shopme.setting.EmailSettingBag;
 import com.shopme.setting.SettingService;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 
 //import jakarta.mail.MessagingException;
 //import jakarta.mail.internet.MimeMessage;
+import com.shopme.security.oauth.CustomerOAuth2User;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
+
 //import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -100,9 +105,27 @@ public class CustomerController {
 	
 	//For customer to view their account details
 	//getting customer email via the authenticated user object
+	//in different ways depending on how user is logged in
 	@GetMapping("/account_details")
 	public String viewAccountDetails(Model model, HttpServletRequest request) {
-		String principalType = request.getUserPrincipal().getClass().getName();
+		String email = getEmailOfAuthenticatedCustomer(request);
+		Customer customer = customerService.getCustomerByEmail(email);
+	model.addAttribute("customer", customer);
 		return "customer/account_form";
 	}
+	
+	private String getEmailOfAuthenticatedCustomer(HttpServletRequest request) {
+		Object principal = request.getUserPrincipal();
+	String customerEmail = null;
+	
+	if (principal instanceof UsernamePasswordAuthenticationToken
+	|| principal instanceof RememberMeAuthenticationToken) {
+	customerEmail = request.getUserPrincipal().getName();
+	} else if (principal instanceof OAuth2AuthenticationToken) {
+		OAuth2AuthenticationToken oauth2Token = (OAuth2AuthenticationToken) principal;
+	CustomerOAuth2User oauth2User = (CustomerOAuth2User) oauth2Token.getPrincipal();
+	customerEmail = oauth2User.getEmail();
+	}
+	return customerEmail;
+}
 }
