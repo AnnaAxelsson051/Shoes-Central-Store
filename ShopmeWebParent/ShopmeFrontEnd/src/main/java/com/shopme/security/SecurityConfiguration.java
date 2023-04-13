@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.shopme.security.oauth.CustomerOAuth2UserService;
+import com.shopme.security.oauth.OAuth2LoginSuccessHandler;
 
 
 @Configuration
@@ -25,6 +26,7 @@ public class SecurityConfiguration {
  
 	@Autowired 
 	private CustomerOAuth2UserService oAuth2UserService;
+	@Autowired private OAuth2LoginSuccessHandler oauth2LoginHandler;
 	
 	   @Bean
 	    public BCryptPasswordEncoder passwordEncoder() {
@@ -49,7 +51,8 @@ public class SecurityConfiguration {
             .loginPage("/login")
             .userInfoEndpoint()
             .userService(oAuth2UserService)
-       .and()
+            .and()
+            .successHandler(oauth2LoginHandler)
        .and()
        .logout().permitAll()
        .and()

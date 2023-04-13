@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 import com.shopme.common.entity.Country;
 import com.shopme.common.entity.Customer;
 import com.shopme.setting.CountryRepository;
+import com.shopme.common.entity.AuthenticationType;
 
-import jakarta.annotation.Resource.AuthenticationType;
+
 
 //import net.bytebuddy.utility.RandomString;
 
@@ -72,11 +73,48 @@ public class CustomerService {
 	}
 		
 	}
+	
+	public Customer getCustomerByEmail(String email) {
+		return customerRepo.findByEmail(email);
+	}
+	
 	//Checking if the auth type here is different than tha type in customer object then calling
 	//customer repo to update the auth type
 	public void updateAuthenticationType(Customer customer, com.shopme.common.entity.AuthenticationType type) {
 		if (!customer.getAuthenticationType().equals(type)) {
 			customerRepo.updateAuthenticationType(customer.getId(), type);
+		}
+	}
+	
+	public void addNewCustomerUponOAuthLogin(String name, String email, String countryCode) {
+		Customer customer = new Customer();
+		customer.setEmail(email);
+		setName(name, customer);
+	
+		customer.setEnabled(true);
+		customer.setCreatedTime(new Date());
+		customer.setAuthenticationType(AuthenticationType.GOOGLE);
+		customer.setPassword("");
+		customer.setAddressLine1("");
+		customer.setCity("");
+		customer.setState("");
+		customer.setPhoneNumber("");
+		customer.setPostalCode("");
+		customer.setCountry(countryRepo.findByCode(countryCode));
+		
+		customerRepo.save(customer);
+		}
+	
+	//If what customer entered (array) only contains one word set that to first name
+	//Otherwise sets first name to the first element in array
+	private void setName(String name, Customer customer) {
+		String[] nameArray = name.split(" ");
+		if(nameArray.length < 2) {
+			customer.setFirstName(name);
+			customer.setLastName("");
+		}else {
+			String firstName = nameArray[0];
+			customer.setFirstName(firstName);
 		}
 	}
 }
