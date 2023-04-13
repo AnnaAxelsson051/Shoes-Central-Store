@@ -72,4 +72,11 @@ public class CustomerService {
 	}
 		
 	}
+	//Checking if the auth type here is different than tha type in customer object then calling
+	//customer repo to update the auth type
+	public void updateAuthenticationType(Customer customer, com.shopme.common.entity.AuthenticationType type) {
+		if (!customer.getAuthenticationType().equals(type)) {
+			customerRepo.updateAuthenticationType(customer.getId(), type);
+		}
+	}
 }
