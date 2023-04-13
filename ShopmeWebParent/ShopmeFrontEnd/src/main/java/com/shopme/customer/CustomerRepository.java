@@ -21,8 +21,8 @@ public interface CustomerRepository extends CrudRepository<Customer, Integer> {
 	@Modifying
 	public void enable(Integer id);
 	
-	//Set auth type to value of first param
-	@Query("UPDATE Customer c SET c.authenticationType = ?1")
+	//Set auth type to value of sec param where c.id is the val of first param
+	@Query("UPDATE Customer c SET c.authenticationType = ?2 WHERE c.id = ?1")
 	@Modifying
-	public void updateAuthenticationType(AuthenticationType type);
+	public void updateAuthenticationType(Integer customerId, AuthenticationType type);
 }
