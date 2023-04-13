@@ -110,7 +110,10 @@ public class CustomerController {
 	public String viewAccountDetails(Model model, HttpServletRequest request) {
 		String email = getEmailOfAuthenticatedCustomer(request);
 		Customer customer = customerService.getCustomerByEmail(email);
-	model.addAttribute("customer", customer);
+	List<Country> listCountries = customerService.listAllCountries();
+		
+		model.addAttribute("customer", customer);
+		model.addAttribute("listCountries", listCountries);
 		return "customer/account_form";
 	}
 	
