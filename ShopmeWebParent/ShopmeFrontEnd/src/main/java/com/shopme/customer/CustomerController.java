@@ -24,6 +24,7 @@ import com.shopme.setting.SettingService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 
+import com.shopme.security.CustomerUserDetails;
 //import jakarta.mail.MessagingException;
 //import jakarta.mail.internet.MimeMessage;
 import com.shopme.security.oauth.CustomerOAuth2User;
@@ -135,9 +136,43 @@ public class CustomerController {
 	
 	//When customer is updating their account details
 	@PostMapping("/update_account_details")
-	public String updateAccountDetails(Model model, Customer customer, RedirectAttributes ra) {
+	public String updateAccountDetails(Model model, Customer customer, RedirectAttributes ra,
+			HttpServletRequest request) {
 		customerService.update(customer);
 		ra.addFlashAttribute("message", "Your account details have been updated");
+		updateNameForAuthenticatedCustomer(customer, request);
 		return "redirect:/account_details";
+	}
+
+	//When user chooses to alter their name
+	private void updateNameForAuthenticatedCustomer(Customer customer, HttpServletRequest request) {
+		Object principal = request.getUserPrincipal();
+	
+	if (principal instanceof UsernamePasswordAuthenticationToken
+	|| principal instanceof RememberMeAuthenticationToken) {
+    CustomerUserDetails userDetails = getCustomerUserDetailsObject (principal);
+    Customer authenticatedCustomer = userDetails.getCustomer();
+	authenticatedCustomer.setFirstName(customer.getFirstName());
+	authenticatedCustomer.setLastName(customer.getLastName());
+	} else if (principal instanceof OAuth2AuthenticationToken) {
+		OAuth2AuthenticationToken oauth2Token = (OAuth2AuthenticationToken) principal;
+	CustomerOAuth2User oauth2User = (CustomerOAuth2User) oauth2Token.getPrincipal();
+	String fullName = customer.getFirstName() + " " + customer.getLastName();
+	oauth2User.setFullName(fullName);
+	}
+		
+	}
+	
+	private CustomerUserDetails getCustomerUserDetailsObject(Object principal) {
+		CustomerUserDetails userDetails = null;
+		if(principal instanceof UsernamePasswordAuthenticationToken) {
+			UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) principal;
+			userDetails = (CustomerUserDetails) token.getPrincipal();
+		} else if (principal instanceof RememberMeAuthenticationToken) {
+			RememberMeAuthenticationToken token = (RememberMeAuthenticationToken) principal;
+			userDetails = (CustomerUserDetails) token.getPrincipal();
+		}
+		
+		return userDetails;
 	}
 }

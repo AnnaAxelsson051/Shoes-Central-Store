@@ -136,8 +136,8 @@ public class CustomerService {
 	}
 	
 	//Updating changes in user password only if the authentication type is
-	//database, copying the values of enabled created time and ver code 
-	//from the customer in db object
+	//database, and copying the values of enabled, created time, verification code 
+	//and pw (if not altered) from the customer in db object
 	public void update (Customer customerInForm) {
 		Customer customerInDB = customerRepo.findById(customerInForm.getId()).get();
 		
@@ -148,6 +148,8 @@ public class CustomerService {
 	        } else {
 		    customerInForm.setPassword(customerInDB.getPassword());
 	        }
+		} else {
+			customerInForm.setPassword(customerInDB.getPassword());
 		}
 		    customerInForm.setEnabled(customerInDB.isEnabled());
 		    customerInForm.setCreatedTime(customerInDB.getCreatedTime());
