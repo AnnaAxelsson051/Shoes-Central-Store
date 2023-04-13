@@ -81,20 +81,21 @@ public class CustomerService {
 	
 	//Checking if the auth type here is different than tha type in customer object then calling
 	//customer repo to update the auth type
-	public void updateAuthenticationType(Customer customer, com.shopme.common.entity.AuthenticationType type) {
+	public void updateAuthenticationType(Customer customer, AuthenticationType type) {
 		if (!customer.getAuthenticationType().equals(type)) {
 			customerRepo.updateAuthenticationType(customer.getId(), type);
 		}
 	}
 	
-	public void addNewCustomerUponOAuthLogin(String name, String email, String countryCode) {
+	public void addNewCustomerUponOAuthLogin(String name, String email,
+			String countryCode, AuthenticationType authenticationtype) {
 		Customer customer = new Customer();
 		customer.setEmail(email);
 		setName(name, customer);
 	
 		customer.setEnabled(true);
 		customer.setCreatedTime(new Date());
-		customer.setAuthenticationType(AuthenticationType.GOOGLE);
+		customer.setAuthenticationType(authenticationtype);
 		customer.setPassword("");
 		customer.setAddressLine1("");
 		customer.setCity("");
@@ -116,6 +117,9 @@ public class CustomerService {
 		}else {
 			String firstName = nameArray[0];
 			customer.setFirstName(firstName);
+			
+			String lastName = name.replaceFirst(firstName + " ", "");
+			customer.setLastName(lastName);
 		}
 	}
 }

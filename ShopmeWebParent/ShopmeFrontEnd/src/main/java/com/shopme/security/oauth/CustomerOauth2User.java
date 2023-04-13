@@ -7,12 +7,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 public class CustomerOauth2User implements OAuth2User {
-
+private String clientName;
 	private OAuth2User oauth2User;
 	
-	public CustomerOauth2User(OAuth2User user) {
+	public CustomerOauth2User(OAuth2User user, String clientName) {
 		super();
 		this.oauth2User = user;
+		this.clientName = clientName;
 	}
 	
 	@Override
@@ -35,6 +36,10 @@ public class CustomerOauth2User implements OAuth2User {
 	}
 
 	
+	public String getClientName() {
+		return clientName;
+	}
+
 	public String getFullName() {
 		return oauth2User.getAttribute("name");
 	}

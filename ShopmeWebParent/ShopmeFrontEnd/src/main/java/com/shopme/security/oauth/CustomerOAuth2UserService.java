@@ -13,8 +13,9 @@ public class CustomerOAuth2UserService extends DefaultOAuth2UserService {
 	//authirasation, returniing a new instance of customerOAuth user
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+		String clientName = userRequest.getClientRegistration().getClientName();
 		OAuth2User user = super.loadUser(userRequest);
-		return new CustomerOauth2User(user);
+		return new CustomerOauth2User(user, clientName);
 	}
 
 }
