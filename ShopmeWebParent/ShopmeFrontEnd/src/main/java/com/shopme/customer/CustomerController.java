@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.Utility;
 import com.shopme.common.entity.Country;
@@ -131,4 +132,12 @@ public class CustomerController {
 	}
 	return customerEmail;
 }
+	
+	//When customer is updating their account details
+	@PostMapping("/update_account_details")
+	public String updateAccountDetails(Model model, Customer customer, RedirectAttributes ra) {
+		customerService.update(customer);
+		ra.addFlashAttribute("message", "Your account details have been updated");
+		return "redirect:/account_details";
+	}
 }
