@@ -142,5 +142,9 @@ public class CustomerRepositoryTests {
 		assertThat(customer.isEnabled()).isTrue();
 	}
 	
+	@Test
+	public void testUpdateAuthenticationType() {
+		
+	}
 
 }
