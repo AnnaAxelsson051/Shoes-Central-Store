@@ -1,6 +1,7 @@
 package com.shopme.customer;
 
 import java.util.List;
+import java.nio.charset.Charset;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.shopme.common.entity.Customer;
 import com.shopme.setting.CountryRepository;
 import com.shopme.common.entity.AuthenticationType;
 
+import java.util.Random;
 
 
 //import net.bytebuddy.utility.RandomString;
@@ -41,16 +43,26 @@ public class CustomerService {
 		return customer == null;
 	}
 	
+	//Registering a new customer with a randomized verification code
 	public void registerCustomer(Customer customer) {
 		encodePassword(customer);
 		customer.setEnabled(false);
 		customer.setCreatedTime(new Date());
 		customer.setAuthenticationType(AuthenticationType.DATABASE);
 		
-		String randomCode = RandomString.make(64);
+		//String randomCode = RandomString.make(64);
+		String randomCode = randomString(64);
 		customer.setVerificationCode(randomCode);
 		
 		customerRepo.save(customer);
+	}
+	
+	public static String randomString(int length) {
+	    byte[] byteArray = new byte[length];
+	    Random random = new Random();
+	    random.nextBytes(byteArray);
+	 
+	    return new String(byteArray, Charset.forName("UTF-8"));
 	}
 	
 	
