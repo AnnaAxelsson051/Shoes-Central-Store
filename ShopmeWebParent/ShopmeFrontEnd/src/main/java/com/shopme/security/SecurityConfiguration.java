@@ -12,18 +12,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.shopme.admin.security.ShopmeUserDetailsService;
+//import com.shopme.admin.security.ShopmeUserDetailsService;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+import com.shopme.security.oauth.CustomerOAuth2UserService;
 
 
 @Configuration
 public class SecurityConfiguration {
  
-
+	@Autowired 
+	private CustomerOAuth2UserService oAuth2UserService;
+	
 	   @Bean
 	    public BCryptPasswordEncoder passwordEncoder() {
 	        return new BCryptPasswordEncoder();
@@ -42,6 +44,12 @@ public class SecurityConfiguration {
             .loginPage()
             .usernameParameter("email")
             .permitAll()
+       .and()
+       .oauth2login()
+            .loginPage("/login")
+            .userInfoEndpoint()
+            .userService(oAuth2UserService)
+       .and()
        .and()
        .logout().permitAll()
        .and()
