@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.shopme.common.entity.Country;
 import com.shopme.common.entity.Customer;
+import com.shopme.common.exception.CustomerNotFoundException;
 import com.shopme.setting.CountryRepository;
 import com.shopme.common.entity.AuthenticationType;
 
@@ -158,4 +159,29 @@ public class CustomerService {
 			customerInForm.setResetPasswordToken(customerInDB.getResetPasswordToken());
 	customerRepo.save(customerInForm);
 }
+
+	//Checking if there is a user with given email, generating a random string
+	//token saving it in customer obj, token will then be used in the reset
+	//pw link
+	
+	public String updateResetPasswordToken(String email) throws CustomerNotFoundException {
+	Customer customer = customerRepo.findByEmail(email);
+	if (customer != null) {
+		String token = RandomString(30);
+		customer.setResetPasswordToken(token);;
+		customerRepo.save(customer);
+		return token;
+	}else {
+		throw new CustomerNotFoundException("Could not find any customer with the email " +email);
+	}
+		
+	}
+	
+	public static String RandomString(int length) {
+	    byte[] byteArray = new byte[length];
+	    Random random = new Random();
+	    random.nextBytes(byteArray);
+	 
+	    return new String(byteArray, Charset.forName("UTF-8"));
+	}
 }
