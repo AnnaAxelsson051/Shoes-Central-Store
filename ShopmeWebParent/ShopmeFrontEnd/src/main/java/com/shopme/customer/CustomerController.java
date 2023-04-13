@@ -3,9 +3,9 @@ package com.shopme.customer;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -96,5 +96,13 @@ public class CustomerController {
 	String code, Model model) {
 		boolean verified = customerService.verify(code);
 		return "register/" + (verified ? "verify_success" : "verify_fail");
+	}
+	
+	//For customer to view their account details
+	//getting customer email via the authenticated user object
+	@GetMapping("/account_details")
+	public String viewAccountDetails(Model model, HttpServletRequest request) {
+		String principalType = request.getUserPrincipal().getClass().getName();
+		return "customer/account_form";
 	}
 }
