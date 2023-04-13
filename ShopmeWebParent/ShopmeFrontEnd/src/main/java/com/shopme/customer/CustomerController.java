@@ -61,7 +61,7 @@ public class CustomerController {
 	public String createCustomer(Customer customer, 
 			Model model, HttpServletRequest request) throws UnsupportedEncodingException, MessagingException {
 	customerService.registerCustomer(customer);
-	senderVerificationEmail(request, customer);
+	sendVerificationEmail(request, customer);
 	
 	model.addAttribute("pageTitle", "Registration Succeeded!");
 	
@@ -71,7 +71,7 @@ public class CustomerController {
 	//Sending a verification email when new customer has registered
 	//Getting email settings, creating a mimemessage object for sending html message 
 	//including a verify url link for customer to click
-	private void senderVerificationEmail(HttpServletRequest request,
+	private void sendVerificationEmail(HttpServletRequest request,
 			Customer customer) throws UnsupportedEncodingException, MessagingException {
 		EmailSettingBag emailSettings = settingService.getEmailSettings();
 		JavaMailSenderImpl mailSender = Utility.prepareMailSender(emailSettings);
