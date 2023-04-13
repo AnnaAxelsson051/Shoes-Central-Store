@@ -24,7 +24,7 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 	//Will be envoked by sprin security upon successful authentication
 	//getting principal object from authentication object casting it to a 
 	//customeroauth2user, get customer by email and if no customer creating
-	//a new in db, otherwise update customer auth type 
+	//a new in db, otherwise update customer auth type and full name
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws ServletException, IOException {
@@ -41,6 +41,7 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 		if(customer == null) {
 			customerService.addNewCustomerUponOAuthLogin(name,email, countryCode, authenticationType);
 		} else {
+			oauth2User.setFullName(customer.getFullName());
 			customerService.updateAuthenticationType(customer, authenticationType);
 		}
 		
