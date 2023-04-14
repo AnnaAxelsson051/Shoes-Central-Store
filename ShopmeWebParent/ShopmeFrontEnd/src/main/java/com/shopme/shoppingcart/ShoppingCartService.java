@@ -8,12 +8,19 @@ import org.springframework.stereotype.Service;
 import com.shopme.common.entity.CartItem;
 import com.shopme.common.entity.Customer;
 import com.shopme.common.entity.Product;
+import com.shopme.product.ProductRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
+@Transactional
 public class ShoppingCartService {
 	
 	@Autowired 
 	private CartItemRepository cartRepo;
+	
+	@Autowired 
+	private ProductRepository productRepo;
 
 	//Adding product to cart or updating quantity
 	
@@ -47,5 +54,13 @@ public class ShoppingCartService {
 	//Listing what is in cart 
 	public List <CartItem> listCartItems(Customer customer){
 		return cartRepo.findByCustomer(customer);
+	}
+	
+	//Returning subtotal of cart
+	public float updateQuantity(Integer productId, Integer quantity, Customer customer) {
+		cartRepo.updateQuantity(quantity, customer.getId(), productId);
+	Product product = productRepo.findById(productId).get();
+	float subtotal = product.getDiscountPrice() * quantity;
+	return subtotal;
 	}
 }
