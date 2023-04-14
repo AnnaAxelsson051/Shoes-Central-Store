@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "cart_items")
@@ -58,6 +59,11 @@ public class CartItem {
 	public String toString() {
 		return "CartItem [id=" + id + ", customer=" + customer.getFullName() + ", product=" + product.getShortName() + ", quantity=" + quantity
 				+ "]";
+	}
+	
+	@Transient
+	public float getSubTotal() {
+		return product.getDiscountPercent() * quantity;
 	}
 	
 }

@@ -9,19 +9,21 @@
 				<b>[[${product.shortName}]]</b>
 				</a>
 			</div>
-			
+		<div th:replace="product/product"></div>
+		</div>
+		
+		<div th:fragment="product/product_fragment :: product_price" th:remove="tag">
 			<!--If no discpunt percent-->
 			<!--Lets admin display currency symbol after or before price depending on currency-->
-			<div th:if="${product.discountPercent < = 0}">
+			<th:block th:if="${product.discountPercent &lt; 0}">
 				<div th:replace="product/product_fragment :: price(${product.price})"></div>
-			</div>
+			</th:block>
 			
 			<!--If there is a discount-->
-				<div th:if="${product.discountPercent > 0}">
+				<th:block th:if="${product.discountPercent > 0}">
 				<span style="font-size: larger; color: darkred"><div th:replace="product/price_fragment :: price_fragment(${product.price})"></div></span>
 				<del><span><div th:replace="product/price_fragment :: price(${product.discountPrice})"></span></del>
-			</div>
-		
+			</th:block>	
 		</div>
 		
 	<div th:fragment="price_fragment(productPrice)" th:remove="tag">
