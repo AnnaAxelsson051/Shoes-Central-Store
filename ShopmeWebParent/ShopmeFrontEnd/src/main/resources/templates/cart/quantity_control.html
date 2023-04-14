@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeLeaf.org">
+	<body>
+		
+		<!--Allowing user to modify quantity of products before
+		adding to shoppingcart by clicking + / - -->
+		<div th:fragment="quantity_control(quantityValue, productId)">
+			<nav>
+				<ul class="pagination">
+					<li class="page-item">
+						<a class="page-link" th:pid="${productId}" href=""><b>-</b></a>
+					</li>
+					<li class="page-item">
+			<!--Prevent customers from changing value with keys-->			
+						<input type="text" th:value="${quantityValue}" th:id="'quantity' + ${productId} " 
+						onkeydown="return false;" 
+						class="form-control text-center" style="width: 55px"/>
+					</li>
+					<li class="page-item">
+						<a class="page-link" th:pid="${productId}" href=""><b>+</b></a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+		
+	
+	</body>
+</html>
