@@ -154,12 +154,21 @@ public class ProductController {
 	@GetMapping("/products/edit/{id}")
 	public String editProduct(
 			@PathVariable("id") Integer id, Model model,
-			RedirectAttributes ra) {
+			RedirectAttributes ra, @AuthenticationPrincipal ShopmeUserDetails loggedUser) {
+		
 		try {
 			Product product = productService.get(id);
 			List<Brand> listBrands = brandService.listAll();
 			Integer numberOfExistingExtraImages = product.getImages().size();
 			
+			boolean isReadOnlyForSalesPerson = false;
+			//Saving price if salesperson
+			if(!loggedUser.hasRole("Admin") && !loggedUser.hasRole("Editor")) {
+				if (loggedUser.hasRole("Salesperson")) {
+					isReadOnlyForSalesPerson = true;
+			}
+			}
+			model.addAttribute("isReadOnlyForSalesPerson", isReadOnlyForSalesPerson);
 			model.addAttribute("product", product);
 			model.addAttribute("listBrands", listBrands);
 			model.addAttribute("pageTitle", "Edit Product (ID: " + id + ")");
