@@ -3,6 +3,7 @@ package com.shopme.customer;
 import java.io.UnsupportedEncodingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import com.shopme.setting.SettingService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
+import com.shopme.common.entity.Customer;
 
 @Controller
 public class ForgotPasswordController {
@@ -76,6 +78,23 @@ public class ForgotPasswordController {
 	
 	helper.setText(content, true);
 	mailSender.send(message);
+		
+	}
+	
+	//Showing the reset password form when customer clicks change password
+	//link in the email, accessing the token in the url
+	@GetMapping("/reset_password")
+	public String showResetForm(@Param("token") String token, Model model) {
+		Customer customer = customerService.getByResetPasswordToken(token);
+		if (customer != null) {
+			model.addAttribute("token", token);
+		}else {
+			model.addAttribute("pageTitle", "Invalid token");
+			model.addAttribute("message", "Invalid token");
+			return "message";
+		}
+		
+		return "customer/reset_password_form";
 		
 	}
 }

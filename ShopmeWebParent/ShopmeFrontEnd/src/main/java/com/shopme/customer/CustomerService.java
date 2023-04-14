@@ -157,8 +157,8 @@ public class CustomerService {
 		    customerInForm.setVerificationCode(customerInDB.getVerificationCode());
 		    customerInForm.setAuthenticationType(customerInDB.getAuthenticationType());
 			customerInForm.setResetPasswordToken(customerInDB.getResetPasswordToken());
-	customerRepo.save(customerInForm);
-}
+	      customerRepo.save(customerInForm);
+     }
 
 	//Checking if there is a user with given email, generating a random string
 	//token saving it in customer obj, token will then be used in the reset
@@ -183,5 +183,10 @@ public class CustomerService {
 	    random.nextBytes(byteArray);
 	 
 	    return new String(byteArray, Charset.forName("UTF-8"));
+	}
+	
+	//Finds customer with the unique token 
+	public Customer getByResetPasswordToken(String token) {
+		return customerRepo.findByResetPasswordToken(token);
 	}
 }
