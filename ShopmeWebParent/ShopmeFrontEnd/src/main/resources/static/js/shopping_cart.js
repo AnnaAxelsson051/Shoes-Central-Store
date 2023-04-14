@@ -12,6 +12,11 @@ $(document).ready(function(){
 	    increaseQuantity($(this));
 	
 	});
+		$(".linkRemove").on("click", function(evt){
+	    evt.preventDefault();
+	    removeProduct($(this));
+	
+	});
 });
 
 function decreaseQuantity(link){
@@ -71,3 +76,20 @@ function increaseQuantity(link){
 			formattedTotal = $.number(total, 2);
 			$("#total").text(formattedTotal);
 		}
+		
+		function removeProduct(){
+			url = link.attr("href");
+			alert(url);
+			
+				//Making an ajax call to the restservice
+    $.ajax({
+	type: "DELETE",addToCarturl: url,addToCartbeforeSend: function(xhr){
+		xhr.setRequestHeader(csrfHeaderName, csrfValue);
+	}
+    }).done(function(response){
+
+    }).fail(function(){
+	showErrorModal("Error while removing product.");
+    });
+		}
+		
