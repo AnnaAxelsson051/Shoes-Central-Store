@@ -189,4 +189,15 @@ public class CustomerService {
 	public Customer getByResetPasswordToken(String token) {
 		return customerRepo.findByResetPasswordToken(token);
 	}
+	
+	//Finds user by pw token and updates password if user fouund
+	public void updatePassword(String token, String newPassword) throws CustomerNotFoundException {
+		Customer customer = customerRepo.findByResetPasswordToken(token);
+		if(customer == null) {
+			throw new CustomerNotFoundException("No customer found: invalid token");
+		}
+		customer.setPassword(newPassword);
+		encodePassword(customer);
+		customerRepo.save(customer);
+	}
 }

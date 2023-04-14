@@ -97,4 +97,26 @@ public class ForgotPasswordController {
 		return "customer/reset_password_form";
 		
 	}
+	
+	//Accesses the http servlet request object reads the token and pw from html reset_pw
+	//And updates pw by calling service if there is such a token
+	//returning message html
+	@PostMapping("/reset_password")
+	public String processResetForm(HttpServletRequest request, Model model) {
+		String token = request.getParameter("token");
+		String password = request.getParameter("password");
+		
+		try {
+			customerService.updatePassword(token, password);
+			model.addAttribute("pageTitle", "Reset your password");
+			model.addAttribute("message", "Reset your password");
+			model.addAttribute("title", "You have successfully changed your password.");
+			
+			return "message";
+		} catch (CustomerNotFoundException e) {
+			model.addAttribute("pageTitle", "invalidToken");
+			model.addAttribute("message", e.getMessage());
+			return "message";
+		}
+	}
 }
