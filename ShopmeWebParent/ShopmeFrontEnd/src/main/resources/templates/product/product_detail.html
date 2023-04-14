@@ -59,12 +59,15 @@
 				<span th:unless="${product.inStock}" class="text-danger"><b>Out of Stock</b></span>
 			</div>
 			
-	<!--Allowing user to modify quantity of products before
+	<!--Display instock only if true. Allowing user to modify quantity of products before
 		adding to shoppingcart by clicking + / -, adding quantity and product id-->
+			<th:block th:if="${product.inStock}">
 			<div th:replace="cart/quantity_control :: quantity_control(1, ${product.id})"></div>
 			<div class="mt-3">
 				<input type="button" value="Add to Cart" class="brn btn-primary"/>
 			</div>
+			</th:block>
+			
 		</div>
 	</div>
 	
