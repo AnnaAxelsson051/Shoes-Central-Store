@@ -35,7 +35,8 @@ public class ForgotPasswordController {
 	//When user chooses to reset password, creating a reset token and link for
 	//user to click to reset pw, showing a confirmation message 
 	@PostMapping("/forgot_password")
-	public String processRequestForm(HttpServletRequest request, Model model) {
+	public String processRequestForm(HttpServletRequest request, 
+			Model model) {
 		String email = request.getParameter("email");
 		try {
 			String token = customerService.updateResetPasswordToken(email);

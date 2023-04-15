@@ -76,7 +76,6 @@ public class ShoppingCartRestController {
 				cartService.removeProduct(productId,  customer);
 				return "The product has been removed from your shopping cart";
 			} catch (CustomerNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "You must log in to remove product";
 			}

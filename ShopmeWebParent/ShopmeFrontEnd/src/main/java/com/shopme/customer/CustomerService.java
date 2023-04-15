@@ -12,6 +12,10 @@ import com.shopme.common.entity.Country;
 import com.shopme.common.entity.Customer;
 import com.shopme.common.exception.CustomerNotFoundException;
 import com.shopme.setting.CountryRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import com.shopme.Utility;
 import com.shopme.common.entity.AuthenticationType;
 
 import java.util.Random;
@@ -202,4 +206,5 @@ public class CustomerService {
 		encodePassword(customer);
 		customerRepo.save(customer);
 	}
+	
 }
