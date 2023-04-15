@@ -14,11 +14,12 @@
 	<div class="row m-1">
 		<div class="col-sm-8">
 			<th:block th:each="item,status : ${cartItems}">
-				<div class="row border rounded p-1" th:with="product = $item.product{}">
+				<div class="row border rounded p-1" th:with="product = $item.product{}" th:id="'row' + ${status.count}">
 					<div class="col-1">
 						<div>[[${status.count}]]</div>
 					<div>
-						<a class="fas fa-trash icon-dark linkRemove" th:href="@{'/cart/remove/' + ${product.id}}"></a>
+						<a class="fas fa-trash icon-dark linkRemove" th:rowNumber="${status.count}"
+						th:href="@{'/cart/remove/' + ${product.id}}"></a>
 					</div>
 					</div>
 			
