@@ -8,6 +8,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -64,6 +65,8 @@ public class SecurityConfiguration {
        .rememberMe()
            .key("AbcdEfghIjklmNopQrsTuvXyz_0123456789")
            .tokenValiditySeconds(14 * 24 * 60 * 60) //2 weeks  
+       .and() //For creation of session when necessary
+           .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
         ;
        
               
