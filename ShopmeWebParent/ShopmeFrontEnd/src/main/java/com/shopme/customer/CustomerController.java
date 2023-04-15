@@ -99,7 +99,7 @@ public class CustomerController {
 	
 	//verifying customer account
 	@GetMapping("/verify")
-	public String verifyAccount(@Param("code") 
+	public String verifyAccount( 
 	String code, Model model) {
 		boolean verified = customerService.verify(code);
 		return "register/" + (verified ? "verify_success" : "verify_fail");
@@ -122,7 +122,8 @@ public class CustomerController {
 
 	//When customer is updating their account details
 	@PostMapping("/update_account_details")
-	public String updateAccountDetails(Model model, Customer customer, RedirectAttributes ra,
+	public String updateAccountDetails(Model model, 
+			Customer customer, RedirectAttributes ra,
 			HttpServletRequest request) {
 		customerService.update(customer);
 		ra.addFlashAttribute("message", "Your account details have been updated");
@@ -131,7 +132,8 @@ public class CustomerController {
 	}
 
 	//When user chooses to alter their name
-	private void updateNameForAuthenticatedCustomer(Customer customer, HttpServletRequest request) {
+	private void updateNameForAuthenticatedCustomer(Customer customer, 
+			HttpServletRequest request) {
 		Object principal = request.getUserPrincipal();
 	
 	if (principal instanceof UsernamePasswordAuthenticationToken

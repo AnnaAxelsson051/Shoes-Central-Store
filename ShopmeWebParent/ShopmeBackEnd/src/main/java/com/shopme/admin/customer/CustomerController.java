@@ -31,10 +31,8 @@ public class CustomerController {
 
 	@GetMapping("/customers/page/{pageNum}")
 	public String listByPage( Model model,
-	       @PathVariable(name = "pageNum") int pageNum,
-	       @Param("sortField") String sortField,
-	       @Param("sortDir") String sortDir,
-	       @Param("keyword") String keyword){
+	       @PathVariable(name = "pageNum") int pageNum,String sortField, 
+	       String sortDir,String keyword){
 		
 		Page<Customer> page = service.listByPage(pageNum, sortField, sortDir, keyword);
         List<Customer> listCustomers = page.getContent();
@@ -61,8 +59,10 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/customers/{id}/enabled/{status}")
-	public String updateCustomerEnabledStatus(@PathVariable("id") Integer id,
-			@PathVariable("status") boolean enabled, RedirectAttributes redirectAttributes) {
+	public String updateCustomerEnabledStatus(
+			@PathVariable("id") Integer id,
+			@PathVariable("status") boolean enabled, 
+			RedirectAttributes redirectAttributes) {
 		service.updateCustomerEnabledStatus(id, enabled);
 		String status = enabled ? "enabled" : "disabled";
 		String message = "The Customer ID " + id + " has been " + status;
@@ -72,7 +72,8 @@ public class CustomerController {
 	}	
 	
 	@GetMapping("/customers/detail/{id}")
-	public String viewCustomer(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
+	public String viewCustomer(@PathVariable("id") Integer id, 
+			Model model, RedirectAttributes ra) {
 		try {
 			Customer customer = service.get(id);
 			model.addAttribute("customer", customer);
@@ -85,7 +86,8 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/customers/edit/{id}")
-	public String editCustomer(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
+	public String editCustomer(@PathVariable("id") Integer id, 
+			Model model, RedirectAttributes ra) {
 		try {
 			Customer customer = service.get(id);
 			List<Country> countries = service.listAllCountries();
@@ -110,7 +112,8 @@ public class CustomerController {
 	}
 
 	@GetMapping("/customers/delete/{id}")
-	public String deleteCustomer(@PathVariable Integer id, RedirectAttributes ra) {
+	public String deleteCustomer(@PathVariable Integer id, 
+			RedirectAttributes ra) {
 		try {
 			service.delete(id);			
 			ra.addFlashAttribute("message", "The customer ID " + id + " has been deleted successfully.");

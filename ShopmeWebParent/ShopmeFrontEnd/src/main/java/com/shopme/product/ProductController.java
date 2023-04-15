@@ -69,7 +69,8 @@ public class ProductController {
 	
 	//If product is found returns product details otherwise error
 	@GetMapping("/p/{product_alias}")
-	public String viewProductDetail(@PathVariable("product_alias") String alias,
+	public String viewProductDetail(
+			@PathVariable("product_alias") String alias,
 			Model model) {
 		try {
 			Product product = productService.getProduct(alias);
@@ -88,14 +89,13 @@ public class ProductController {
 	
 	//Shows first search result page
 	@GetMapping("/search")
-	public String searchFirstPage(@Param("keyword") String keyword, Model model) {
+	public String searchFirstPage( String keyword, Model model) {
 		return searchByPage(keyword, 1, model);
 	}
 	
 	//Fulltext search
 	@GetMapping("/search/{pageNum}")
-	public String searchByPage (
-			@Param("keyword")String keyword,
+	public String searchByPage (String keyword,
 			@PathVariable("pageNum") int pageNum, Model model) {
 		Page<Product> pageProducts = productService.search(keyword,  pageNum);
 		List<Product> listResult = pageProducts.getContent();

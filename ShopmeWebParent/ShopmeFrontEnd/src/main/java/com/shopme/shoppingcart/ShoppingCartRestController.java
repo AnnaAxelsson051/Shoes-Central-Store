@@ -25,7 +25,8 @@ public class ShoppingCartRestController {
 	@PostMapping("/cart/add/{productId}/{quantity}")
 	public String addProductToCart(
 			@PathVariable("productId") Integer productId,
-			@PathVariable("quantity") Integer quantity, HttpServletRequest request) {
+			@PathVariable("quantity") Integer quantity, 
+			HttpServletRequest request) {
 		
 		try {
 			Customer customer = getAuthenticatedCustomer(request);
@@ -67,7 +68,8 @@ public class ShoppingCartRestController {
 
 		
 		@DeleteMapping("/cart/remove/{productId}")
-		public String removeProduct(@PathVariable("productId") Integer productId,
+		public String removeProduct(@PathVariable("productId") 
+		Integer productId,
 			HttpServletRequest request) {
 			try {
 				Customer customer = getAuthenticatedCustomer(request);

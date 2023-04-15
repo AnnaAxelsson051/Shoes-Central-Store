@@ -49,7 +49,8 @@ public class SettingController {
 	//Handeling submission fo the general form
 	//gets values of formfields
 	@PostMapping("/settings/save_general1")
-	public String saveGeneralSettings(@RequestParam("fileImage") MultipartFile multipartFile,
+	public String saveGeneralSettings(
+			@RequestParam("fileImage") MultipartFile multipartFile,
 			HttpServletRequest request, RedirectAttributes ra) throws IOException {
 	GeneralSettingBag settingBag = service.getGeneralSettings();
 		
@@ -63,7 +64,8 @@ public class SettingController {
 	}
 	
 	//Saving webpage logo
-	private void saveSiteLogo(MultipartFile multipartFile, GeneralSettingBag settingBag) throws IOException {
+	private void saveSiteLogo(MultipartFile multipartFile, 
+			GeneralSettingBag settingBag) throws IOException {
 		if (!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 			//String fileName = multipartFile.getOriginalFilename;
@@ -77,7 +79,8 @@ public class SettingController {
 	}
 	
 	//Method for saving currency symbol
-	private void saveCurrencySymbol(HttpServletRequest request, GeneralSettingBag settingBag) {
+	private void saveCurrencySymbol(HttpServletRequest request, 
+			GeneralSettingBag settingBag) {
 		Integer currencyId = Integer.parseInt(request.getParameter("CURRENCY_ID"));
         Optional <Currency> findByIdResult = currencyRepo.findById(currencyId);
         
@@ -88,7 +91,8 @@ public class SettingController {
         }
 	
 	//Reading values of the rest of the setting formfields
-private void updateSettingValuesFromForm(HttpServletRequest request, List<Setting> listSettings) {
+private void updateSettingValuesFromForm(HttpServletRequest request, 
+		List<Setting> listSettings) {
 	for (Setting setting : listSettings) {
 	String value = request.getParameter(setting.getKey());
 if(value != null){
@@ -100,7 +104,8 @@ if(value != null){
 
 //Handeling submission/saving of mail server form
 @PostMapping("/settings/save_mail_server")
-public String saveMailServerSettings(HttpServletRequest request, RedirectAttributes ra) {
+public String saveMailServerSettings(HttpServletRequest request, 
+		RedirectAttributes ra) {
 	List<Setting> mailServerSettings = service.getMailServerSettings();
 	updateSettingValuesFromForm(request, mailServerSettings);
 	

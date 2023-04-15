@@ -34,15 +34,15 @@ public class CategoryController {
 	private CategoryService service;
 	
 	@GetMapping("/categories")
-	public String listFirstPage(@Param("sortDir") String sortDir, Model model) {
+	public String listFirstPage( String sortDir, Model model) {
 		return listByPage(1, sortDir, null, model);
 	}
 	
 	@GetMapping("/categories/page/{pageNum}")
 	public String listByPage(@PathVariable(name="pageNum")
 	int pageNum, 
-	@Param("sortDir") String sortDir, 
-	@Param("keyword") String keyword,
+	String sortDir, 
+	String keyword,
 	Model model) {
 		if(sortDir == null || sortDir.isEmpty()) {
 			sortDir= "asc";

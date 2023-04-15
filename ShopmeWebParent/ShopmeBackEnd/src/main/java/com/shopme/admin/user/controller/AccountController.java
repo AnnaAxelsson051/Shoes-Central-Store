@@ -38,7 +38,8 @@ public class AccountController {
 	}
 	
 	@PostMapping("/account/update")
-	public String saveDetails(User user, RedirectAttributes redirectAttributes,
+	public String saveDetails(User user, 
+			RedirectAttributes redirectAttributes,
 			@AuthenticationPrincipal ShopmeUserDetails loggedUser,
 			@RequestParam("image") MultipartFile multipartFile) throws IOException {
 		

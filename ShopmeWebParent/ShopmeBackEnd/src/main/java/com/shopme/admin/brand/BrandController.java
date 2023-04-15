@@ -41,7 +41,8 @@ public String listFirstPage () {
 
 @GetMapping("/brands/page/{pageNum}")
 public String listByPage(
-		@PagingAndSortingParam(listName = "listBrands", moduleURL = "/brands") PagingAndSortingHelper helper,
+		@PagingAndSortingParam(listName = "listBrands",
+		moduleURL = "/brands") PagingAndSortingHelper helper,
 		@PathVariable(name="pageNum") int pageNum
 		) {
 	brandService.listByPage(pageNum, helper);
@@ -70,7 +71,8 @@ return "brands/brands";
 	
 	
 	@PostMapping("/brands/save")
-	public String saveBrand(Brand brand, @RequestParam("fileImage") MultipartFile multipartFile,
+	public String saveBrand(Brand brand, 
+			@RequestParam("fileImage") MultipartFile multipartFile,
 			RedirectAttributes ra) throws IOException {
 		if(!multipartFile.isEmpty()) {
 			String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
