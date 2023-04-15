@@ -44,7 +44,8 @@ public class SecurityConfiguration {
    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     
        http.authorizeRequests()
-       .antMatchers("/account_details", "/update_account_details", "/cart").authenticated()
+       .antMatchers("/account_details", "/update_account_details", //Must log in to view
+    		   "/cart", "/address_book/**").authenticated() //** means everything after..
        .anyRequest().permitAll()
        .and()
        .formLogin()
