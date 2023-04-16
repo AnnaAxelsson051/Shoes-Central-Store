@@ -9,12 +9,18 @@
 	
 	
 	
+	<div class="text-center">
+	<div><h2>Your Address Book</h2></div>
 	<div>
-	<h2>Your Address Book</h2>
+		<a th:href="@{/address_book/new}" class="h4">Add New Address</a>
+	</div>
+	</div>
+	
+	<div th:if="${message != null}" class="alert alert-success text-center m-1">
+		[[${message}]]
 	</div>
 	
 	<div class="row m-1">
-		
 		<div class="col-sm-6 mt-2">
 			<div class="card" th:classappend="${usePrimaryAddressAsDefault ? 'bg-warning' : ''}">
 				<div class="card-header">
@@ -32,7 +38,7 @@
 		
 		<th:block th:each="address, status: ${listAddresses}">
 		  <div class="col-sm-6 mt-2">
-				<div class="card">
+				<div class="card"  th:classappend="${address.defaultForShipping ? 'bg-warning' : ''}">
 				<div class="card-header">
 					<div class="row">
 						<div class="col">

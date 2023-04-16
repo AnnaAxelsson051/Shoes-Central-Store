@@ -67,11 +67,12 @@ public class AddressRepositoryTests {
 	
 	@Test
 	public void testUpdate() {
-		Integer addressId = 1;
+		Integer addressId = 2;
 		String phoneNumber = "646-232-3932";
 		
 		Address address = repo.findById(addressId).get();
 		address.setPhoneNumber(phoneNumber);
+		address.setDefaultForShipping(true);
 
 		Address updatedAddress = repo.save(address);
 		assertThat(updatedAddress.getPhoneNumber()).isEqualTo(phoneNumber);
