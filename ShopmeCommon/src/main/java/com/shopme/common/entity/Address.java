@@ -35,6 +35,24 @@ public class Address {
 	@Column(nullable = false, length = 45)
     private String city;
 	
+	@Column(nullable = false, length = 45)
+    private String state;
+
+	@Column(name = "postal_code", nullable = false, length = 10)
+    private String postalCode;
+	
+	@ManyToOne
+	@JoinColumn(name = "country_id")
+	private Country country;
+	
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
+	private Customer customer;
+	
+	@Column(name = "default_address")
+	private boolean defaultForShipping;
+	
+	
 
 	public Integer getId() {
 		return Id;
@@ -132,22 +150,7 @@ public class Address {
 		this.defaultForShipping = defaultForShipping;
 	}
 
-	@Column(nullable = false, length = 45)
-    private String state;
 
-	@Column(name = "postal_code", nullable = false, length = 10)
-    private String postalCode;
-	
-	@ManyToOne
-	@JoinColumn(name = "country_id")
-	private Country country;
-	
-	@ManyToOne
-	@JoinColumn(name = "customer_id")
-	private Customer customer;
-	
-	@Column(name = "default_address")
-	private boolean defaultForShipping;
 
 	
 	@Override

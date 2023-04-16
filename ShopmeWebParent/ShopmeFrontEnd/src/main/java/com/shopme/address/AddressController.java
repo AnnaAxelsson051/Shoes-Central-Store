@@ -94,6 +94,7 @@ public class AddressController {
 		return "address_book/address_form";
 	}
 
+	//deleting address in address book
 	@GetMapping("/address_book/delete/{id}")
 	public String deleteAddress(@PathVariable("id") Integer addressId, RedirectAttributes ra,
 			HttpServletRequest request) {
@@ -103,5 +104,15 @@ public class AddressController {
 		ra.addFlashAttribute("message", "The address ID " + addressId + " has been deleted.");
 		
 		return "redirect:/address_book";
+	}
+	
+	//Setting the default address for customer to receive good to
+	@GetMapping("/address_book/default/{id}")
+	public String setDefaultAddress(@PathVariable("id") Integer addressId,
+			HttpServletRequest request) {
+		Customer customer = getAuthenticatedCustomer(request);
+		addressService.setDefaultAddress(addressId, customer.getId());
+		
+		return "redirect:/address_book"; 
 	}
 }
