@@ -76,5 +76,32 @@ public class AddressController {
 		return "redirect:/address_book";
 	}
 	
+	//getting an auth customer obj and a list of counries 
+	//getting address obj by id and customer id and putting the address
+	//list countries and page titles onto model
+	@GetMapping("/address_book/edit/{id}")
+	public String editAddress(@PathVariable("id") Integer addressId, Model model,
+			HttpServletRequest request) {
+		Customer customer = getAuthenticatedCustomer(request);
+		List<Country> listCountries = customerService.listAllCountries();
+		
+		Address address = addressService.get(addressId, customer.getId());
 
+		model.addAttribute("address", address);
+		model.addAttribute("listCountries", listCountries);
+		model.addAttribute("pageTitle", "Edit Address (ID: " + addressId + ")");
+		
+		return "address_book/address_form";
+	}
+
+	@GetMapping("/address_book/delete/{id}")
+	public String deleteAddress(@PathVariable("id") Integer addressId, RedirectAttributes ra,
+			HttpServletRequest request) {
+		Customer customer = getAuthenticatedCustomer(request);
+		addressService.delete(addressId, customer.getId());
+		
+		ra.addFlashAttribute("message", "The address ID " + addressId + " has been deleted.");
+		
+		return "redirect:/address_book";
+	}
 }

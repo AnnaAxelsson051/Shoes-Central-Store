@@ -28,6 +28,14 @@
 						<div class="col">
 							<b>Your Primary Address</b>
 						</div>
+						
+						<div class="col">
+							<div class="float-right">
+								<a class="fas fa-edit icon-dark" title="Edit your primary address"
+								th:href="@{/account_details(redirect=address_book)}"></a>
+							</div>
+						</div>
+						
 					</div>
 				</div>
 				<div class="card-body">
@@ -44,6 +52,16 @@
 						<div class="col">
 							<b>Address #[[${status.count +1}]]</b>
 						</div>
+						
+						<div class="col">
+							<div class="float-right">
+								<a class="fas fa-edit icon-dark" title="Edit this address"
+								th:href="@{'/address_book/edit/' + ${address.id}}"></a>
+								<a class="fas fa-trash icon-dark linkDelete" title="Delete this address"
+								th:href="@{'/address_book/delete/' + ${address.id}}"></a>
+							</div>
+						</div>
+						
 					</div>
 				</div>
 				<div class="card-body">
