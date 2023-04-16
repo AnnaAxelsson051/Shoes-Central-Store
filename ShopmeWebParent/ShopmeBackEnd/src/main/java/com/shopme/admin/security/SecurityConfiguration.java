@@ -72,6 +72,7 @@ public DaoAuthenticationProvider authenticationProvider() {
                
                    //Everything bout products
                .antMatchers("/products/**").hasAnyAuthority("Admin", "Editor")
+               .antMatchers("/customers/**", "/orders/**").hasAnyAuthority("Admin", "Salesperson")
                .anyRequest().authenticated()
                .and()
                .formLogin()

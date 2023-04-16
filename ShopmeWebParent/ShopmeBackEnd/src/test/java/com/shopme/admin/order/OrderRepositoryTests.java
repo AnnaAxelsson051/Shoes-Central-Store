@@ -3,6 +3,7 @@ package com.shopme.admin.order;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,5 +122,38 @@ public class OrderRepositoryTests {
 		assertThat(orders).hasSizeGreaterThan(0);
 		
 		orders.forEach(System.out::println);
+	}
+	
+	@Test
+	public void testUpdateOrder() {
+		Integer orderId = 2;
+		Order order = repo.findById(orderId).get();
+		
+		order.setStatus(OrderStatus.SHIPPING);
+		order.setPaymentMethod(PaymentMethod.COD);
+		order.setOrderTime(new Date());
+		order.setDeliverDays(2);
+		
+		Order updatedOrder = repo.save(order);
+		
+		assertThat(updatedOrder.getStatus()).isEqualTo(OrderStatus.SHIPPING);
+	}
+	
+	@Test
+	public void testGetOrder() {
+		Integer orderId = 3;
+		Order order = repo.findById(orderId).get();
+		
+		assertThat(order).isNotNull();
+		System.out.println(order);
+	}
+	
+	@Test
+	public void testDeleteOrder() {
+		Integer orderId = 3;
+		repo.deleteById(orderId);
+		
+		Optional<Order> result = repo.findById(orderId);
+		assertThat(result).isNotPresent();
 	}
 }
