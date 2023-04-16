@@ -121,14 +121,24 @@ public class CustomerController {
 	
 
 	//When customer is updating their account details
+	//If redirect option is address_book customer is editing from address book so
+	//Redirect url is address_book page and normally to account_details page 
 	@PostMapping("/update_account_details")
 	public String updateAccountDetails(Model model, 
 			Customer customer, RedirectAttributes ra,
 			HttpServletRequest request) {
 		customerService.update(customer);
 		ra.addFlashAttribute("message", "Your account details have been updated");
+		
 		updateNameForAuthenticatedCustomer(customer, request);
-		return "redirect:/account_details";
+		
+		String redirectOption = request.getParameter("redirect");
+		String redirectURL = "redirect:/account_details";
+		
+		if("address_book".equals(redirectOption)) {
+			redirectURL = "redirect:/address_book";
+		}
+		return redirectURL;
 	}
 
 	//When user chooses to alter their name
@@ -151,6 +161,7 @@ public class CustomerController {
 		
 	}
 	
+	//Getting an auth customer calling delete method 
 	private CustomerUserDetails getCustomerUserDetailsObject(Object principal) {
 		CustomerUserDetails userDetails = null;
 		if(principal instanceof UsernamePasswordAuthenticationToken) {

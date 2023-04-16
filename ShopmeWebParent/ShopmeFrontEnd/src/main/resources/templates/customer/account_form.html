@@ -15,6 +15,7 @@
 	style="max-width:600px; margin: 0 auto;">
 	 <!--Id binding to the field of the customer object-->
 	<input type="hidden" th:field="*{id}"/>
+	<input type="hidden" name="redirect" th:value="${parm.redirect}"/>
 	<div th:if="${message != null}" class="alert alert-success text-center">
 	  [[${message}]]
 	</div>
