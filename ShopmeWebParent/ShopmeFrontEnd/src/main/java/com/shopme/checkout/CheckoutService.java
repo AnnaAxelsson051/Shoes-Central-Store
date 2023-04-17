@@ -11,11 +11,13 @@ import com.shopme.common.entity.ShippingRate;
 public class CheckoutService {
 
 	
+	//Calculating product and shippingcost
 	public CheckoutInfo prapareCheckout(List <CartItem> cartItems, ShippingRate shippingRate) {
 		CheckoutInfo checkoutInfo = new CheckoutInfo();
 		
 		float productCost = calculateProductCost(cartItems); 
 		float productTotal = calculateProductTotal(cartItems); 
+		float shippingCost = calculateShippingCost(cartItems, shippingRate); 
 		
 		checkoutInfo.setProductCost(productCost);
 		checkoutInfo.setProductCost(productTotal);
@@ -25,6 +27,14 @@ public class CheckoutService {
 		return checkoutInfo;
 	}
 	
+	
+	
+	
+	private float calculateShippingCost(List<CartItem> cartItems, ShippingRate shippingRate) {
+		float shippingCostTotal = 0.0f;
+		return shippingCostTotal;
+	}
+
 	private float calculateProductTotal(List<CartItem> cartItems) {
 	float total = 0.0f;
 		

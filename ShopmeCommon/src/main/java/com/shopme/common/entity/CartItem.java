@@ -12,9 +12,7 @@ import jakarta.persistence.Transient;
 @Entity
 @Table(name = "cart_items")
 public class CartItem extends IdBasedEntity {
-	
 
-	
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
@@ -22,7 +20,10 @@ public class CartItem extends IdBasedEntity {
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;
+	
 	private int quantity;
+	
+	private float shippingCost;
 	
 	public CartItem() {
 		
@@ -48,15 +49,25 @@ public class CartItem extends IdBasedEntity {
 		this.quantity = quantity;
 	}
 	
+	@Transient
+	public float getSubTotal() {
+		return product.getDiscountPercent() * quantity;
+	}
+	
+	@Transient
+	public float getShippingCost() {
+		return shippingCost;
+	}
+
+	public void setShippingCost(float shippingCost) {
+		this.shippingCost = shippingCost;
+	}
+	
 	@Override
 	public String toString() {
 		return "CartItem [id=" + id + ", customer=" + customer.getFullName() + ", product=" + product.getShortName() + ", quantity=" + quantity
 				+ "]";
 	}
 	
-	@Transient
-	public float getSubTotal() {
-		return product.getDiscountPercent() * quantity;
-	}
 	
 }
