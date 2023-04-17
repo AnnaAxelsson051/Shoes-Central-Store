@@ -16,8 +16,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 	public class MvcConfig implements WebMvcConfigurer{
 
 	
-	//Exposes absolute path to photos so they are avaliable
-	//for the webclient browser to access
+	//Exposes absolute path to photos so they are available
+	//for the web client browser to access
 	
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 	
@@ -27,7 +27,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 	
 	exposeDirectory("../product-images", registry);
 	
-	exposeDirectory("../site-logo", registry);//logo for site set by admin
+	exposeDirectory("../site-logo", registry); //logo for site set by admin
 
 	}
 	

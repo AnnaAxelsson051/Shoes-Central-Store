@@ -28,8 +28,8 @@ public class MainController {
 		return "index";
 	}
 	
-	//If user is not logged in return login site otherwose
-		//redirect to homepage
+	//If user is not logged in return login site otherwise
+		//redirect to home page
 		
 		@GetMapping("/login")
 		public String viewLoginPage() {
