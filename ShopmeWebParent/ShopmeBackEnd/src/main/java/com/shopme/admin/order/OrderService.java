@@ -1,5 +1,7 @@
 package com.shopme.admin.order;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +17,7 @@ import com.shopme.common.entity.Order;
 public class OrderService {
 	private static final int ORDERS_PER_PAGE = 10;
 	
-	@Autowired private OrderRepository orderRepo;
+	@Autowired private OrderRepository repo;
 	
 	//Listing orders by page
 	//If sort field is destination updating the sort object to sort result by
@@ -39,12 +41,21 @@ public class OrderService {
 		Page<Order> page = null;
 		
 		if (keyword != null) {
-			page = orderRepo.findAll(keyword, pageable);
+			page = repo.findAll(keyword, pageable);
 		} else {
-			page = orderRepo.findAll(pageable);
+			page = repo.findAll(pageable);
 		}
 		
 		helper.updateModelAttributes(pageNum, page);		
+	}
+	
+	public Order get(Integer id) throws OrderNotFoundException{
+		try {
+			return repo.findById(id).get();
+		} catch (NoSuchElementException ex) {
+			throw new OrderNotFoundException("Could not find any order with ID " + id);
+		}
+		
 	}
 
 }

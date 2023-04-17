@@ -52,6 +52,7 @@
 					<td class="hideable-column">[[${order.paymentMethod}]]</td>
 					<td class="hideable-column">[[${order.status}]]</td>
 
+<!--For viewing order details-->
 					<td>
 						<a class="fas fa-file-alt fa-2x icon-green linkOrderDetail"
 							th:href="@{'/orders/detail/' + ${order.id}}"
@@ -104,6 +105,7 @@
 		</div>
 	</div>
 
+<!--Displaying the order detail modal-->
 	<div class="modal fade" id="orderDetailModal">
 		<div class="modal-dialog modal-xl">
 			<div class="modal-content">

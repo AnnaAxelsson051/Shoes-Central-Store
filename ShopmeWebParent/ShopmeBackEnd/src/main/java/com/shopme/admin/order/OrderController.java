@@ -24,6 +24,7 @@ import com.shopme.admin.security.ShopmeUserDetails;
 import com.shopme.admin.setting.SettingService;
 import com.shopme.common.entity.Country;
 import com.shopme.common.entity.Setting;
+import com.shopme.common.entity.Order;
 
 
 @Controller
@@ -60,5 +61,23 @@ public class OrderController {
 			request.setAttribute(setting.getKey(), setting.getValue());
 		}	
 	}	
+	
+	//Allowing for view of order details
+	//Getting order object loading currency settings putting order onto model
+	@GetMapping("/orders/detail/{id}")
+	public String viewOrderDetails(@PathVariable("id") Integer id, Model model, 
+			RedirectAttributes ra, HttpServletRequest request) {
+		try {
+			Order order = orderService.get(id);
+			loadCurrencySetting(request);			
+			model.addAttribute("order", order);
+			
+			return "orders/order_details_modal";
+		} catch (OrderNotFoundException ex) {
+			ra.addFlashAttribute("message", ex.getMessage());
+			return defaultRedirectURL;
+		}
+		
+	}
 }
 
