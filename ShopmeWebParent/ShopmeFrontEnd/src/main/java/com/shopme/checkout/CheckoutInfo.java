@@ -10,7 +10,6 @@ public class CheckoutInfo {
 	private float shippingCostTotal;
 	private float paymentTotal;
 	private int deliverDays;
-	private Date deliverDate;
 	private boolean codSupported;
 	
 	
