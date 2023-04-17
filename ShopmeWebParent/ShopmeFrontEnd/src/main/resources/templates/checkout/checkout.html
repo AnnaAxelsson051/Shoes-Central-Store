@@ -31,7 +31,15 @@
 	
 	<div>
 			<div class="card-header"><h5>Payment Method</h5></div>
-		    <div class="card-body"></div>
+		    <div class="card-body">
+				<div th:if"${checkoutInfo.codSupported}">
+					<p>
+						<input type="radio"/> Cash on delivery (COD)
+						&nbsp;
+						<button class="btn btn-primary">Place Order with COD</button>
+					</p>
+				</div>
+			</div>
 	</div>
 	
 	<div class="col-sm-4">
