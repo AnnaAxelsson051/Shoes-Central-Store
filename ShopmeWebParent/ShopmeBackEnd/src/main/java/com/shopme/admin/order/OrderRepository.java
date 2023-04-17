@@ -9,7 +9,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.shopme.admin.paging.SearchRepository;
 import com.shopme.common.entity.Order;
-import com.shopme.common.entity.Product;
 
 
 	public interface OrderRepository extends CrudRepository <Order, Integer>, PagingAndSortingRepository <Order, Integer>, SearchRepository <Order, Integer>{
@@ -26,4 +25,7 @@ import com.shopme.common.entity.Product;
 				+ " o.customer.firstName LIKE %?1% OR"
 				+ " o.customer.lastName LIKE %?1%")
 		public Page<Order> findAll(String keyword, Pageable pageable);
-}
+
+		//Returning a count number based on id
+	public Long countById(Integer id);
+	}
