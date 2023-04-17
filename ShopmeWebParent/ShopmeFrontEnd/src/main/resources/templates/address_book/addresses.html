@@ -10,7 +10,7 @@
 	
 	
 	<div class="text-center">
-	<div><h2>Your Address Book</h2></div>
+	<div><h2 th:text="${param.redirect != null && param.redirect[0] == 'checkout'} ? 'Choose a shipping address' : 'Your Address Book'"></h2></div>
 	<div>
 		<a th:href="@{/address_book/new}" class="h4">Add New Address</a>
 	</div>
@@ -29,7 +29,7 @@
 							<b>Your Primary Address</b>
 							
 							<th:block th:if="${usePrimaryAddressAsDefault}">
-								<span class="text-danger">[Default]</span>
+								<span class="text-danger" th:text="${param.redirect != null && param.redirect[0] == 'checkout' ? '[Currently Selected]' : '[Default]'}  "></span>
 							</th:block>
 							
 							<th:block th:unless="${usePrimaryAddressAsDefault}">
@@ -64,7 +64,7 @@
 							
 							<!--If address is already selected as default-->
 							<th:block th:if="${address.defaultForShipping}">
-								<span class="text-danger">[Default]</span>
+								<span class="text-danger" th:text="${param.redirect != null && param.redirect[0] == 'checkout' ? '[Currently Selected]' : '[Default]'}"></span>
 							</th:block>
 							
 							<!--If address is not the default one display the hyperlink set as default-->
