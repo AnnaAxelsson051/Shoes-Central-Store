@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "currencies")
-public class Currency {
+public class Currency extends IdBasedEntity {
 	
 	@Column(nullable = false, length = 64)
 	private String name;

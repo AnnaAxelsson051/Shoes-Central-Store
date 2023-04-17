@@ -13,7 +13,7 @@ import com.shopme.admin.product.ProductRepository;
 import com.shopme.admin.setting.country.CountryRepository;
 import com.shopme.common.entity.Country;
 import com.shopme.common.entity.ShippingRate;
-import com.shopme.common.entity.Product;
+import com.shopme.common.entity.product.Product;
 
 @Service
 @Transactional

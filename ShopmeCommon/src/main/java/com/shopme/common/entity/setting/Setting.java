@@ -1,6 +1,4 @@
-package com.shopme.common.entity;
-
-import java.util.Objects;
+package com.shopme.common.entity.setting;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +9,7 @@ import jakarta.persistence.EnumType;
 
 @Entity
 @Table(name = "settings")
-public class Setting {
+public class Setting  {
 
 //Escape key Bc key is identic to a mysql term
 @Id

@@ -1,15 +1,15 @@
-package com.shopme.common.entity;
+package com.shopme.common.entity.order;
 
 import java.util.*;
+
+import com.shopme.common.entity.Customer;
+import com.shopme.common.entity.IdBasedEntity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -18,11 +18,8 @@ import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "orders")
-public class Order  {
+public class Order extends IdBasedEntity {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer Id;
 	
 	@Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
@@ -77,13 +74,7 @@ public class Order  {
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private Set<OrderDetail> orderDetails = new HashSet<>();
 
-	public Integer getId() {
-		return Id;
-	}
 
-	public void setId(Integer id) {
-		Id = id;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -267,7 +258,7 @@ public class Order  {
 
 	@Override
 	public String toString() {
-		return "Order [Id=" + Id + ", subtotal=" + subtotal + ", paymentMethod=" + paymentMethod + ", status=" + status
+		return "Order [Id=" + id + ", subtotal=" + subtotal + ", paymentMethod=" + paymentMethod + ", status=" + status
 				+ ", customer=" + customer.getFullName() + "]";
 	}
 	

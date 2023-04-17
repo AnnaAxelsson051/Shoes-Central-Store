@@ -10,6 +10,7 @@
 		
 	<div th:replace="fragments :: search_form_and_message" />
 	
+	<!--Full details / hideable-column for responsivity-->
 	<div class="full-details">
 		<table class="table table-bordered table-striped table-hover table-responsive-xl">
 			<thead class="thead-dark">
@@ -68,6 +69,7 @@
 		</table>
 	</div>
 	
+	<!--Orders listing on small screens-->
 	<div class="less-details">
 		<th:block th:each="order : ${listOrders}">
 		<div class="row m-1">

@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.shopme.common.entity.setting.Setting;
+
 import java.util.List;
 
 import jakarta.servlet.Filter;
@@ -13,8 +15,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
-
-import com.shopme.common.entity.Setting;
 
 //Filter for settingvalues
 @Component

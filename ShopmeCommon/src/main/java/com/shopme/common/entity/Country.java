@@ -5,19 +5,14 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "countries")
-public class Country  {
+public class Country extends IdBasedEntity {
 	
-	
-	@Id
-	@GeneratedValue
-	private Integer id;
 	
 	@Column(nullable = false, length = 45)
 	private String name;
@@ -63,13 +58,7 @@ public class Country  {
 		this.name = name;
 	}
 
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	public String getCode() {
 		return code;
 	}

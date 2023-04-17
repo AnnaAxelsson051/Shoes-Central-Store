@@ -14,8 +14,7 @@ import org.springframework.test.annotation.Rollback;
 
 import com.shopme.common.entity.CartItem;
 import com.shopme.common.entity.Customer;
-import com.shopme.common.entity.Product;
-
+import com.shopme.common.entity.product.Product;
 import com.shopme.shoppingcart.CartItemRepository;
 
 @DataJpaTest

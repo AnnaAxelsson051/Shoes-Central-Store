@@ -2,20 +2,17 @@ package com.shopme.common.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Id;
+
 
 @Entity
 @Table(name = "addresses")
-public class Address {
+public class Address extends IdBasedEntity {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer Id;
+
 	
 	@Column(name = "first_name", nullable = false, length = 45)
     private String firstName;
@@ -54,13 +51,6 @@ public class Address {
 	
 	
 
-	public Integer getId() {
-		return Id;
-	}
-
-	public void setId(Integer id) {
-		Id = id;
-	}
 
 	public String getFirstName() {
 		return firstName;
