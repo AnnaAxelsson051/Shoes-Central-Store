@@ -17,8 +17,9 @@ public class ShippingRateRepositoryTests {
 	
 	@Autowired private ShippingRateRepository repo;
 	
+
 	@Test
-	public void testFindByCountryAndState() {
+	public void testFindShippingRateByCountryAndState() {
 		Country usa = new Country(234);
 		String state = "New York";
 		ShippingRate shippingRate = repo.findByCountryAndState(usa, state);
