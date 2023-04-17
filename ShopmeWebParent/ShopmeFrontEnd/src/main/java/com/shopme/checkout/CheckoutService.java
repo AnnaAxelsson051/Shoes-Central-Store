@@ -13,7 +13,7 @@ public class CheckoutService {
 private static final int DIM_DIVISOR = 139;
 	
 	//Calculating product and shippingcost
-	public CheckoutInfo prapareCheckout(List <CartItem> cartItems, ShippingRate shippingRate) {
+	public CheckoutInfo prepareCheckout(List <CartItem> cartItems, ShippingRate shippingRate) {
 		CheckoutInfo checkoutInfo = new CheckoutInfo();
 		
 		float productCost = calculateProductCost(cartItems); 
