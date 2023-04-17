@@ -45,7 +45,44 @@
 	<div class="col-sm-4">
 		<div class="card">
 			<div class="card-header"><h5>Order summary</h5></div>
-		    <div class="card-body"></div>
+		    <div class="card-body">
+				<div>
+					<table>
+						<th:block th:each="item : ${cartItems}">
+							<tr th:with="product = ${item.product}">
+								<td>[[${item.quantity}]] X &nbsp;&nbsp;</td>
+								<td width="70%">
+									<!--_blank for opening tab in another window-->
+									<a th:href="@{'/p/' + ${product.alias}}" target="_blank">
+										[[${product.shortName}]]
+										</a>
+										<br/>
+										<small>Ship: <div th:replace="fragments :: format_currency(${item.shippingCost})"></div></small>
+								</td>
+								<td>
+									<div th:replace="fragments :: format_currency(${item.subtotal})"></div>
+								</td>
+							</tr>
+						</th:block>
+						<tr><td colspan="3"><hr/></tr>
+					</table>
+				</div>
+				
+				<div class="row mt-2">
+					<div class="col">Product Total:</div>
+					<div class="col"><div th:replace="fragments :: format_currency(${checkoutInfo.productTotal})"></div></div>
+				</div>
+				
+				<div class="row mt-2">
+					<div class="col">Shipping Total:</div>
+					<div class="col"><div th:replace="fragments :: format_currency(${checkoutInfo.shippingCostTotal})"></div></div>
+				</div>
+				
+				<div class="row mt-2">
+					<div class="col">Payment Total:</div>
+					<div class="col"><b></b><div th:replace="fragments :: format_currency(${checkoutInfo.paymentTotal})"></div></b></div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
