@@ -21,7 +21,10 @@
 				<a th:href="@{/address_book}">[Ship to another address]</a>
 			</p>
 			<p>
-				<b>Days to deliver:</b>[[${CheckoutInfo.deliverDays}]] day(s)
+				<b>Days to deliver:</b>[[${checkoutInfo.deliverDays}]] day(s)
+			</p>
+			<p>
+				<b>Expected deliver dater:</b>[[${checkoutInfo.deliverDate, 'E, dd, MMM yy')}]] 
 			</p>
 		</div>
 	</div>
