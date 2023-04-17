@@ -12,6 +12,8 @@ public class CheckoutInfo {
 	private int deliverDays;
 	private Date deliverDate;
 	private boolean codSupported;
+	
+	
 	public float getProductCost() {
 		return productCost;
 	}
@@ -47,9 +49,7 @@ public class CheckoutInfo {
 		calendar.add(Calendar.DATE,  deliverDays);
 		return calendar.getTime();
 	}
-	public void setDeliverDate(Date deliverDate) {
-		this.deliverDate = deliverDate;
-	}
+	
 	public boolean isCodSupported() {
 		return codSupported;
 	}
