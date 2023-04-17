@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+		<head th:replace="fragments :: page_head('Shopping Cart', 'none')"/>
+	</head>
+	<body>
+		<div class="container-fluid">
+		<div th:replace="navigation :: header_menu"></div>
+		<div th:replace="navigation :: search_nav"></div>
+	
+	<div class="text-center">
+	<h1>Checkout</h1>
+	</div>
+
+<div class="row m-1">
+	<div class="col-sm-8">
+		<div class="card">
+			<div class="card-header"><h5>Shipping information</h5></div>
+		    <div class="card-body"></div>
+		</div>
+	</div>
+	
+	<div>
+			<div class="card-header"><h5>Payment Method</h5></div>
+		    <div class="card-body"></div>
+	</div>
+	
+	<div class="col-sm-4">
+		<div class="card">
+			<div class="card-header"><h5>Order summary</h5></div>
+		    <div class="card-body"></div>
+		</div>
+	</div>
+</div>
+
+	<div th:replace="navigation :: footer_menu"></div>
+	
+		</div>
+	</body>
+</html>
