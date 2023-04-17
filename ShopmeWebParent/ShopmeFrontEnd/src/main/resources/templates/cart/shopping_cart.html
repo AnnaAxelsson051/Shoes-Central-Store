@@ -65,11 +65,11 @@
 			<div><span class="h5 text-warning">No shipping available for your location.</span></div>
 			
 			<div th:if="${usePrimaryAddressAsDefault}">
-				<a th:href="@{/account_details}" class="h6">Update your address</a>
+				<a th:href="@{/account_details(redirect=cart)}" class="h6">Update your address</a>
 			</div>
 			
 			<div th:unless="${usePrimaryAddressAsDefault}">
-				<a th:href="@{/address_book}" class="h6">Use another shipping address</a>
+				<a th:href="@{/address_book(redirect=cart)}" class="h6">Use another shipping address</a>
 			</div>
 			</div>
 			</div>

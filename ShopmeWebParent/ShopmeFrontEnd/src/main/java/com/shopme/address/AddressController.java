@@ -112,7 +112,14 @@ public class AddressController {
 			HttpServletRequest request) {
 		Customer customer = getAuthenticatedCustomer(request);
 		addressService.setDefaultAddress(addressId, customer.getId());
+
+		String redirectOption = request.getParameter("redirect");
+		String redirectURL = "redirect:/address_book";
 		
-		return "redirect:/address_book"; 
+		if("cart".equals(redirectOption)) {
+			redirectURL = "redirect:/cart";
+		}
+		
+		return redirectURL; 
 	}
 }

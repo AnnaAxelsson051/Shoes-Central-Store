@@ -33,7 +33,7 @@
 							</th:block>
 							
 							<th:block th:unless="${usePrimaryAddressAsDefault}">
-								<a th:if="${'/address_book/default/0'}">[Set as default]</a>
+								<a th:if="${'/address_book/default/0' + ${{param.redirect} ? {param.redirect} : ''}}">[Set as default]</a>
 							</th:block>
 							
 						</div>
