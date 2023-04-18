@@ -70,7 +70,7 @@
 </div>
 
    <div class="tab-pane p-3" id="mailTemplates" role="tabpanel">
- <h2>Payment</h2>
+<di th:replace="settings/payment :: content"></div>
 </div>
 </div>
 </div>
@@ -96,6 +96,7 @@
 	//Setting rich text editor for customer verification template text area	
 $(document).ready(function(){
 	$("#customerVerificationContent").richText();
+	$("#orderConfirmationContent").richText();
 });
 
 </script>

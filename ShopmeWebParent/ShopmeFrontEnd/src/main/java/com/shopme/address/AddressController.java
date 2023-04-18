@@ -71,9 +71,16 @@ public class AddressController {
 		address.setCustomer(customer);
 		addressService.save(address);
 		
+		String redirectOption = request.getParameter("redirect");
+		String redirectURL = "redirect:/address_book";
+		
+		if("ckeckout".equals(redirectOption)) {
+			redirectURL += "?redirect=checkout";
+		}
+		
 		ra.addFlashAttribute("message", "The address has been saved successfully.");
 		
-		return "redirect:/address_book";
+		return redirectURL;
 	}
 	
 	//getting an auth customer obj and a list of counries 

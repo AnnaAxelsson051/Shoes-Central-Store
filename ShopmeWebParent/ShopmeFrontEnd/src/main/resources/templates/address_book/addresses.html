@@ -12,7 +12,9 @@
 	<div class="text-center">
 	<div><h2 th:text="${param.redirect != null && param.redirect[0] == 'checkout'} ? 'Choose a shipping address' : 'Your Address Book'"></h2></div>
 	<div>
-		<a th:href="@{/address_book/new}" class="h4">Add New Address</a>
+		<!--If the redirect is not present-->
+	<a th:unless="${param.redirect}" th:href="@{/address_book/new}" class="h4">Add New Address</a>
+	<a th:if="${param.redirect != null && param.redirect[0] == 'checkout'}" th:href="@{/address_book/new(redirect=checkout)}" class="h4">Add New Address</a>
 	</div>
 	</div>
 	
@@ -42,8 +44,10 @@
 						
 						<div class="col">
 							<div class="float-right">
-								<a class="fas fa-edit icon-dark" title="Edit your primary address"
+								<a th:unless="${param.redirect}" class="fas fa-edit icon-dark" title="Edit your primary address"
 								th:href="@{/account_details(redirect=address_book)}"></a>
+								<a th:if="${param.redirect != null && param.redirect[0] == 'checkout'}" class="fas fa-edit icon-dark" title="Edit your primary address"
+								th:href="@{/account_details(redirect=checkout)}"></a>
 							</div>
 						</div>
 						
@@ -79,8 +83,11 @@
 						
 						<div class="col">
 							<div class="float-right">
-								<a class="fas fa-edit icon-dark" title="Edit this address"
+								<a th:unless="${param.redirect}" class="fas fa-edit icon-dark" title="Edit this address"
 								th:href="@{'/address_book/edit/' + ${address.id}}"></a>
+								
+								<a th:if="${param.redirect != null && param.redirect[0] = 'checkout'}" class="fas fa-edit icon-dark" title="Edit this address"
+								th:href="@{'/address_book/edit/' + ${address.id} + '?redirect=checkout'}"></a>
 								&nbsp;
 								<a class="fas fa-trash icon-dark linkDelete" title="Delete this address"
 								th:entityId="${address.id}"
