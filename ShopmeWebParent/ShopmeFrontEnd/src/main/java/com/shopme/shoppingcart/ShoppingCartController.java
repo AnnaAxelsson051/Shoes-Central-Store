@@ -35,7 +35,7 @@ public String viewCart(Model model, HttpServletRequest request) {
 	float estimatedTotal = 0.0F;
 	
 	for (CartItem item : cartItems) {
-		estimatedTotal += item.getSubTotal();
+		estimatedTotal += item.getSubtotal();
 	}
 	
 	Address defaultAddress = addressService.getDefaultAddress(customer);
