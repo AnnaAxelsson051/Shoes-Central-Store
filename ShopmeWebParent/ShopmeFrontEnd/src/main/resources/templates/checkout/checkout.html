@@ -8,7 +8,9 @@
 		<div th:replace="navigation :: search_nav"></div>
 	
 	<div class="text-center">
-	<h1>Checkout</h1>
+	<h2>Checkout</h2>
+	<span th:text="${paypalClientId}"></span><br/>
+	<span th:text="${currencyCode}"></span><br/>
 	</div>
 
 <div class="row m-1">
