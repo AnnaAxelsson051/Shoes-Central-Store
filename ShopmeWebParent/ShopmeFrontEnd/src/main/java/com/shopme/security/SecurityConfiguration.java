@@ -45,11 +45,11 @@ public class SecurityConfiguration {
     
        http.authorizeRequests()
        .requestMatchers("/account_details", "/update_account_details", //Must log in to view
-    		   "/cart", "/address_book/**").authenticated() //** means everything after..
+    		   "/cart", "/address_book/**", "/checkout", "/place_order").authenticated() //** means everything after..
        .anyRequest().permitAll()
        .and()
        .formLogin()
-       .loginPage()
+       .loginPage("/login")
             .usernameParameter("email")
             .successHandler(databaseLoginHandler)
             .permitAll()

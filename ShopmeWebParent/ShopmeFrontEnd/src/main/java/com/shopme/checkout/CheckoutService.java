@@ -56,7 +56,7 @@ private static final int DIM_DIVISOR = 139;
 	float total = 0.0f;
 		
 		for (CartItem item : cartItems) {
-			total += item.getSubTotal();
+			total += item.getSubtotal();
 		}
 		return total;
 	}
