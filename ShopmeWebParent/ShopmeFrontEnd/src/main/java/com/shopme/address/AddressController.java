@@ -106,7 +106,7 @@ public class AddressController {
 		return "redirect:/address_book";
 	}
 	
-	//Setting the default address for customer to receive good to
+	//Setting the default address for customer to receive goods to
 	@GetMapping("/address_book/default/{id}")
 	public String setDefaultAddress(@PathVariable("id") Integer addressId,
 			HttpServletRequest request) {
@@ -118,6 +118,8 @@ public class AddressController {
 		
 		if("cart".equals(redirectOption)) {
 			redirectURL = "redirect:/cart";
+		} else if ("ckeckout".equals(redirectOption)) {
+			redirectURL = "redirect:/checkout";
 		}
 		
 		return redirectURL; 
