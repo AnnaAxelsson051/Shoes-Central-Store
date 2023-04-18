@@ -9,8 +9,6 @@
 	
 	<div class="text-center">
 	<h2>Checkout</h2>
-	<span th:text="${paypalClientId}"></span><br/>
-	<span th:text="${currencyCode}"></span><br/>
 	</div>
 
 <div class="row m-1">
@@ -43,7 +41,9 @@
 					</p>
 					</form>
 				</div>
+				<div id="paypal-button-container"></div>
 			</div>
+	</div>
 	</div>
 	
 	<div class="col-sm-4">
@@ -94,6 +94,8 @@
 	<div th:replace="navigation :: footer_menu"></div>
 	
 		</div>
+		<!--Loading the paypal sdk js library-->
+	<script th:src="@{https://www.paypal.com/sdk/js(client-id=${paypalClientId}, currency=${currencyCode})}"></script>
 	
 	<script type="text/javascript">
 		contextPath = "[[${/}]]"
@@ -107,6 +109,11 @@
 			$("#buttonSubmit").removeClass("d-none")
 		});
 	});
+	
+	//Loading paypal button
+	paypal.Buttons({
+		
+	}).render("#paypal-button-container");
 	
 	</script>
 	</body>
