@@ -44,12 +44,12 @@ public class SecurityConfiguration {
    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     
        http.authorizeRequests()
-       .antMatchers("/account_details", "/update_account_details", //Must log in to view
+       .requestMatchers("/account_details", "/update_account_details", //Must log in to view
     		   "/cart", "/address_book/**").authenticated() //** means everything after..
        .anyRequest().permitAll()
        .and()
        .formLogin()
-            .loginPage()
+       .loginPage()
             .usernameParameter("email")
             .successHandler(databaseLoginHandler)
             .permitAll()
@@ -79,7 +79,7 @@ public class SecurityConfiguration {
     //So can be displayed when not logged in
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**");
+        return (web) -> web.ignoring().requestMatchers("/images/**", "/js/**", "/webjars/**");
     }
     
     @Bean

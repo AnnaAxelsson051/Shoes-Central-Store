@@ -51,7 +51,7 @@ public class CartItem extends IdBasedEntity {
 	}
 	
 	@Transient
-	public float getSubTotal() {
+	public float getSubtotal() {
 		return product.getDiscountPercent() * quantity;
 	}
 	
