@@ -110,9 +110,63 @@
 		});
 	});
 	
-	//Loading paypal button
+	//Loading paypal button, setting up paypal transaction
+	//Buyer approves or cancels payment
 	paypal.Buttons({
-		
+		enableStandardCardFields: true,
+		createOrder: function(data, actions){
+			
+			return actions.order.create({
+				
+			intent: 'CAPTURE',
+			payer: {
+				name: {
+				given_name: "[[${customer.firstName}]]",
+				surname: "[[${customer.lastName}]]"
+				},
+					
+				address: {
+					address_line_2: "[[${customer.addressLine1}]]",
+					address_line_2: "[[${customer.addressLine1}]]",
+					admin_area_1: "[[${customer.state}]]",
+					admin_area_2: "[[${customer.city}]]",
+					postal_code: "[[${customer.postalCode}]]",
+				    country_code: "[[${customer.country.code}]]"
+				},
+				
+				email_address:"[[${customer.email}]]",
+				
+				phone: {
+					phone_type: "MOBILE",
+					phone_number: {
+					    national_number: "[[${customer.phoneNumber}]]"
+				   }
+				}
+				},
+				purchase_units:[{
+					amount: {
+						value: "[[${checkoutInfo.paymentTotal4PayPal}]]",
+						currency_code: "[[${currencyCode}]]"
+					}
+				}],
+				application_context:{
+					shipping_preference: "NO_SHIPPING"
+				}
+			});
+		},
+		onApprove:function(data, actions){
+			return actions.order.capture().then(function(details) {
+				console.log(details);
+				orderId = details.is;
+				totalAmount = details.purchase_units[0].amount.value;
+			})
+		},
+		onCancel: function(data){
+			
+		},
+		onError: function(err){
+			
+		}
 	}).render("#paypal-button-container");
 	
 	</script>
