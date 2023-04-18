@@ -90,6 +90,9 @@ public class CheckoutController {
 			CheckoutInfo checkoutInfo = checkoutService.prepareCheckout(cartItems, shippingRate);
 			
 			orderService.createOrder(customer, defaultAddress, cartItems, paymentMethod, checkoutInfo);
+			cartService.deleteByCustomer(customer);
+			
 			return "checkout/order_completed";
+			
 		}
 }
