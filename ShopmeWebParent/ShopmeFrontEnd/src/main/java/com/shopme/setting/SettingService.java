@@ -1,12 +1,10 @@
 package com.shopme.setting;
 
 import java.util.List;
-import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.shopme.common.entity.GeneralSettingBag;
 import com.shopme.common.entity.setting.Setting;
 import com.shopme.common.entity.setting.SettingCategory;
 
@@ -30,5 +28,10 @@ public class SettingService {
 		settings.addAll(repo.findByCategory(SettingCategory.MAIL_TEMPLATES));
 	
 	return new EmailSettingBag(settings);
+	}
+	
+	public CurrencySettingBag getCurrencySettings() {
+		List<Setting> settings = repo.findByCategory(SettingCategory.CURRENCY);
+	return new CurrencySettingBag(settings);
 	}
 }
