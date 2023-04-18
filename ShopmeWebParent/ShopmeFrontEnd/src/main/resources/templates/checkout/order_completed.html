@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+		<head th:replace="fragments :: page_head('Shopme', 'none')"/>
+	</head>
+	<body>
+		<div class="container-fluid">
+		<div th:replace="navigation :: header_menu"></div>
+		<div th:replace="navigation :: search_nav"></div>
+	
+	
+	
+	<div class="text-center border border-secondary rounded m-3 p-3">
+	<h1>Your order has been completed!</h1>
+	</div>
+	
+	
+	<div th:replace="navigation :: footer_menu"></div>
+	</body>
+</html>
+
