@@ -19,9 +19,10 @@ import com.shopme.common.entity.product.Product;
 @Transactional
 public class ShippingRateService {
 	public static final int RATES_PER_PAGE = 10;
-	
+	private static final int DIM_DIVISOR = 139;
 	@Autowired private ShippingRateRepository shipRepo;
 	@Autowired private CountryRepository countryRepo;
+	@Autowired private ProductRepository productRepo;
 
 	
 	public void listByPage(int pageNum, PagingAndSortingHelper helper) {
@@ -71,5 +72,22 @@ public class ShippingRateService {
 		shipRepo.deleteById(id);
 	}
 	
+	//Calculating shipping cost for specific product
+	public float calculateShippingCost(Integer productId, Integer countryId, String state) 
+			throws ShippingRateNotFoundException {
+		ShippingRate shippingRate = shipRepo.findByCountryAndState(countryId, state);
+		
+		if (shippingRate == null) {
+			throw new ShippingRateNotFoundException("No shipping rate found for the given "
+					+ "destination. You have to enter shipping cost manually.");
+		}
+		
+		Product product = productRepo.findById(productId).get();
+		
+		float dimWeight = (product.getLength() * product.getWidth() * product.getHeight()) / DIM_DIVISOR;
+		float finalWeight = product.getWeight() > dimWeight ? product.getWeight() : dimWeight;
+				
+		return finalWeight * shippingRate.getRate();
+	}
 }
 
