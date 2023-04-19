@@ -16,7 +16,7 @@ public class PaymentSettingBag extends SettingBag {
 		return super.getValue("PAYPAL_API_BASE_URL");
 	}
 
-	public String getClientId() {
+	public String getClientID() {
 		return super.getValue("PAYPAL_API_CLIENT_ID");
 	}
 	
