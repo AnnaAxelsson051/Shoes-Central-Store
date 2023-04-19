@@ -6,6 +6,8 @@ import com.shopme.common.entity.AbstractAddress;
 import com.shopme.common.entity.Address;
 import com.shopme.common.entity.Customer;
 import com.shopme.common.entity.OrderTrack;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -230,6 +232,12 @@ public class Order extends AbstractAddress {
 		this.orderTracks = orderTracks;
 	}
 	
+	//Formatting date object based on pattern
+	@Transient
+	public String getDeliverDateOnForm() {
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		return dateFormatter.format(this.deliverDate);
+	}
 	
 	
 }

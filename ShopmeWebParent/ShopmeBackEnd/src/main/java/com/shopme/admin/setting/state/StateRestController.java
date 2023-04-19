@@ -21,6 +21,8 @@ public class StateRestController {
 
 	@Autowired private StateRepository repo;
 	
+	
+	//Returning a list of states by specific country
 	@GetMapping("/states/list_by_country/{id}")
 	public List<StateDTO> listByCountry(@PathVariable("id") Integer countryId) {
 		List<State> listStates = repo.findByCountryOrderByNameAsc(new Country(countryId));
