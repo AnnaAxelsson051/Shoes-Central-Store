@@ -41,6 +41,20 @@
 									th:value="${detail.unitPrice}" style="max-width: 140px"/>
 								</td>
 							</tr>
+								<tr>
+								<td>Subtotal:</td>
+								<td>
+									<input type="text" readonly="readonly" class="form-control m-1"
+									th:value="${detail.subtotal}" style="max-width: 140px"/>
+								</td>
+							</tr>
+							<tr>
+								<td>Shipping Cost:</td>
+								<td>
+									<input type="text" required class="form-control m-1"
+									th:value="${detail.shippingCost}" style="max-width: 140px"/>
+								</td>
+							</tr>
 						</table>
 					</div>
 				</div>
