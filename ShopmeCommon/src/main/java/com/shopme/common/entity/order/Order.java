@@ -5,6 +5,7 @@ import java.util.*;
 import com.shopme.common.entity.AbstractAddress;
 import com.shopme.common.entity.Address;
 import com.shopme.common.entity.Customer;
+import com.shopme.common.entity.OrderTrack;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -47,11 +48,12 @@ public class Order extends AbstractAddress {
 	private Customer customer;
 	
 	//One To many bc order can have many details
-	//Cascade type so it will also save the children which is the order detail
+	//Cascade type so it will also save/update the children which is the order detail
 	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private Set<OrderDetail> orderDetails = new HashSet<>();
 
-
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List <OrderTrack> orderTracks = new ArrayList<>();
 
 	public String getCountry() {
 		return country;
@@ -217,6 +219,15 @@ public class Order extends AbstractAddress {
 		
 		return address;
 	}
+
+	public List<OrderTrack> getOrderTracks() {
+		return orderTracks;
+	}
+
+	public void setOrderTracks(List<OrderTrack> orderTracks) {
+		this.orderTracks = orderTracks;
+	}
+	
 	
 	
 }
