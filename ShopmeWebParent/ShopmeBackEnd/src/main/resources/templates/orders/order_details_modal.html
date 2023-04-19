@@ -201,6 +201,7 @@
 			  </div>			  
 		  </div>
 		  
+		  <!--Dissplaying track section on medium/L screens-->
 		  <div class="tab-pane fade p-3" id="track" role="tabpanel">
 		  	<div class="full-details">
 			<table class="table table-striped table-bordered table-hover table-responsive-sm">
@@ -212,6 +213,7 @@
 					</tr>
 				</thead>
 				<tbody>
+		<!--Iterating tru track records in order list displaying time status and notes-->			
 					<tr th:each="track : ${order.orderTracks}">
 						<td>[[${track.updatedTime}]]</td>
 						<td>[[${track.status}]]</td>
@@ -221,6 +223,7 @@
 			</table>
 			</div>
 			
+<!--Track info on smaller screens-->			
 			<div class="less-details">
 			<th:block th:each="track : ${order.orderTracks}">
 				<div class="row p-1">

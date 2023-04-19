@@ -15,6 +15,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -53,6 +54,7 @@ public class Order extends AbstractAddress {
 	private Set<OrderDetail> orderDetails = new HashSet<>();
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OrderBy("updatedTime ASC")
     private List <OrderTrack> orderTracks = new ArrayList<>();
 
 	public String getCountry() {
