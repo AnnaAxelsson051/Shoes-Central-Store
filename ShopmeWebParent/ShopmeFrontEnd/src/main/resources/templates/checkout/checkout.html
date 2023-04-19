@@ -42,6 +42,10 @@
 					</form>
 				</div>
 				<div id="paypal-button-container"></div>
+				<form th:action="@{/process_paypal_order}"method=post ID="paypalForm">
+					<input type="hidden" name="orderId" id="orderId"/>
+					<input type="hidden" name="paymentMethod" value="PAYPAL"/>
+				</form>
 			</div>
 	</div>
 	</div>
@@ -110,6 +114,11 @@
 		});
 	});
 	
+	function validateOrder(orderId){
+		$("#orderId").val(orderId);
+		$("#paypalForm"),submit();
+	}
+	
 	//Loading paypal button, setting up paypal transaction
 	//Buyer approves or cancels payment
 	paypal.Buttons({
@@ -156,9 +165,9 @@
 		},
 		onApprove:function(data, actions){
 			return actions.order.capture().then(function(details) {
-				console.log(details);
+				//console.log(details);
 				orderId = details.is;
-				totalAmount = details.purchase_units[0].amount.value;
+			validateOrder(orderId);
 			})
 		},
 		onCancel: function(data){
