@@ -19,13 +19,30 @@ $(document).ready(function() {
 		updateSubtotalWhenQuantityChanged($(this));
 		
 	});
+	
+		$("#productList").on("change",".price-input", function(e){
+		updateSubtotalWhenPriceChanged($(this));
+		
 	});
+	});
+	
+	function updateSubtotalWhenPriceChanged(input){
+	    priceValue = input.val().replace(",", "");
+		rowNumber = input.attr("rowNumber");
+		
+		quantityField = $("#quantity" + rowNumber);
+		quantityValue = quantityField.val();
+		newSubtotal = parseFloat(quantityValue) * priceValue;
+		
+		subtotalField = $("#subtotal" + rowNumber);
+		subtotalField.val($.number(newSubtotal, 2));
+	}
 	
 	function updateSubtotalWhenQuantityChanged(input){
 		quantityValue = input.val();
 		rowNumber = input.attr("rowNumber");
 		priceField = $("#price" + rowNumber);
-		priceValue = parseFloat(priceField.val());
+		priceValue = parseFloat(priceField.val().replace(",", ""));
 		newSubtotal = parseFloat(quantityValue) * priceValue;
 		
 		subtotalField = $("#subtotal" + rowNumber);
