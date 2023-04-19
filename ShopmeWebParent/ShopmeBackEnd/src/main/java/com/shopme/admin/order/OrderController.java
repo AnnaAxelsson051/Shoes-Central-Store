@@ -1,9 +1,6 @@
 package com.shopme.admin.order;
 
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -92,6 +89,30 @@ public class OrderController {
 		}
 		
 		return defaultRedirectURL;
+	}
+	
+	
+	//Getting an order obj based on order id, ad a list of countries sorted in asc order
+	//Displaying a list of countries in the order_form.html
+	@GetMapping("/orders/edit/{id}")
+	public String editOrder(@PathVariable("id") Integer id, Model model, RedirectAttributes ra,
+			HttpServletRequest request) {
+		try {
+			Order order = orderService.get(id);;
+			
+			List<Country> listCountries = orderService.listAllCountries();
+			
+			model.addAttribute("pageTitle", "Edit Order (ID: " + id + ")");
+			model.addAttribute("order", order);
+			model.addAttribute("listCountries", listCountries);
+			
+			return "orders/order_form";
+			
+		} catch (OrderNotFoundException ex) {
+			ra.addFlashAttribute("message", ex.getMessage());
+			return defaultRedirectURL;
+		}
+		
 	}
 }
 

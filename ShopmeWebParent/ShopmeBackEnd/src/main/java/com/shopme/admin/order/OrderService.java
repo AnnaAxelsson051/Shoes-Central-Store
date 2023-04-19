@@ -1,5 +1,6 @@
 package com.shopme.admin.order;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.data.domain.Sort;
 
 
 import com.shopme.admin.paging.PagingAndSortingHelper;
+import com.shopme.admin.setting.country.CountryRepository;
+import com.shopme.common.entity.Country;
 import com.shopme.common.entity.order.Order;
 
 
@@ -18,6 +21,7 @@ public class OrderService {
 	private static final int ORDERS_PER_PAGE = 10;
 	
 	@Autowired private OrderRepository repo;
+	@Autowired private CountryRepository countryRepo;
 	
 	//Listing orders by page
 	//If sort field is destination updating the sort object to sort result by
@@ -69,4 +73,8 @@ public class OrderService {
 		repo.deleteById(id);
 	}
 
+	//Listing all countries in asc order
+	public List <Country> listAllCountries(){
+		return countryRepo.findAllByOrderByNameAsc();
+	}
 }
