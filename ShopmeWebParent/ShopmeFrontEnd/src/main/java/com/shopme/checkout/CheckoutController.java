@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.shopme.Utility;
 import com.shopme.address.AddressService;
+import com.shopme.checkout.paypal.PayPalApiException;
+import com.shopme.checkout.paypal.PayPalService;
 import com.shopme.common.entity.Address;
 import com.shopme.common.entity.order.Order;
 import com.shopme.common.entity.CartItem;
@@ -44,6 +46,7 @@ public class CheckoutController {
 	@Autowired private ShoppingCartService cartService;
 	@Autowired private OrderService orderService;
 	@Autowired private SettingService settingService;
+	@Autowired private PayPalService paypalService;
 	
 	@GetMapping("/checkout")
 	public String showCheckoutPage(Model model, HttpServletRequest request) {
@@ -68,7 +71,7 @@ public class CheckoutController {
 		
 		String currencyCode = settingService.getCurrencyCode();
 		PaymentSettingBag paymentSettings = settingService.getPaymentSettings();
-		String paypalClientId = paymentSettings.getClientId();
+		String paypalClientId = paymentSettings.getClientID();
 		
 		model.addAttribute("paypalClientId", paypalClientId);
 		model.addAttribute("currencyCode", currencyCode);
@@ -88,7 +91,7 @@ public class CheckoutController {
 			return customerService.getCustomerByEmail(email);
 		}
 
-		//completing order and
+		//completing order and saving it in db
 		//Displaying successful message
 		@PostMapping("/place_order")
         public String placeOrder(HttpServletRequest request) throws UnsupportedEncodingException, MessagingException {
@@ -153,5 +156,32 @@ public class CheckoutController {
 		helper.setText(content, true); //= email is an html email
 		
 		mailSender.send(message);
+		}
+		
+		//Processing paypal order
+		//Calling validate order and if order is verified calling place order
+		//If not valid displaying error to customer if invalid order details with message.html
+		//Or catching paypal fails with Paypalservice
+		@PostMapping("/process_paypal_order")
+		public String processPayPalOrder(HttpServletRequest request, Model model) throws UnsupportedEncodingException, MessagingException {
+			String orderId = request.getParameter("orderId");
+			String pageTitle = "Checkout Failure";
+			String message = null;
+			
+			try {
+				if (paypalService.validateOrder(orderId)) {
+					return placeOrder(request);
+				} else {
+					pageTitle = "Checkout Failure";
+					message = "ERROR: Transaction could not be completed because order information is invalid";
+				}
+			} catch (PayPalApiException e) {
+               message = "ERROR: Transaction failed due to error: " + e.getMessage();		
+               }
+			
+			model.addAttribute("pageTitle", pageTitle);
+			model.addAttribute("message", message);
+			
+			return "message";
 		}
 }

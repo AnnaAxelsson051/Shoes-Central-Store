@@ -16,14 +16,14 @@ import org.springframework.web.client.RestTemplate;
 import com.shopme.setting.PaymentSettingBag;
 import com.shopme.setting.SettingService;
 
-
+//Validating paypal order
 @Component
 public class PayPalService {
 	private static final String GET_ORDER_API = "/v2/checkout/orders/";
 	
 	@Autowired private SettingService settingService;
 	
-	@Autowired private RestTemplate restTemplate;
+	
 	
 	public boolean validateOrder(String orderId) throws PayPalApiException {
 		PayPalOrderResponse orderResponse = getOrderDetails(orderId);
@@ -58,6 +58,7 @@ public class PayPalService {
 		headers.setBasicAuth(clientId, clientSecret);
 		
 		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(headers);
+		RestTemplate restTemplate = new RestTemplate();
 		
 		return restTemplate.exchange(
 				requestURL, HttpMethod.GET, request, PayPalOrderResponse.class);
