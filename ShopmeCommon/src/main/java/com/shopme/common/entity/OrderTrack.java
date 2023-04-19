@@ -1,6 +1,8 @@
 package com.shopme.common.entity;
 
-import java.sql.Date;
+
+
+import java.util.Date;
 
 import com.shopme.common.entity.order.Order;
 import com.shopme.common.entity.order.OrderStatus;
