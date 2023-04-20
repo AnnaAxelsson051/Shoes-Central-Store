@@ -13,3 +13,25 @@ $(document).ready(function(){
 		
 	})
 });
+
+//Will be called in the search product page after product 
+//is selected
+function addProduct(productId, productName){
+	showWarningModal("Product is not added.");
+}
+
+//Checking if product exists before its added to order
+//Reading all the product ids on the order form
+function idProductAlreadyAdded(productId){
+	productExists = false;
+	
+	$(".hiddenProductId").each(function(e){
+		aProductId = $(this).val();
+		
+		if (aProductId == productId){
+			productExists = true;
+			return;
+		}
+	});
+	return productExists;
+}

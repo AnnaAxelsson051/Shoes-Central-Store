@@ -4,6 +4,7 @@
 <div th:fragment="content" th:remove="tag">				
 			<th:block th:each="detail, status : ${order.orderDetails}">
 				<div class="border rounded" th:with="product = ${detail.product}">
+					<input type="hidden" name="productId" th:value="${product.id}" class="hiddenProductId"/>
 					<div class="row">
 						<div class="col-1">
 							<div>[[${status.count}]]</div>

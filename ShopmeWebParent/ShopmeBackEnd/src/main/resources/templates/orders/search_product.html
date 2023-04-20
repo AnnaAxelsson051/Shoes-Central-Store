@@ -25,8 +25,10 @@
 		</div>
 		</th:block>
 	</div>
-	<div th:replace="fragments :: pagination('/products', 'products)"></div>
+    <div th:replace="modal_fragments :: modal_dialog"></div>
+	<div th:replace="fragments :: pagination('products')"></div>
 </div>
+<script th:src="@{/js/common_form.js}"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		handleLinkProduct();
@@ -37,6 +39,13 @@
 			e.preventDefault();
 			productId = $(this).attr("pid");
 			productName = $("#pname" + productId).text();
+			
+	if (window.parent.isProductAlreadyAdded(productId)){
+		showWarningModal("The product '" + productName + "' was already added.");
+	}else{
+			//parent window opening the modal dialog		
+	window.parent.addProduct(productId, productName);
+	}
 		});
 	}
 </script>
