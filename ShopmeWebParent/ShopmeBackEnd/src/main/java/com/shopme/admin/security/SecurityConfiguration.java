@@ -56,7 +56,8 @@ public DaoAuthenticationProvider authenticationProvider() {
    @Bean
    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     
-       http.authorizeRequests()
+       //http.authorizeRequests()
+	   http.authorizeHttpRequests()
        //Admin can access users, settings, countries, states and everything after that
                .requestMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
                .requestMatchers("/categories/**", "/brands/**").hasAnyAuthority("Admin", "Editor")

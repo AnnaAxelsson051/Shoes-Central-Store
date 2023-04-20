@@ -43,7 +43,8 @@ public class SecurityConfiguration {
    @Bean
    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     
-       http.authorizeRequests()
+       //http.authorizeRequests()
+	   http.authorizeHttpRequests()
        .requestMatchers("/account_details", "/update_account_details", //Auth required, must log in to view
     		   "/cart", "/address_book/**", "/checkout", "/place_order", "/process_paypal_order").authenticated() //** means everything after..
        .anyRequest().permitAll()
