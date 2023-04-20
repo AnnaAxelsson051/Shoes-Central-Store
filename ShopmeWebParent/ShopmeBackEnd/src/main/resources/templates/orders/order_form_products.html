@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<div th:fragment="content" th:remove="tag">				
+<div th:fragment="content" th:remove="tag">	
+	<div id="productList">
+				
 			<th:block th:each="detail, status : ${order.orderDetails}">
-				<div class="border rounded p-1" th:with="product = ${detail.product}">
+				<div class="border rounded p-1" th:with="product = ${detail.product}" th:id="'row' + ${status.count}">
 					<input type="hidden" name="productId" th:value="${product.id}" class="hiddenProductId"/>
 					<div class="row">
 						<div class="col-1">
-							<div>[[${status.count}]]</div>
+							<div class="divCount">[[${status.count}]]</div>
 							<div><a class="fas fa-trash icon-dark" href="" th:rowNumber="${status.count}"></a></div>
 						</div>
 						<div class="col-3">
@@ -66,7 +68,7 @@
 						</table>
 					</div>
 				</div>
-				<div class="row">&nbsp;</div>
+				<div th:id="'blankLine' + ${status.count}" class="row">&nbsp;</div>
 			</th:block>
 </div>
 <!--Button with hyperlink th:href-->
