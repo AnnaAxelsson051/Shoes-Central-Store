@@ -17,7 +17,6 @@ $(document).ready(function(){
 //Will be called in the search product page after product 
 //is selected
 function addProduct(productId, productName){
-	$("#addProductModal").modal("hide");
     getShippingCost(productId);
 }
 
@@ -41,9 +40,11 @@ function getShippingCost(productId){
 	},
 	data: params
 	}).done(function(shippingCost){
-	
+	alert("Shipping cost = " + shippingCost);
 	}).fail(function(err){
      showWarningModal(err.responseJSON.message);
+	}).always(function(){
+		$("#addProductModal").modal("hide");
 	});
 }
 
