@@ -52,4 +52,9 @@ public interface ProductRepository extends CrudRepository <Product, Integer>, Pa
 			+ "OR p.category.name LIKE %?3%)")
 public Page<Product> searchInCategory(Integer CategoryId, 
 		String categoryIdMatch, String keyword, Pageable pageable);
+	
+	//Searching for product by keyword returning a page of product objects that
+	//can be paginated
+	@Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
+	public Page<Product> searchProductByName(String keyword, Pageable pageable);
 }
