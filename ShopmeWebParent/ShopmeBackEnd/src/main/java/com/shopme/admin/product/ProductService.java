@@ -59,7 +59,7 @@ public class ProductService {
 	//Similar to listByPage searching products
 	//creating a pageable objectcalling the repo search method passing keyword and pageable obj
 	//calling helper to update the model with info
-	public void searchProducts(int pageNum, PagingAndSortingHelper helper, Integer categoryId){
+	public void searchProducts(int pageNum, PagingAndSortingHelper helper){
 	Pageable pageable = helper.createPageable(PRODUCTS_PER_PAGE,  pageNum);
 	String keyword = helper.getKeyword();
 	
