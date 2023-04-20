@@ -40,28 +40,109 @@ function getShippingCost(productId){
 	},
 	data: params
 	}).done(function(shippingCost){
-	getProductInfo(productId);
+	getProductInfo(productId, shippingCost);
 	}).fail(function(err){
      showWarningModal(err.responseJSON.message);
-     getProductInfo(productId);
+     shippingCost = 0.0;
+     getProductInfo(productId, shippingCost);
 	}).always(function(){
 		$("#addProductModal").modal("hide");
 	});
 }
 
 //accessing the productDTO info
-function getProductInfo(productId){
+function getProductInfo(productId, shippingCost){
 	requestURL = contextPath + "products/get/" + productId;
 $.get(requestURL, function(productJson){
 	console.log(productJson);
+	productName = productJson.name;
+	mainImagePath = contextPath.substtring(0, contextPath.length -1) + productJson.imagePath;
+	productCost = $.number(productJson.cost, 2);
+	productPrice = $.number(productJson.price, 2);
+	
+	htmlCode = generateProductCode(productId, productName, mainImagePath, productCost, productPrice, shippingCost);
+	$("#productList").append(htmlCode);
+	
 }).fail(function(err){
 	showWarningModal(err.responseJSON.message);
 });
 }
 
+function generateProductCode(productId, productName, mainImagePath, productCost, productPrice, shippingCost){
+	nextCount = $(".hiddenProductId").length +1;
+	quantityId = "quantity" + nextCount;
+	priceId = "price" + nextCount;
+	subtotalId = "subtotal" + nextCount;
+	
+	htmlCode = `
+	<div class="border rounded p-1" >
+					<input type="hidden" name="productId" value="${productId}" class="hiddenProductId"/>
+					<div class="row">
+						<div class="col-1">
+							<div>${nextCount}</div>
+						</div>
+						<div class="col-3">
+							<img src="${mainImagePath}" class="img-fluid"/>
+						</div>
+					</div>
+					
+					<div class="row m-2">
+						<b>${productName}</b>
+					</div>
+					
+					<div class="row m-2">
+						<table>
+							<tr>
+					
+								<td>Product Cost:</td>
+								<td>
+									<input type="text" required class="form-control m-1 cost-input"
+									rowNumber="${nextCount}"
+									value="${productCost}" style="max-width: 140px"/>
+								</td>
+							</tr>
+								<tr>				
+								<td>Quantity:</td>
+								<td>
+									<input type="number" step="1" min="1" max="5"required class="form-control m-1 quantity-input"
+									id="${quantityId}"
+									rowNumber="${nextCount}"
+									value="1" style="max-width: 140px"/>
+								</td>
+							</tr>
+								<tr>
+								<td>Unit Price:</td>
+								<td>
+									<input type="text" required class="form-control m-1 price-input"
+									id="${priceId}"
+									rowNumber="${nextCount}"
+									value="${productPrice}" style="max-width: 140px"/>
+								</td>
+							</tr>
+								<tr>
+								<td>Subtotal:</td>
+								<td>
+									<input type="text" readonly="readonly" class="form-control m-1 subtotal-output"
+									id="${subtotalId}"
+									value="${productPrice}" style="max-width: 140px"/>
+								</td>
+							</tr>
+							<tr>
+								<td>Shipping Cost:</td>
+								<td>
+									<input type="text" required class="form-control m-1 ship-input"
+									value="${shippingCost}" style="max-width: 140px"/>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="row">&nbsp;</div>
+	`;
+}
 //Checking if product exists before its added to order
 //Reading all the product ids on the order form
-function idProductAlreadyAdded(productId){
+function isProductAlreadyAdded(productId){
 	productExists = false;
 	
 	$(".hiddenProductId").each(function(e){
