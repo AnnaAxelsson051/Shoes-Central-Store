@@ -58,21 +58,21 @@ public DaoAuthenticationProvider authenticationProvider() {
     
        http.authorizeRequests()
        //Admin can access users, settings, countries, states and everything after that
-               .antMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
-               .antMatchers("/categories/**", "/brands/**").hasAnyAuthority("Admin", "Editor")
+               .requestMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
+               .requestMatchers("/categories/**", "/brands/**").hasAnyAuthority("Admin", "Editor")
                 
-               .antMatchers("/products/new**", "/products/delete/**").hasAnyAuthority("Admin", "Editor")
+               .requestMatchers("/products/new**", "/products/delete/**").hasAnyAuthority("Admin", "Editor")
                
-               .antMatchers("/products/edit/**", "/products/save", "/products/check_unique")
+               .requestMatchers("/products/edit/**", "/products/save", "/products/check_unique")
                    .hasAnyAuthority("Admin", "Editor", "Salesperson")
                
                //Prod listing page, url for products and prod details, url for pagination
-               .antMatchers("/products", "/products/", "/products/detail/**", "/products/page/**")
+               .requestMatchers("/products", "/products/", "/products/detail/**", "/products/page/**")
                    .hasAnyAuthority("Admin", "Editor", "Salesperson", "Shipper")
                
                    //Everything bout products
-               .antMatchers("/products/**").hasAnyAuthority("Admin", "Editor")
-               .antMatchers("/customers/**", "/orders/**").hasAnyAuthority("Admin", "Salesperson")
+               .requestMatchers("/products/**").hasAnyAuthority("Admin", "Editor")
+               .requestMatchers("/customers/**", "/orders/**", "/get_shipping_cost").hasAnyAuthority("Admin", "Salesperson")
                .anyRequest().authenticated()
                .and()
                .formLogin()
@@ -98,7 +98,7 @@ public DaoAuthenticationProvider authenticationProvider() {
     //So can be displayed when not logged in
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/images/**", "/js/**", "/webjars/**");
+        return (web) -> web.ignoring().requestMatchers("/images/**", "/js/**", "/webjars/**");
     }
  
 }
