@@ -17,8 +17,36 @@ $(document).ready(function(){
 //Will be called in the search product page after product 
 //is selected
 function addProduct(productId, productName){
-	showWarningModal("Product is not added.");
+	$("#addProductModal").modal("hide");
+    getShippingCost(productId);
 }
+
+//Getting shippingcost based on what location user selected
+function getShippingCost(productId){
+	salectedCountry = $("#country option:selected");
+	countryId = selectedCountry.val();
+	
+	state = $("#state").val();
+	if(state.length == 0){
+		state = $("#city").val();
+	}
+	requestUtl = contextPath + "/get_shipping_cost";
+	params = {productId: productId, countryId: countryId, state:state};
+
+	$.ajax({
+		type: 'POST',
+		url: requestUrl,
+	    beforeSend:function(xhr){
+		xhr.setRequestHeader(csrfHeaderName, csrfValue);
+	},
+	data: params
+	}).done(function(shippingCost){
+	
+	}).fail(function(err){
+     showWarningModal(err.responseJSON.message);
+	});
+}
+
 
 //Checking if product exists before its added to order
 //Reading all the product ids on the order form
