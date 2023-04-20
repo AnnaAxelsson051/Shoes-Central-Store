@@ -29,10 +29,10 @@ public class ProductSerachController {
 //Displaying search result per page
 	@GetMapping("/orders/search_product/page/{pageNum}")
 	public String searchProductsByPage(@PagingAndSortingParam(listName = "listProducts", 
-	moduleURL = "/products") PagingAndSortingHelper helper,
+	moduleURL = "/orders/search_product") PagingAndSortingHelper helper,
 	@PathVariable(name="pageNum") int pageNum) {
 		service.searchProducts(pageNum, helper);
-		return "/orders/search_product";
+		return "orders/search_product";
 		
 }
 

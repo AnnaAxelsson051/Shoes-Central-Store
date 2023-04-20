@@ -6,11 +6,26 @@
 	<div>
 		<form th:action="@{/orders/search_product}" method="post" 
 		class="form-inline my-2">
-			<input type="search" required class="form-control mr-sm-2" name="keyword" 
-			placeholder="product name"/>
+			<input type="search" required class="form-control mr-sm-2" 
+			name="keyword" placeholder="product name" th:value="${keyword}"/>
 			<input type="submit" class="btn btn-outline-success" value="Search"/>
 		</form>
 	</div>
+	<div class="row">
+<!--terating tru each product in the list from the search result-->
+		<th:block th:each="product : ${listProducts}">
+		<div class="col">
+			<div>
+				<a href="">
+					<img th:src="@{${product.mainImagePath}}" height="150"/>
+				</a>
+				<br/>
+				<b>[[${product.shortName}]]</b>
+			</div>
+		</div>
+		</th:block>
+	</div>
+	<div th:replace="fragments :: pagination('/products', 'products)"></div>
 </div>
 </body>
 </html>
