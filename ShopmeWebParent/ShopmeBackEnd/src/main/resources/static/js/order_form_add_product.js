@@ -40,14 +40,24 @@ function getShippingCost(productId){
 	},
 	data: params
 	}).done(function(shippingCost){
-	alert("Shipping cost = " + shippingCost);
+	getProductInfo(productId);
 	}).fail(function(err){
      showWarningModal(err.responseJSON.message);
+     getProductInfo(productId);
 	}).always(function(){
 		$("#addProductModal").modal("hide");
 	});
 }
 
+//accessing the productDTO info
+function getProductInfo(productId){
+	requestURL = contextPath + "products/get/" + productId;
+$.get(requestURL, function(productJson){
+	console.log(productJson);
+}).fail(function(err){
+	showWarningModal(err.responseJSON.message);
+});
+}
 
 //Checking if product exists before its added to order
 //Reading all the product ids on the order form
