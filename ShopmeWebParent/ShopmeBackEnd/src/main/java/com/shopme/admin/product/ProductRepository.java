@@ -56,5 +56,5 @@ public Page<Product> searchInCategory(Integer CategoryId,
 	//Searching for product by keyword returning a page of product objects that
 	//can be paginated
 	@Query("SELECT p FROM Product p WHERE p.name LIKE %?1%")
-	public Page<Product> searchProductByName(String keyword, Pageable pageable);
+	public Page<Product> searchProductsByName(String keyword, Pageable pageable);
 }
