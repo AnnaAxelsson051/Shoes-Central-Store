@@ -112,7 +112,18 @@ public class OrderController {
 			ra.addFlashAttribute("message", ex.getMessage());
 			return defaultRedirectURL;
 		}
+	}
+	
+		
+		@PostMapping("/order/save")
+		public String saveOrder(Order order, HttpServletRequest request, RedirectAttributes ra) {
+			System.out.println("Country " + order.getCountry());
+			System.out.println("Total " + order.getTotal());
+			orderService.save(order);
+			ra.addFlashAttribute("message", "The order ID " + order.getId() + " has been updated successfully.");
+			return defaultRedirectURL;
+		}
 		
 	}
-}
+
 

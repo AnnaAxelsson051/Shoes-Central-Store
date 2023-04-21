@@ -77,4 +77,9 @@ public class OrderService {
 	public List <Country> listAllCountries(){
 		return countryRepo.findAllByOrderByNameAsc();
 	}
+
+	public void save(Order order) {
+		// TODO Auto-generated method stub
+		
+	}
 }
