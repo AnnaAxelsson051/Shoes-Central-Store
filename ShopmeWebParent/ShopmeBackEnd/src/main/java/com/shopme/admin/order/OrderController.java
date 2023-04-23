@@ -20,7 +20,10 @@ import com.shopme.admin.paging.PagingAndSortingParam;
 import com.shopme.admin.security.ShopmeUserDetails;
 import com.shopme.admin.setting.SettingService;
 import com.shopme.common.entity.Country;
+import com.shopme.common.entity.OrderTrack;
+import com.shopme.common.entity.product.Product;
 import com.shopme.common.entity.order.Order;
+import com.shopme.common.entity.order.OrderDetail;
 import com.shopme.common.entity.setting.Setting;
 
 
@@ -117,11 +120,65 @@ public class OrderController {
 		
 		@PostMapping("/order/save")
 		public String saveOrder(Order order, HttpServletRequest request, RedirectAttributes ra) {
-			System.out.println("Country " + order.getCountry());
-			System.out.println("Total " + order.getTotal());
+			String countryName = request.getParameter("countryName");
+			order.setCountry(countryName);
+			
+			updateProductDetails(order, request);
+			updateOrderTracks(order, request);
+			
 			orderService.save(order);
 			ra.addFlashAttribute("message", "The order ID " + order.getId() + " has been updated successfully.");
 			return defaultRedirectURL;
+		}
+
+		//Returning a list collection of order tracks
+		private void updateOrderTracks(Order order, HttpServletRequest request) {
+		String[] trackIds = request.getParameterValues("trackId");
+		String[] trackStatuses = request.getParameterValues("trackStatus");
+		String[] trackDate = request.getParameterValues("trackDates");
+		String[] trackNotes = request.getParameterValues("trackNotes");
+		
+		List <OrderTrack> orderTracks = order.getOrderTracks();
+			
+		}
+
+		//Putting the input from order_form_add_products.html into string arrays
+		//Iterating tru each element
+		private void updateProductDetails(Order order, HttpServletRequest request) {
+			String[] detailIds = request.getParameterValues("detailId");
+			String[] productIds = request.getParameterValues("productId");
+			String[] productPrices = request.getParameterValues("productPrice");
+			String[] productCosts = request.getParameterValues("productCost");
+			String[] quantities = request.getParameterValues("quantity");
+			String[] productSubtotals = request.getParameterValues("productSubtotal");
+			String[] productShipCosts = request.getParameterValues("productShipcost");
+			
+			Set<OrderDetail> orderDetails = order.getOrderDetails();
+			
+			for (int i = 0; i < detailIds.length; i++) {
+				System.out.println("Detail ID: " + detailIds[i]);
+				System.out.println("\t Product ID " + productIds[i]);
+				System.out.println("\t Cost: " + productCosts[i]);
+				System.out.println("\t Quantity: " + quantities[i]);
+				System.out.println("\t Subtotal: " + productSubtotals[i]);
+				System.out.println("\t Ship cost: " + productShipCosts[i]);
+			
+				OrderDetail orderDetail = new OrderDetail();
+				Integer detailId = Integer.parseInt(detailIds[i]);
+				if (detailId > 0) {
+					orderDetail.setId(detailId);
+				}
+				orderDetail.setOrder(order);
+				orderDetail.setProduct(new Product(Integer.parseInt(productIds[i])));
+				orderDetail.setProductCost(Float.parseFloat(productCosts[i]));
+				orderDetail.setSubtotal(Float.parseFloat(productSubtotals[i]));
+				orderDetail.setShippingCost(Float.parseFloat(productShipCosts[i]));
+				orderDetail.setQuantity(Integer.parseInt(quantities[i]));
+				orderDetail.setUnitPrice(Float.parseFloat(productPrices[i]));
+			
+				orderDetails.add(orderDetail);
+			}
+		
 		}
 		
 	}
