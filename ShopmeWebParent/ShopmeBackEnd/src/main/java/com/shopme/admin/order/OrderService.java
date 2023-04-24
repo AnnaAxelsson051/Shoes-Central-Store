@@ -20,7 +20,7 @@ import com.shopme.common.entity.order.Order;
 public class OrderService {
 	private static final int ORDERS_PER_PAGE = 10;
 	
-	@Autowired private OrderRepository repo;
+	@Autowired private OrderRepository orderRepo;
 	@Autowired private CountryRepository countryRepo;
 	
 	//Listing orders by page
@@ -45,17 +45,18 @@ public class OrderService {
 		Page<Order> page = null;
 		
 		if (keyword != null) {
-			page = repo.findAll(keyword, pageable);
+			page = orderRepo.findAll(keyword, pageable);
 		} else {
-			page = repo.findAll(pageable);
+			page = orderRepo.findAll(pageable);
 		}
 		
 		helper.updateModelAttributes(pageNum, page);		
 	}
 	
+	//Getting an order by its id
 	public Order get(Integer id) throws OrderNotFoundException{
 		try {
-			return repo.findById(id).get();
+			return orderRepo.findById(id).get();
 		} catch (NoSuchElementException ex) {
 			throw new OrderNotFoundException("Could not find any order with ID " + id);
 		}
@@ -65,21 +66,25 @@ public class OrderService {
 	//deleting an order
 	//Counting the number of orders by a given id, if order is found deleting
 	public void delete(Integer id) throws OrderNotFoundException {
-		Long count = repo.countById(id);
+		Long count = orderRepo.countById(id);
 		if (count == null || count == 0) {
 			throw new OrderNotFoundException("Could not find any orders with ID " + id); 
 		}
 		
-		repo.deleteById(id);
+		orderRepo.deleteById(id);
 	}
 
 	//Listing all countries in asc order
 	public List <Country> listAllCountries(){
 		return countryRepo.findAllByOrderByNameAsc();
 	}
-
-	public void save(Order order) {
-		// TODO Auto-generated method stub
-		
+	
+	//Savig order in the form into db 
+	//by getting the id of order in form
+	public void save(Order orderInForm) {
+		Order orderInDb = orderRepo.findById(orderInForm.getId()).get();
+		orderInForm.setOrderTime(orderInDb.getOrderTime());
+		orderInForm.setCustomer(orderInDb.getCustomer());
+	    orderRepo.save(orderInForm);
 	}
 }
