@@ -24,7 +24,11 @@ import com.shopme.common.entity.OrderTrack;
 import com.shopme.common.entity.product.Product;
 import com.shopme.common.entity.order.Order;
 import com.shopme.common.entity.order.OrderDetail;
+import com.shopme.common.entity.order.OrderStatus;
 import com.shopme.common.entity.setting.Setting;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
+import java.text.ParseException;
 
 
 @Controller
@@ -135,10 +139,31 @@ public class OrderController {
 		private void updateOrderTracks(Order order, HttpServletRequest request) {
 		String[] trackIds = request.getParameterValues("trackId");
 		String[] trackStatuses = request.getParameterValues("trackStatus");
-		String[] trackDate = request.getParameterValues("trackDates");
+		String[] trackDates = request.getParameterValues("trackDate");
 		String[] trackNotes = request.getParameterValues("trackNotes");
 		
 		List <OrderTrack> orderTracks = order.getOrderTracks();
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+		
+		for (int i = 0; i < trackIds.length; i++) {
+			OrderTrack trackRecord = new OrderTrack();
+			
+			Integer trackId = Integer.parseInt(trackIds[i]);
+			if (trackId > 0) {
+				trackRecord.setId(trackId);
+			}
+			
+			trackRecord.setOrder(order);
+			trackRecord.setStatus(OrderStatus.valueOf(trackStatuses[i]));
+			trackRecord.setNotes(trackNotes[i]);
+			try {
+				trackRecord.setUpdatedTime(dateFormatter.parse(trackDates[i]));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			orderTracks.add(trackRecord);
+		}
 			
 		}
 
