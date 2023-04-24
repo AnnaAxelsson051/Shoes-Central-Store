@@ -53,10 +53,11 @@ public class Order extends AbstractAddress {
 	
 	//One To many bc order can have many details
 	//Cascade type so it will also save/update the children which is the order detail
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	//orphan reooval deletes orphans from collection
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<OrderDetail> orderDetails = new HashSet<>();
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("updatedTime ASC")
     private List <OrderTrack> orderTracks = new ArrayList<>();
 

@@ -60,7 +60,7 @@ public class CheckoutInfo {
 	//Getting payment total for paypal ormatting 
 	//according to requirement for paypal
 	public String getPaymentTotal4PayPal() {
-		DecimalFormat formatter = new DecimalFormat("###,###.##");
+		DecimalFormat formatter = new DecimalFormat("##.##");
 		return formatter.format(paymentTotal);
 	}
 	
