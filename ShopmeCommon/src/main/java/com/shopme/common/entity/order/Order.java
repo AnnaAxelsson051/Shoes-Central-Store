@@ -7,6 +7,7 @@ import com.shopme.common.entity.Address;
 import com.shopme.common.entity.Customer;
 import com.shopme.common.entity.OrderTrack;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import jakarta.persistence.CascadeType;
@@ -239,5 +240,17 @@ public class Order extends AbstractAddress {
 		return dateFormatter.format(this.deliverDate);
 	}
 	
+	//Passing datestring to dateformatter, passing datestring to dateobject 
+	//and saving it to deliver date
+	public void setDeliverDateOnForm(String dateString) {
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		
+		try {
+			this.deliverDate = dateFormatter.parse(dateString);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 }
