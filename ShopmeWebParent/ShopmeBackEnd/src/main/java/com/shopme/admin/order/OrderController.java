@@ -45,14 +45,19 @@ public class OrderController {
 	
 	//Listing orders by page
 	//Updating amount based on currncy settings
+	//Returning different cview depending on who is logged in
 	@GetMapping("/orders/page/{pageNum}")
 	public String listByPage(
 			@PagingAndSortingParam(listName = "listOrders", moduleURL = "/orders") PagingAndSortingHelper helper,
 			@PathVariable(name = "pageNum") int pageNum,
-			HttpServletRequest request) {
-
+			HttpServletRequest request, @AuthenticationPrincipal ShopmeUserDetails loggedUser) {
+        
 		orderService.listByPage(pageNum, helper);
 		loadCurrencySetting(request);
+		
+		if (!loggedUser.hasRole("Admin") && !loggedUser.hasRole("Salesperson") && loggedUser.hasRole("Shipper")){
+			return "orders/orders_shipper";	
+		}
 		
 		return "orders/orders";
 	}
