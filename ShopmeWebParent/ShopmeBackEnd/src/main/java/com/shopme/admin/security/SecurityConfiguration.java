@@ -58,6 +58,7 @@ public DaoAuthenticationProvider authenticationProvider() {
     
        //http.authorizeRequests()
 	   http.authorizeHttpRequests()
+	           .requestMatchers("/states/list_by_country/**").hasAnyAuthority("Admin", "Salesperson")
        //Admin can access users, settings, countries, states and everything after that
                .requestMatchers("/users/**", "/settings/**", "/countries/**", "/states/**").hasAuthority("Admin")
                .requestMatchers("/categories/**", "/brands/**").hasAnyAuthority("Admin", "Editor")
