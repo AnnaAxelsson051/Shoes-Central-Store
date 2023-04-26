@@ -279,4 +279,6 @@ public class Order extends AbstractAddress {
 		
 		return address;
 	}
+	
+	@Transient
 }
