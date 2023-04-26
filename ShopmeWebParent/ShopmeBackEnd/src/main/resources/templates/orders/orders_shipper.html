@@ -17,7 +17,14 @@
 	<div>
 		<th:block th:each="order : ${listOrders}">
 		<div class="row m-1">
-			
+			<div class="card">
+				<div class="card-header">
+					<span>Order ID #[[${order.id}]]</span>	
+					</div>
+				</div>
+				<div class="card-body">
+				</div>
+			</div>
 		</div>
 		<div>&nbsp;</div>
 		</th:block>
