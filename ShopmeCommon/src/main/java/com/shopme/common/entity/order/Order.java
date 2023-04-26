@@ -254,7 +254,7 @@ public class Order extends AbstractAddress {
 		}
 	}
 	
-	//For adding recipients name for each order 
+	//For adding recipients name for each order in shipper view
 	@Transient
 	public String getRecipientName() {
 		String name = firstName;
@@ -262,7 +262,7 @@ public class Order extends AbstractAddress {
         return name;
 	}
 	
-	//For adding recipients address for each order 
+	//For adding recipients address for each order in shipper view
 	@Transient
 	public String getRecipientAddress() {
 		String address = addressLine1;
@@ -280,5 +280,42 @@ public class Order extends AbstractAddress {
 		return address;
 	}
 	
+	//Returning true if pyment method is COD to display COD on order in shipper view
 	@Transient
+	public boolean isCOD() {
+		return paymentMethod.equals(PaymentMethod.COD);
+	}
+	
+	
+	@Transient
+	public boolean isPicked() {
+		return hasStatus(OrderStatus.PICKED);
+	}
+	
+	@Transient
+	public boolean isShipping() {
+		return hasStatus(OrderStatus.SHIPPING);
+	}
+	
+	@Transient
+	public boolean isDelivered() {
+		return hasStatus(OrderStatus.DELIVERED);
+	}
+	
+	@Transient
+	public boolean isReturned() {
+		return hasStatus(OrderStatus.RETURNED);
+	}	
+	
+	//Iterating tru list of ordertracks, each order trach has a status
+	//Returning true if the trach has the specified status
+	//Used by above methods showing what status each has true/false
+	public boolean hasStatus(OrderStatus status) {
+		for (OrderTrack aTrack : orderTracks) {
+			if (aTrack.getStatus().equals(status)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -47,7 +47,7 @@
 						<b>[[${order.phoneNumber}]]</b>
 					</div>
 					<div th:if="${order.COD}">
-					<span>COD: <div th:replace="fragments :: format_currency(${order.total})"></div></span>
+					<span>COD: <b><div th:replace="fragments :: format_currency(${order.total})"></div></b></span>
 					</div>
 				</div>
 			</div>
