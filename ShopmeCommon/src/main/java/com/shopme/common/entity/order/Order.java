@@ -254,11 +254,29 @@ public class Order extends AbstractAddress {
 		}
 	}
 	
-	//Adding recipients name for each order 
+	//For adding recipients name for each order 
 	@Transient
 	public String getRecipientName() {
 		String name = firstName;
 		if (lastName != null && !lastName.isEmpty()) name += " " + lastName;
         return name;
+	}
+	
+	//For adding recipients address for each order 
+	@Transient
+	public String getRecipientAddress() {
+		String address = addressLine1;
+		
+		if (addressLine2 != null && !addressLine2.isEmpty()) address += ", " + addressLine2;
+		
+		if(!city.isEmpty()) address += ", " + city;
+		
+		if (state != null && !state.isEmpty()) address += ", " + state;
+		
+		address += ", " + country;
+		
+		if (postalCode.isEmpty()) address += ". " + postalCode;
+		
+		return address;
 	}
 }
