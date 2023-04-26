@@ -74,11 +74,20 @@ public class OrderController {
 	//Allowing for view of order details
 	//Getting order object loading currency settings putting order onto model
 	@GetMapping("/orders/detail/{id}")
-	public String viewOrderDetails(@PathVariable("id") Integer id, Model model, 
-			RedirectAttributes ra, HttpServletRequest request) {
+	public String viewOrderDetails(@PathVariable("id") Integer id, 
+			Model model, RedirectAttributes ra, 
+			HttpServletRequest request,
+			@AuthenticationPrincipal ShopmeUserDetails loggedUser) {
 		try {
 			Order order = orderService.get(id);
-			loadCurrencySetting(request);			
+			loadCurrencySetting(request);		
+			
+			boolean isVisibleForAdminOrSalesperson = false;
+			if (loggedUser.hasRole("Admin") || loggedUser.hasRole("Salesperson"){
+				isVisibleForAdminOrSalesperson = true;
+			}
+			
+			model.addAttribute("isVisibleForAdminOrSalesperson", isVisibleForAdminOrSalesperson);
 			model.addAttribute("order", order);
 			
 			return "orders/order_details_modal";
