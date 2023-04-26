@@ -83,7 +83,7 @@ public class OrderController {
 			loadCurrencySetting(request);		
 			
 			boolean isVisibleForAdminOrSalesperson = false;
-			if (loggedUser.hasRole("Admin") || loggedUser.hasRole("Salesperson"){
+			if (loggedUser.hasRole("Admin") || loggedUser.hasRole("Salesperson")){
 				isVisibleForAdminOrSalesperson = true;
 			}
 			

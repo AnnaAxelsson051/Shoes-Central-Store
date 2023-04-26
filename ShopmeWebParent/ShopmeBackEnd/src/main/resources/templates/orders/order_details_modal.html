@@ -28,6 +28,7 @@
 			    </div>
 			  </div>
 			  
+			  <!--Displaying this for Admin or salesperson-->
 			  <th:block th:if="${isVisibleForAdminOrSalesperson}">
 			  <div class="form-group row">
 			    <label class="col-sm-2 col-form-label">Customer:</label>
@@ -61,6 +62,7 @@
 			  </div>			  
 			  </th:block>
 			  
+			  <!--Only total amount visible for shipper user-->
 			  <div class="form-group row">
 			    <label class="col-sm-2 col-form-label">Total:</label>
 			    <div class="col-sm-10">

@@ -1,6 +1,7 @@
 package com.shopme.admin.order;
 
 import java.util.List;
+import java.util.Date;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.data.domain.Sort;
 import com.shopme.admin.paging.PagingAndSortingHelper;
 import com.shopme.admin.setting.country.CountryRepository;
 import com.shopme.common.entity.Country;
+import com.shopme.common.entity.OrderTrack;
 import com.shopme.common.entity.order.Order;
+import com.shopme.common.entity.order.OrderStatus;
 
 
 
@@ -86,5 +89,29 @@ public class OrderService {
 		orderInForm.setOrderTime(orderInDb.getOrderTime());
 		orderInForm.setCustomer(orderInDb.getCustomer());
 	    orderRepo.save(orderInForm);
+	}
+	
+	//Taking the status to be updated, geting an order from db 
+	//Converting the string status to an enum constant, checking if the order
+	//In db does not have the status to update creatig a new order tracj obj 
+	//that contains the info abou the status, setting the info of the track
+	//Adding the track obj to the collection order tracks
+	//And set status of the order in db and save it 
+	public void updateStatus(Integer orderId, String status) {
+		Order orderInDB = orderRepo.findById(orderId).get();
+		OrderStatus statusToUpdate = OrderStatus.valueOf(status);
+		
+		if (!orderInDB.hasStatus(statusToUpdate)) {
+			List<OrderTrack> orderTracks = orderInDB.getOrderTracks();
+		
+		OrderTrack track = new OrderTrack();
+		track.setStatus(statusToUpdate);
+		track.setUpdatedTime(new Date());
+		track.setNotes(statusToUpdate.defaultDescription());
+		
+		orderTracks.add(track);
+		orderInDB.setStatus(statusToUpdate);
+		orderRepo.save(orderInDB);
+		}
 	}
 }
