@@ -82,7 +82,7 @@ public DaoAuthenticationProvider authenticationProvider() {
                .loginPage("/login")
                    .usernameParameter("email")
                    .permitAll()
-               .and().logOut().permitAll()
+               .and().logout().permitAll()
                .and()
                     .rememberMe()
                      .key("AbcdEfghIjklmNopQrsTuvXyz_0123456789")

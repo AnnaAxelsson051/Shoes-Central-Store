@@ -55,7 +55,7 @@ public class SecurityConfiguration {
             .successHandler(databaseLoginHandler)
             .permitAll()
        .and()
-       .oauth2login()
+       .oauth2Login()
             .loginPage("/login")
             .userInfoEndpoint()
             .userService(oAuth2UserService)
