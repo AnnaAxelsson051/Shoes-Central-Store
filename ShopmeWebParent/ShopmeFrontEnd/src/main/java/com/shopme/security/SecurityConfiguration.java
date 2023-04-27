@@ -71,6 +71,7 @@ public class SecurityConfiguration {
            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
         ;
        
+	   return http.build();
               
    }
   

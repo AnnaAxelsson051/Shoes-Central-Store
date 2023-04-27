@@ -16,34 +16,29 @@ import org.springframework.web.client.RestTemplate;
 import com.shopme.setting.PaymentSettingBag;
 import com.shopme.setting.SettingService;
 
-//Validating paypal order
 @Component
 public class PayPalService {
 	private static final String GET_ORDER_API = "/v2/checkout/orders/";
 	
 	@Autowired private SettingService settingService;
 	
-	
-	
 	public boolean validateOrder(String orderId) throws PayPalApiException {
 		PayPalOrderResponse orderResponse = getOrderDetails(orderId);
-	return orderResponse.validate(orderId);
+		
+		return orderResponse.validate(orderId);
 	}
-
 
 	private PayPalOrderResponse getOrderDetails(String orderId) throws PayPalApiException {
 		ResponseEntity<PayPalOrderResponse> response = makeRequest(orderId);
-	
+		
 		HttpStatus statusCode = response.getStatusCode();
 		
-		if(!statusCode.equals(HttpStatus.OK)) {
-		throwExceptionForNonOKResponse(statusCode);
+		if (!statusCode.equals(HttpStatus.OK)) {
+			throwExceptionForNonOKResponse(statusCode);
 		}
 		
-		PayPalOrderResponse orderResponse = response.getBody();
 		return response.getBody();
 	}
-
 
 	private ResponseEntity<PayPalOrderResponse> makeRequest(String orderId) {
 		PaymentSettingBag paymentSettings = settingService.getPaymentSettings();
@@ -64,22 +59,23 @@ public class PayPalService {
 				requestURL, HttpMethod.GET, request, PayPalOrderResponse.class);
 	}
 
-	
 	private void throwExceptionForNonOKResponse(HttpStatus statusCode) throws PayPalApiException {
 		String message = null;
 		
 		switch (statusCode) {
-		case NOT_FOUND:
+		case NOT_FOUND: 
 			message = "Order ID not found";
+			
 		case BAD_REQUEST:
-			message = "Bad request to PayPal checkut Api";
+			message = "Bad Request to PayPal Checkout API";
+			
 		case INTERNAL_SERVER_ERROR:
 			message = "PayPal server error";
+			
 		default:
 			message = "PayPal returned non-OK status code";
 		}
+		
 		throw new PayPalApiException(message);
 	}
-	
-
 }
