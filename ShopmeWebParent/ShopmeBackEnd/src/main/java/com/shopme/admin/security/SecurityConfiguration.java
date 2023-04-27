@@ -76,6 +76,7 @@ public DaoAuthenticationProvider authenticationProvider() {
                .requestMatchers("/products/**").hasAnyAuthority("Admin", "Editor")
                .requestMatchers("/orders", "/orders/", "/orders/page/**", "/orders/detail/**").hasAnyAuthority("Admin", "Salesperson", "Shipper")               
                .requestMatchers("/customers/**", "/orders/**", "/get_shipping_cost").hasAnyAuthority("Admin", "Salesperson")
+               .requestMatchers("/orders_shipper/update/**").hasAuthority("Shipper")
                .anyRequest().authenticated()
                .and()
                .formLogin()
