@@ -23,6 +23,7 @@ This is probably the largest application I built so far and the most interesting
  - Thymeleaf
  - Bootstrap Css
  - jQuery
+ - MVC
  - MySQL database
  - HTML
  - RESTful Webservices
