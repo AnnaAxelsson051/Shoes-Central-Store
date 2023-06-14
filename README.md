@@ -14,7 +14,7 @@ This is probably the largest application I built so far and the most interesting
 
 --- 
 
-## Technologies used
+## Technologies used:
 
  - Java
  - Spring Boot
