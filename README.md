@@ -4,6 +4,8 @@
 
 ![Screenshot 2023-06-14 at 21 05 27](https://github.com/AnnaAxelsson051/Open_AI_Codex/assets/103879144/c5a974e1-7ef2-40df-882b-984f426c68a1)
 
+![Screenshot 2023-06-14 at 22 57 21](https://github.com/AnnaAxelsson051/Open_AI_Codex/assets/103879144/1fa12f53-9c91-4b8b-bd9d-fecc01790942)
+
 ---
 
 ## Description
@@ -23,9 +25,8 @@ This is a large scale E-Commerce store, a complete E-Commerce system with securi
  - jQuery
  - HTML
  - RESTful Webservices
- - Spring OAuth for social login with Facebook and Google
- - Spring Mail for sending customer registration confirmation and order confirmation
- - PayPal Checkout API for capturing payment from customer
- - Google Chart API for drawing charts of sales report
- - JUnit, AssertJ and Mockito in unit testing
- - Spring RESTful Webservices
+ - Spring OAuth 
+ - Spring Mail 
+ - PayPal Checkout API 
+ - Google Chart API 
+ - JUnit, AssertJ and Mockito 
