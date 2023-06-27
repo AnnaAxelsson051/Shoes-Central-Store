@@ -1,55 +1,84 @@
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
-<div th:fragment="header_menu">
-	
-	<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-		<a class="navbar-brand" th:href="@{/}">
-			<img th:src="@{${SITE_LOGO}}"/>
-			<!--<img th:src="@{/images/ShopmeAdminSmall.png}" />-->
-		</a>
-		
-		<!--Menu items for authenticated customer-->
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar, #searchNavbar">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="topNavbar">
-			<ul class="navbar-nav">
+<html xmlns:th="http://www.thymeleaf.org"></html>
 
-				<li class="nav-item">
-					<a class="nav-link dropdown-toggle"
-						href="">Careers</a>
-				</li>		
-				<li class="nav-item">
-					<a class="nav-link dropdown-toggle"
-						href="">Payments</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link dropdown-toggle"
-						href="">Shipping &amp; Delivery</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link dropdown-toggle"
-						th:href="@{/login}">Login</a>
-				</li>		
-				<li class="nav-item">
-					<a class="nav-link dropdown-toggle"
-						href="@{/register}">Register</a>
-				</li>	
-				<li class="nav-item">
-					<a class="nav-link dropdown-toggle"
-						href="">Contact</a>
-				</li>									
-			</ul>
-		</div>
-	</nav>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;600;700&family=Herr+Von+Muellerhoff&family=Ibarra+Real+Nova:wght@500;600;700&family=Pinyon+Script&family=Playfair+Display:wght@400;500;900&family=Questrial&family=Raleway:wght@200;300;400;500;600;700;800;900&family=Viaoda+Libre&display=swap"
+      rel="stylesheet"
+    />
+
+    <link href="style.css" rel="stylesheet" />
+
+  <body>
+    <div th:fragment="header_menu">
+	
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+            <a class="navbar-brand" th:href="@{/}">
+                <!--<img th:src="@{${SITE_LOGO}}"/>-->
+                <!--<img th:src="@{/images/ShopmeAdminSmall.png}" />-->
+
+            </a>
+            
+            <!--Menu items for authenticated customer-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar, #searchNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="topNavbar">
+
+    <nav class="navigation">
+      <div class="main-heading">
+
+        <!--TODO Styling: Alter Site name and logo on all pages-->
+        <img class="shop-icon" src="shop-icon-new.png" />
+        <p>Shoe Store</p>
+    </div>
+
+      <a href="#" class="toggle-button">
+        <img src="Images/burger-menu.png" alt="menu-icon" class="menu-icon" />
+      </a>
+
+      <div class="nav-links">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle home" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link dropdown-toggle" href="shop.html">Shop</a>
+          </li>
+          <li>
+            <a class="nav-link dropdown-toggle">Careers</a>
+        </li>
+          <li>
+            <a class="nav-link dropdown-toggle">Payments</a>
+          </li>
+          <li>
+            <a class="nav-link dropdown-toggle">Shipping & Delivery</a></li>
+          <li>
+            <a class="nav-link dropdown-toggle" th:href="@{/login}">Login</a>
+          </li>
+          <li>
+            <a class="nav-link dropdown-toggle" href="@{/register}">Register</a>
+          </li>
+          <li>
+            <a class="nav-link dropdown-toggle">Contact</a>
+          </li>
+    
+        </ul>
+      </div>
+    </nav>
 </div>
+<div class="main-pic">
+</div>
+ 
+<!--TODO Modify so below section is above main image, 
+  or move search section to separate "Shop" page-->
 
 <!--Searching for products with fulltext search-->
 <div th:fragment="search_nav" class="row">
 	<div class="col-md">
-		
+	
 		<!--If user is authenticated generatting the code + button for the log out form -->
 		<th:block sec:authorize="isAuthenticated()">
 			<form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm" >
@@ -97,38 +126,3 @@
 		</nav>
 	</div>
 </div>
-
-
-<div th:fragment="footer_menu">
-	<div>
-	<nav class="navbar navbar-expand-lg bg-dark navbar-dark">	
-		<!--Responsive top menu-->
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="bottomNavbar">
-			<ul class="navbar-nav">
-
-				<li class="nav-item">
-					<a class="nav-link dropdown-toggle"
-						href="">About Us</a>
-				</li>		
-				<li class="nav-item">
-					<a class="nav-link dropdown-toggle"
-						href="">Privacy Notice</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link dropdown-toggle"
-						href="">Returns &amp; Refunds</a>									
-			    </li>
-			  </ul>
-		  </div>
-		</nav>
-     </div>
-		
-		
-		<div th:fragment="footer" class="text-center m-3">
-			<p>[[${COPYRIGHT}]]</p>
-		</div>
-</body>
-</html>
