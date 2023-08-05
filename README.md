@@ -32,5 +32,6 @@ Finally JUnit, Spring Test, AssertJ and Mockito are used for unit and integratio
  - HTML
  - REST
  - MVC
- - PayPal 
+ - PayPal
+ - Spring mail
  - JUnit, AssertJ and Mockito 
