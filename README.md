@@ -1,4 +1,4 @@
-# SHOE STORE
+# Shoe Store
 
 ## User Interface
 
