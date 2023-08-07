@@ -2,7 +2,7 @@
 
 ## User Interface
 
-![Screenshot 2023-06-27 at 19 12 52](https://github.com/AnnaAxelsson051/Images/assets/103879144/23482d4d-88c2-4c25-9a8e-ae4829e2d887)
+![User Interface](user-interface.jpg)
 
 ---
 
