@@ -2,13 +2,13 @@
 
 ## User Interface
 
-![User Interface](user-interface.jpg)
+![User Interface](user-interface.png)
 
 ---
 
 ## Description
 
-This is a larger scale E-Commerce platform built with Java, Spring Boot, Thymeleaf, Bootstrap, jQuery and MySQL database. 
+This is a full stack E-Commerce store built with Java, Spring Boot, Thymeleaf, Bootstrap, jQuery and MySQL database. 
 
 The store has security implementations where the customer can log in, browse, filter and search for products, make purchases and checkout with Paypal or credit cart and recieve an order confirmation via E-mail. There is a separate login for administrators, shippers and salespersons to manage the product system, users, customer orders, sales report and shipping. 
 
@@ -18,7 +18,7 @@ Finally JUnit, Spring Test, AssertJ and Mockito are used for unit and integratio
 
 --- 
 
-## Technologies used:
+## Technologies used
 
  - Java
  - Spring Boot
