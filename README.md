@@ -2,7 +2,7 @@
 
 ## User Interface
 
-![User Interface](user-interface.png)
+![User Interface](user-interface3.png)
 
 ---
 
