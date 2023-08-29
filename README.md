@@ -18,7 +18,9 @@ Unit and integration testing are ensured through JUnit, Spring Test, AssertJ, an
 
 --- 
 
-## Backend Technologies 
+## Technologies used
+
+### Backend Technologies 
 
  - Java
  - Spring Boot
@@ -32,14 +34,14 @@ Unit and integration testing are ensured through JUnit, Spring Test, AssertJ, an
  - PayPal API
  - Spring mail
    
-## Frontend and UI Technologies
+### Frontend and UI Technologies
 
  - Thymeleaf
  - Bootstrap Css
  - jQuery
  - HTML
 
-## Testing
+### Testing
 
  - JUnit
  - AssertJ
