@@ -18,20 +18,29 @@ Unit and integration testing are ensured through JUnit, Spring Test, AssertJ, an
 
 --- 
 
-## Technologies used
+## Backend Technologies 
 
  - Java
  - Spring Boot
- - Spring Data JPA and Hibernate
+ - Spring Data JPA
+ - Hibernate
  - Spring Security
  - Spring OAuth 
- - Thymeleaf
- - Bootstrap Css
- - jQuery
  - MySQL 
- - HTML
  - REST
  - MVC
  - PayPal API
  - Spring mail
- - JUnit, AssertJ and Mockito 
+ - 
+## Frontend and UI Technologies
+
+ - Thymeleaf
+ - Bootstrap Css
+ - jQuery
+ - HTML
+
+## Testing
+
+ - JUnit
+ - AssertJ
+ - Mockito 
