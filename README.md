@@ -31,7 +31,7 @@ Unit and integration testing are ensured through JUnit, Spring Test, AssertJ, an
  - MVC
  - PayPal API
  - Spring mail
- - 
+   
 ## Frontend and UI Technologies
 
  - Thymeleaf
