@@ -8,7 +8,7 @@
 
 ## Description
 
-This comprehensive full-stack E-Commerce platform was built using Java, Spring Boot, Thymeleaf, Bootstrap, jQuery, and a MySQL database.
+This full-stack E-Commerce platform was built using Java, Spring Boot, Thymeleaf, Bootstrap, jQuery, and a MySQL database.
 
 The platform features robust security measures, offering customers the ability to log in, browse, filter, search for products, make purchases, and checkout using either PayPal or credit cards, with order confirmations sent via email. Administrators, shippers, and salespersons have separate logins for managing the product system, users, customer orders, sales reports, and shipping.
 
